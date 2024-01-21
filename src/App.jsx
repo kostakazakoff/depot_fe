@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { AuthProvider } from "./contexts/authContext";
 import Navigation from './components/Navigation';
 
 import Path from "./paths";
@@ -8,8 +7,9 @@ import Logout from "./components/Auth/Logout";
 import EditProfile from './components/Auth/EditProfile';
 import Home from "./components/Home";
 import Articles from './components/Articles';
-import StoresContext from "./contexts/storesContext";
 import GetDataFromBackEnd from "./components/GetDataFromBackEnd";
+import StoresContext from "./contexts/storesContext";
+import { AuthProvider } from "./contexts/authContext";
 
 
 function App() {
