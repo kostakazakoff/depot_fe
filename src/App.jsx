@@ -15,10 +15,10 @@ import GetDataFromBackEnd from "./components/GetDataFromBackEnd";
 function App() {
   return (
     <>
-      {/* <AuthProvider> */}
-        {/* <StoresContext.Provider value={GetDataFromBackEnd('stores')}> */}
+      <AuthProvider>
+        <StoresContext.Provider value={GetDataFromBackEnd('stores')}>
           <Navigation />
-        {/* </StoresContext.Provider> */}
+        </StoresContext.Provider>
         <Routes>
           <Route path={Path.HOME} element={<Home />} />
           <Route path={Path.LOGIN} element={<Login />} />
@@ -26,7 +26,7 @@ function App() {
           <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
           <Route path={Path.ARTICLES} element={<Articles />} />
         </Routes>
-      {/* </AuthProvider> */}
+      </AuthProvider>
     </>
   );
 }
