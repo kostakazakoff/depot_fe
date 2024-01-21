@@ -10,3 +10,11 @@
     outline: 0;
     box-shadow: inset 0px 0px;
 }
+
+.bg-white {
+    --bs-bg-opacity: 0;
+}
+
+.accordion-body {
+    padding: 0 0 1rem 0;
+}

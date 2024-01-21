@@ -16,6 +16,8 @@ import { AuthProvider } from "./contexts/authContext";
 function App() {
   return (
     <>
+      {/* <img src="https://www.rowse.co.uk/static/images/blog/posts/open-graph/what-is-the-digital-railway-open-graph.jpg"
+        alt="" className="img-fluid position-fixed top-0 start-0 z-n1" /> */}
       <AuthProvider>
         <StoresContext.Provider value={GetDataFromBackEnd('stores')}>
           <Navigation />

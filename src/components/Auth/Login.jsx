@@ -36,7 +36,7 @@ const Login = () => {
     return (
         <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white  rounded-4 shadow-lg"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3"
                 onSubmit={SubmitHandler}
             >
                 <div className="mb-3 text-center fs-1">Login</div>
