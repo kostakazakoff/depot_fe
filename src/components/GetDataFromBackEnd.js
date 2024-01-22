@@ -11,6 +11,8 @@ const GetDataFromBackEnd = (input) => {
             .catch(err => console.log(err));
     }, []);
 
+    data && console.log('GetDataFromBackEnd'.data);
+
     return data;
 }
 

@@ -23,7 +23,7 @@ function App() {
         <StoresContext.Provider value={GetDataFromBackEnd('stores')}>
           <Navigation />
         </StoresContext.Provider>
-        <ArticlesContext.Provider value={GetDataFromBackEnd('articles')}>
+        {/* <ArticlesContext.Provider value={GetDataFromBackEnd('articles')}> */}
           <Routes>
             <Route path={Path.HOME} element={<Home />} />
             <Route path={Path.LOGIN} element={<Login />} />
@@ -32,7 +32,7 @@ function App() {
             <Route path={Path.ARTICLES} element={<Articles />} />
             <Route path={Path.STORE} element={<Store />} />
           </Routes>
-        </ArticlesContext.Provider>
+        {/* </ArticlesContext.Provider> */}
       </AuthProvider>
     </>
   );
