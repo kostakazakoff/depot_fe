@@ -3,7 +3,8 @@ const Path = {
     LOGIN: '/login',
     LOGOUT: '/logout',
     ARTICLES: '/articles',
-    EDIT_PROFILE: '/edit_profile'
+    EDIT_PROFILE: '/edit_profile',
+    STORE: '/store'
 }
 
 export default Path;

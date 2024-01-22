@@ -13,21 +13,8 @@ const EditProfile = () => {
                 className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg"
             // onSubmit={SubmitHandler}
             >
-                <div className="mb-3 text-center fs-1">Edit Credentials</div>
-
-                <div className="mb-2 d-flex">
-                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
-                    <input type="email"
-                        autoComplete="true"
-                        className="form-control"
-                        placeholder={email}
-                        aria-label="Email"
-                        aria-describedby="basic-addon1"
-                        name="email"
-                    // value={user.email || ''}
-                    // onChange={handleCredentialsChange}
-                    />
-                </div>
+                <div className="text-center fs-1">Edit Credentials</div>
+                <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
                 <div className="mb-2 d-flex">
                     <span className="input-group-text bg-primary" id="basic-addon1"><i className="fa-solid fa-at"></i></span>

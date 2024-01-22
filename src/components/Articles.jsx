@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 import api from "../helpers/Api";
 import './css/Accordion.css';
+import Path from "../paths";
 
 const Articles = () => {
     const [articles, setArticles] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         api.get('articles')
@@ -12,7 +17,11 @@ const Articles = () => {
             .catch(err => console.log(err));
     }, []);
 
-    console.log(articles);
+    function goToStore(e) {
+        e.preventDefault();
+        navigate(Path.STORE, { state: { id: e.currentTarget.name} });
+    }
+
     return (
         <div className="container-xl p-5">
             <div className="accordion accordion-flush" id="accordionFlushExample">
@@ -29,11 +38,11 @@ const Articles = () => {
                             <div className="accordion-body row bg-white">
 
                                 <div className="col-5 ms-4 me-4">
-                                    <div className="container bg-dark p-auto  d-flex justify-content-center align-items-center" style={{height: "220px", overflow: 'hidden'}}>
+                                    <div className="container bg-dark p-auto  d-flex justify-content-center align-items-center" style={{ height: "220px", overflow: 'hidden' }}>
                                         <img
-                                        src="https://easy-travel.io/41525_5/%D0%A0%D0%B5%D0%BC%D0%BE%D0%BD%D1%82-%D0%BD%D0%B0-%D0%B4%D0%B5%D1%82%D0%B0%D0%B9%D0%BB-87hc-%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BC%D1%8F%D0%BD%D0%B0-storage_image.jpg"
-                                        alt=""
-                                        className="object-fit-cover"
+                                            src="https://easy-travel.io/41525_5/%D0%A0%D0%B5%D0%BC%D0%BE%D0%BD%D1%82-%D0%BD%D0%B0-%D0%B4%D0%B5%D1%82%D0%B0%D0%B9%D0%BB-87hc-%D0%B7%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BC%D1%8F%D0%BD%D0%B0-storage_image.jpg"
+                                            alt=""
+                                            className="object-fit-cover"
                                         />
                                     </div>
                                 </div>
@@ -46,7 +55,15 @@ const Articles = () => {
                                     <div>Количество: <strong>{data.quantity}</strong> бр.</div>
                                     <div>Опаковка: <strong>{data.package}</strong></div>
                                     <div>Позиция: <strong>{data.position}</strong></div>
-                                    <button type="button" className="btn btn-primary mt-2" id={data.article_id} name={data.store_id}>Склад: <strong>{data.name}</strong></button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary mt-2"
+                                        id={data.article_id}
+                                        name={data.store_id}
+                                        onClick={goToStore}
+                                    >
+                                        Склад: <strong>{data.name}</strong>
+                                    </button>
                                 </div>
 
                             </div>
@@ -54,7 +71,7 @@ const Articles = () => {
                         </div>
                     </article>
                 ))}
-                
+
             </div>
         </div>
     );

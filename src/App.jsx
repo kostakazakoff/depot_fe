@@ -11,6 +11,7 @@ import GetDataFromBackEnd from "./components/GetDataFromBackEnd";
 import StoresContext from "./contexts/storesContext";
 import ArticlesContext from "./contexts/articlesContext";
 import { AuthProvider } from "./contexts/authContext";
+import Store from './components/Store';
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path={Path.LOGOUT} element={<Logout />} />
             <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
             <Route path={Path.ARTICLES} element={<Articles />} />
+            <Route path={Path.STORE} element={<Store />} />
           </Routes>
         </ArticlesContext.Provider>
       </AuthProvider>
