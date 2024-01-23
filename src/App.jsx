@@ -8,10 +8,11 @@ import EditProfile from './components/Auth/EditProfile';
 import Home from "./components/Home";
 import Articles from './components/Articles';
 import GetDataFromBackEnd from "./components/GetDataFromBackEnd";
-import StoresContext from "./contexts/storesContext";
-import ArticlesContext from "./contexts/articlesContext";
-import { AuthProvider } from "./contexts/authContext";
 import Store from './components/Store';
+
+import { AuthProvider } from "./contexts/authContext";
+import StoresContext from "./contexts/storesContext";
+// import ArticlesContext from "./contexts/articlesContext";
 
 
 function App() {
