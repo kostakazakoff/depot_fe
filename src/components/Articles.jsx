@@ -56,23 +56,42 @@ const Articles = () => {
                                     <div>Количество: <strong>{data.inventory.quantity}</strong> бр.</div>
                                     <div>Опаковка: <strong>{data.inventory.package}</strong></div>
                                     <div>Позиция: <strong>{data.inventory.position}</strong></div>
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary mt-2"
-                                        id={data.id}
-                                        name={data.store.id}
-                                        onClick={goToStore}
-                                    >
-                                        Склад: {data.store.name}
-                                    </button>
+
+                                    <div className="btn-group">
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary active mt-2"
+                                            id='go_to_store'
+                                            name={data.store.id}
+                                            onClick={goToStore}
+                                        >
+                                            Склад: {data.store.name}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary mt-2"
+                                            id='edit'
+                                            name='edit'
+                                        // onClick={goToStore}
+                                        >
+                                            Редактирай
+                                        </button>
+                                        <button
+                                            type="button"
+                                            className="btn btn-danger mt-2"
+                                            id='delete'
+                                            name='delete'
+                                        // onClick={goToStore}
+                                        >
+                                            Изтрий
+                                        </button>
+                                    </div>
                                 </div>
 
                             </div>
-
                         </div>
                     </article>
                 ))}
-
             </div>
         </div>
     );
