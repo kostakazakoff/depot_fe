@@ -22,8 +22,6 @@ const Articles = () => {
         navigate(Path.STORE, { state: { id: e.currentTarget.name } });
     }
 
-    // articles && console.log(articles);
-
     return (
         <div className="container-xl p-5">
             <div className="accordion accordion-flush" id="articlesList">
@@ -72,7 +70,6 @@ const Articles = () => {
                                             className="btn btn-primary mt-2"
                                             id='edit'
                                             name='edit'
-                                        // onClick={goToStore}
                                         >
                                             Редактирай
                                         </button>
@@ -81,7 +78,6 @@ const Articles = () => {
                                             className="btn btn-danger mt-2"
                                             id='delete'
                                             name='delete'
-                                        // onClick={goToStore}
                                         >
                                             Изтрий
                                         </button>

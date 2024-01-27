@@ -41,9 +41,10 @@ export default function Navigation() {
                         >
                             Складове
                         </Link>
+                        
                         <ul className="dropdown-menu dropdown-menu-dark">
                             {stores.map(store => (
-                                <li key={store.slug}>
+                                <li key={store.id}>
                                     <Link className="dropdown-item" to="#">
                                         {store.name}
                                     </Link>
@@ -51,6 +52,7 @@ export default function Navigation() {
                             ))}
                         </ul>
                     </li>
+                    
                 </ul>
 
                 <ul className="navbar-nav me-4">
