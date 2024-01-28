@@ -19,7 +19,7 @@ const Articles = () => {
 
     function goToStore(e) {
         e.preventDefault();
-        navigate(Path.STORE, { state: { id: e.currentTarget.name } });
+        navigate(Path.STORE, { state: { id: e.currentTarget.id } });
     }
 
     return (
@@ -59,8 +59,7 @@ const Articles = () => {
                                         <button
                                             type="button"
                                             className="btn btn-primary active mt-2"
-                                            id='go_to_store'
-                                            name={data.store.id}
+                                            id={data.store.id}
                                             onClick={goToStore}
                                         >
                                             Склад: {data.store.name}

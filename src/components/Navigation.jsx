@@ -45,7 +45,7 @@ export default function Navigation() {
                         <ul className="dropdown-menu dropdown-menu-dark">
                             {stores.map(store => (
                                 <li key={store.id}>
-                                    <Link className="dropdown-item" to="#">
+                                    <Link className="dropdown-item" to={Path.STORE} state={{id: store.id}}>
                                         {store.name}
                                     </Link>
                                 </li>

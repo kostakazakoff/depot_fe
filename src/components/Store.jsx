@@ -8,7 +8,7 @@ const Store = () => {
     const location = useLocation();
     const { state } = location;
     const id = state.id;
-    console.log('ID '.id);
+    console.log(id);
 
     const [obj, setObj] = useState([]);
 
@@ -17,7 +17,7 @@ const Store = () => {
             .then(response => response.data)
             .then(result => setObj(result))
             .catch(err => console.log(err));
-    }, []);
+    }, [id]);
 
     const [inventories, store, totalCost] = Object.values(obj);
 
