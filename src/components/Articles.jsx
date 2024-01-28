@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import api from "../helpers/Api";
 import './css/Accordion.css';
@@ -8,19 +8,12 @@ import Path from "../paths";
 const Articles = () => {
     const [articles, setArticles] = useState([]);
 
-    const navigate = useNavigate();
-
     useEffect(() => {
         api.get('articles')
             .then(response => response.data.articles)
             .then(result => setArticles(result))
             .catch(err => console.log(err));
     }, []);
-
-    function goToStore(e) {
-        e.preventDefault();
-        navigate(Path.STORE, { state: { id: e.currentTarget.id } });
-    }
 
     return (
         <div className="container-xl p-5">
@@ -56,14 +49,14 @@ const Articles = () => {
                                     <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
                                     <div className="btn-group">
-                                        <button
+                                        <Link
                                             type="button"
                                             className="btn btn-primary active mt-2"
                                             id={data.store.id}
-                                            onClick={goToStore}
+                                            to={Path.STORE} state={{id: data.store.id}}
                                         >
                                             Склад: {data.store.name}
-                                        </button>
+                                        </Link>
                                         <button
                                             type="button"
                                             className="btn btn-primary mt-2"
