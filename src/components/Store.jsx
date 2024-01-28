@@ -35,7 +35,7 @@ const Store = () => {
                             aria-expanded="false"
                             aria-controls="flush-collapseOne"
                             >
-                                <strong>{data.article[0].description}</strong>, инвентарен № {data.article[0].inventory_number}
+                                <strong>{data.article.description}</strong>, инвентарен № {data.article.inventory_number}
                             </button>
                         </h2>
                         <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#storeInventories">
@@ -56,10 +56,10 @@ const Store = () => {
                                 </div>
 
                                 <div className="col me-4">
-                                    <div>Каталожен номер: <strong>{data.article[0].catalog_number}</strong></div>
-                                    <div>Чертожен номер: <strong>{data.article[0].draft_number}</strong></div>
-                                    <div>Материал: <strong>{data.article[0].material}</strong></div>
-                                    <div>Цена: <strong>{data.article[0].price}</strong> лв.</div>
+                                    <div>Каталожен номер: <strong>{data.article.catalog_number}</strong></div>
+                                    <div>Чертожен номер: <strong>{data.article.draft_number}</strong></div>
+                                    <div>Материал: <strong>{data.article.material}</strong></div>
+                                    <div>Цена: <strong>{data.article.price}</strong> лв.</div>
                                     <div>Количество: <strong>{data.quantity}</strong> бр.</div>
                                     <div>Опаковка: <strong>{data.package}</strong></div>
                                     <div>Позиция: <strong>{data.position}</strong></div>
@@ -70,7 +70,7 @@ const Store = () => {
                                             className="btn btn-primary mt-2"
                                             id='edit'
                                             name='edit'
-                                        // onClick={goToStore}
+                                        // onClick={}
                                         >
                                             Редактирай
                                         </button>
@@ -79,7 +79,7 @@ const Store = () => {
                                             className="btn btn-danger mt-2"
                                             id='delete'
                                             name='delete'
-                                        // onClick={goToStore}
+                                        // onClick={}
                                         >
                                             Изтрий
                                         </button>
