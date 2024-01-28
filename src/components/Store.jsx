@@ -8,7 +8,6 @@ const Store = () => {
     const location = useLocation();
     const { state } = location;
     const id = state.id;
-    console.log(id);
 
     const [obj, setObj] = useState([]);
 
@@ -24,12 +23,18 @@ const Store = () => {
     return (
         <div className="container-xl p-5">
             <div className="accordion accordion-flush" id="storeInventories">
-                <h2 className='mb-5'>Склад {store && store[0].id} / <strong>{store && store[0].name}</strong></h2>
+                <h2 className='mb-5'>Склад {store && store.id} / <strong>{store && store.name}</strong></h2>
 
                 {inventories && inventories.map(data => (
                     <article className="accordion-item border-bottom border-dark border-1" key={data.id}>
                         <h2 className="accordion-header">
-                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
+                            <button
+                            className="accordion-button collapsed"
+                            type="button" data-bs-toggle="collapse"
+                            data-bs-target={`#collapse${data.id}`}
+                            aria-expanded="false"
+                            aria-controls="flush-collapseOne"
+                            >
                                 <strong>{data.article[0].description}</strong>, инвентарен № {data.article[0].inventory_number}
                             </button>
                         </h2>
@@ -38,7 +43,10 @@ const Store = () => {
                             <div className="accordion-body row bg-white">
 
                                 <div className="col-5 ms-4 me-4">
-                                    <div className="container bg-dark p-auto  d-flex justify-content-center align-items-center" style={{ height: "220px", overflow: 'hidden' }}>
+                                    <div
+                                    className="container bg-dark p-auto d-flex justify-content-center align-items-center"
+                                    style={{ height: "220px", overflow: 'hidden' }}
+                                    >
                                         <img
                                             src={data.images[0] && data.images[0].url}
                                             alt=""
