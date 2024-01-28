@@ -15,7 +15,7 @@ export default function Navigation() {
 
     return (
         <>
-            <nav className="navbar navbar-expand bg-dark navbar-dark fixed-top z-index-3">
+            <nav className="navbar navbar-expand bg-dark navbar-dark fixed-top z-index-3 shadow">
 
                 <ul className="navbar-nav ms-4 me-auto">
 

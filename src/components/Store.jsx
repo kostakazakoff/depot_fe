@@ -35,7 +35,7 @@ const Store = () => {
                                     aria-expanded="false"
                                     aria-controls="flush-collapseOne"
                                 >
-                                    <strong>{data.article.description}</strong>, инвентарен № {data.article.inventory_number}
+                                    <strong className='text-danger'>{data.article.description}</strong>, инвентарен номер {data.article.inventory_number}
                                 </button>
                             </h2>
                             <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#storeInventories">
@@ -92,6 +92,12 @@ const Store = () => {
                     ))}
                 </div>
             </div>
+            <footer>
+                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark">
+                    <div className='me-5'>Склад <strong className='text-danger'>{store?.name}</strong></div>
+                    <div>Стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
+                </div>
+            </footer>
         </>
 
     );

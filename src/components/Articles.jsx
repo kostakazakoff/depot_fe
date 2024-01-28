@@ -13,10 +13,8 @@ const Articles = () => {
         api.get('articles')
             .then(response => response.data)
             .then(result => {
-                const a = result.articles;
-                const t = result.totalCost;
-                setArticles(a);
-                setTotalCost(t);
+                setArticles(result.articles);
+                setTotalCost(result.totalCost);
             })
             .catch(err => console.log(err));
     }, []);
@@ -29,7 +27,7 @@ const Articles = () => {
                         <article className="accordion-item border-bottom border-dark border-1" key={data.id}>
                             <h2 className="accordion-header">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
-                                    {data.description}, инвентарен № <strong>{data.inventory_number}</strong>
+                                    <strong className='text-danger'>{data.description}</strong>, инвентарен номер {data.inventory_number}
                                 </button>
                             </h2>
                             <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#articlesList">
@@ -90,8 +88,8 @@ const Articles = () => {
                 </div>
             </div>
             <footer>
-                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-danger bg-white">
-                    <div>Обща стоиност на складовите наличности: {totalCost} лв.</div>
+                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark">
+                    <div>Обща стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
                 </div>
             </footer>
         </>
