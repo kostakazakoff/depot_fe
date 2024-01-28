@@ -11,13 +11,13 @@ const Home = () => {
         <>
             <img src="https://www.rowse.co.uk/static/images/blog/posts/open-graph/what-is-the-digital-railway-open-graph.jpg"
                 alt="" className="img-fluid position-fixed top-0 start-0"></img>
-            <div className="container-fluid vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-warning shadow-lg">
+            <div className="container-fluid d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-3 bg-warning shadow-lg">
                 <h1>БДЖ ДЕПО БУРГАС</h1>
                 {!isAuthenticated &&
                     <div>
                         <Link
                             type="button"
-                            className="btn btn-primary active mt-2"
+                            className="btn btn-dark btn-lg mt-2"
                             to={Path.LOGIN}
                         >
                             Вписване
@@ -28,7 +28,7 @@ const Home = () => {
                     <div>
                         <Link
                             type="button"
-                            className="btn btn-primary active mt-2"
+                            className="btn btn-dark btn-lg mt-2"
                             to={Path.LOGOUT}
                         >
                             Отписване
