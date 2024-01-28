@@ -42,7 +42,7 @@ const Store = () => {
 
                                 <div className="accordion-body row bg-white">
 
-                                    <div className="col-5 ms-4 me-4">
+                                    <div className="col-4 ms-4 me-4">
                                         <div
                                             className="container bg-dark p-auto d-flex justify-content-center align-items-center"
                                             style={{ height: "220px", overflow: 'hidden' }}
@@ -93,7 +93,7 @@ const Store = () => {
                 </div>
             </div>
             <footer>
-                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark">
+                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
                     <div className='me-5'>Склад <strong className='text-danger'>{store?.name}</strong></div>
                     <div>Стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
                 </div>

@@ -34,7 +34,7 @@ const Articles = () => {
 
                                 <div className="accordion-body row bg-white">
 
-                                    <div className="col-5 ms-4 me-4">
+                                    <div className="col-4 me-1">
                                         <div className="container bg-dark p-auto  d-flex justify-content-center align-items-center" style={{ height: "220px", overflow: 'hidden' }}>
                                             <img
                                                 src={data.images[0] && data.images[0].url}
@@ -44,7 +44,16 @@ const Articles = () => {
                                         </div>
                                     </div>
 
-                                    <div className="col me-4">
+                                    <div className="col-2 me-4">
+                                        <div
+                                            className="container bg-light border border-dark p-auto d-flex justify-content-center align-items-center overflow-y-auto d-flex flex-column align-items-center"
+                                            style={{ height: "220px" }}
+                                        >
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div className="col me-2">
                                         <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
                                         <div>Чертожен номер: <strong>{data.draft_number}</strong></div>
                                         <div>Материал: <strong>{data.material}</strong></div>
@@ -88,7 +97,7 @@ const Articles = () => {
                 </div>
             </div>
             <footer>
-                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark">
+                <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
                     <div>Обща стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
                 </div>
             </footer>
