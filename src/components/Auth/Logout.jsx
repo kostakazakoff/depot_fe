@@ -4,15 +4,19 @@ import AuthContext from "../../contexts/authContext";
 import api from "../../helpers/Api"
 import Path from "../../paths";
 
+
 const Logout = () => {
-    const { setCredentials } = useContext(AuthContext);
+    const { isAuthenticated, setCredentials } = useContext(AuthContext);
     const navigate = useNavigate();
-  
+    console.log(`isAuthenticated: ${isAuthenticated}`);
+
     useEffect(() => {
-      api.post('logout')
-      .then(setCredentials({}))
-      .then(navigate(Path.HOME))
-      .catch(err => console.log(err));
+      if (isAuthenticated) {
+        api.post('logout')
+        .then(setCredentials({}))
+        .then(navigate(Path.HOME))
+        .catch(err => console.log(err));
+      }
     }, [])
   }
   

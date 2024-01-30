@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import AuthContext from "../contexts/authContext";
 import StoresContext from '../contexts/storesContext';
 import Path from '../paths';
-// import api from "../helpers/Api";
 
 
 export default function Navigation() {
