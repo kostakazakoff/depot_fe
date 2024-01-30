@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../helpers/Api";
 import AuthContext from "../../contexts/authContext";
 import Path from "../../paths";
+import StoresContext from "../../contexts/storesContext";
 
 
 const Login = () => {
     const { setCredentials } = useContext(AuthContext);
+    const { setStores } = useContext(StoresContext);
     const [user, setUser] = useState({});
     const navigate = useNavigate();
 
@@ -32,6 +34,15 @@ const Login = () => {
             .then(navigate(Path.HOME))
             .catch(err => console.log(err))
     }
+
+    useEffect(() => {
+        if (user.isAuthenticated) {
+            api.get('stores')
+                .then(response => response.data)
+                .then(data => setStores(data))
+                .catch(err => console.log(err));
+        }
+    }, [user]);
 
     return (
         <>
