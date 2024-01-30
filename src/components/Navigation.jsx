@@ -11,8 +11,8 @@ export default function Navigation() {
     const { email, isAuthenticated } = useContext(AuthContext);
     const { stores } = useContext(StoresContext);
 
-    console.log(`isAuthenticated: ${isAuthenticated}`);
-    console.log(`User: ${email}`);
+    // console.log(`isAuthenticated: ${isAuthenticated}`);
+    // console.log(`User: ${email}`);
 
     return (
         <>
