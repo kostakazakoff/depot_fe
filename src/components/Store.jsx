@@ -26,7 +26,7 @@ const Store = () => {
                 <div className="accordion accordion-flush" id="storeInventories">
 
                     {inventories && inventories.map(data => (
-                        <article className="accordion-item border-bottom border-dark border-1" key={data.id}>
+                        <article className="accordion-item border-bottom border-secondary border-1" key={data.id}>
                             <h2 className="accordion-header">
                                 <button
                                     className="accordion-button collapsed"
@@ -35,7 +35,7 @@ const Store = () => {
                                     aria-expanded="false"
                                     aria-controls="flush-collapseOne"
                                 >
-                                    <strong className='text-danger'>{data.article.description}</strong>, инвентарен номер {data.article.inventory_number}
+                                    <strong className='text-primary'>{data.article.description}</strong>, инвентарен номер {data.article.inventory_number}
                                 </button>
                             </h2>
                             <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#storeInventories">
@@ -44,7 +44,7 @@ const Store = () => {
 
                                     <div className="col-4 ms-4 me-4">
                                         <div
-                                            className="container bg-dark p-auto d-flex justify-content-center align-items-center"
+                                            className="container bg-secondary p-auto d-flex justify-content-center align-items-center"
                                             style={{ height: "220px", overflow: 'hidden' }}
                                         >
                                             <img
@@ -64,24 +64,22 @@ const Store = () => {
                                         <div>Опаковка: <strong>{data.package}</strong></div>
                                         <div>Позиция: <strong>{data.position}</strong></div>
 
-                                        <div className="btn-group">
-                                            <button
+                                        <div className="btn-group shadow mt-2">
+                                        <button
                                                 type="button"
-                                                className="btn btn-primary mt-2"
+                                                className="btn btn-light text-primary"
                                                 id='edit'
                                                 name='edit'
-                                            // onClick={}
                                             >
-                                                Редактирай
+                                                <i className="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button
                                                 type="button"
-                                                className="btn btn-danger mt-2"
+                                                className="btn btn-light text-danger"
                                                 id='delete'
                                                 name='delete'
-                                            // onClick={}
                                             >
-                                                Изтрий
+                                                <i className="fa-solid fa-trash"></i>
                                             </button>
                                         </div>
 
@@ -94,8 +92,8 @@ const Store = () => {
             </div>
             <footer>
                 <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
-                    <div className='me-5'>Склад <strong className='text-danger'>{store?.name}</strong></div>
-                    <div>Стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
+                    <div className='me-5'>Склад <strong className='text-primary'>{store?.name}</strong></div>
+                    <div>Стойност на складовите наличности: <strong className='text-primary'>{totalCost} лв.</strong></div>
                 </div>
             </footer>
         </>

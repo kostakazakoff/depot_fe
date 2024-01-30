@@ -24,10 +24,10 @@ const Articles = () => {
             <div className="container-xl p-5">
                 <div className="accordion accordion-flush" id="articlesList">
                     {articles && articles.map(data => (
-                        <article className="accordion-item border-bottom border-dark border-1" key={data.id}>
+                        <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
                             <h2 className="accordion-header">
                                 <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
-                                    <strong className='text-danger'>{data.description}</strong>, инвентарен номер {data.inventory_number}
+                                    <strong className='text-primary'>{data.description}</strong>, инвентарен номер {data.inventory_number}
                                 </button>
                             </h2>
                             <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#articlesList">
@@ -62,30 +62,30 @@ const Articles = () => {
                                         <div>Опаковка: <strong>{data.inventory.package}</strong></div>
                                         <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
-                                        <div className="btn-group">
+                                        <div className="btn-group shadow mt-2">
                                             <Link
                                                 type="button"
-                                                className="btn btn-primary active mt-2"
+                                                className="btn btn-light text-primary"
                                                 id={data.store.id}
                                                 to={Path.STORE} state={{ id: data.store.id }}
                                             >
-                                                Склад: {data.store.name}
+                                                <i className="fa-solid fa-warehouse"></i> {data.store.name}
                                             </Link>
                                             <button
                                                 type="button"
-                                                className="btn btn-primary mt-2"
+                                                className="btn btn-light text-primary"
                                                 id='edit'
                                                 name='edit'
                                             >
-                                                Редактирай
+                                                <i className="fa-solid fa-pen-to-square"></i>
                                             </button>
                                             <button
                                                 type="button"
-                                                className="btn btn-danger mt-2"
+                                                className="btn btn-light text-danger"
                                                 id='delete'
                                                 name='delete'
                                             >
-                                                Изтрий
+                                                <i className="fa-solid fa-trash"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@ const Articles = () => {
             </div>
             <footer>
                 <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
-                    <div>Обща стойност на складовите наличности: <strong className='text-danger'>{totalCost}</strong> лв.</div>
+                    <div>Обща стойност на складовите наличности: <strong className='text-primary'>{totalCost}  лв.</strong></div>
                 </div>
             </footer>
         </>
