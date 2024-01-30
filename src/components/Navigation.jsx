@@ -12,10 +12,12 @@ export default function Navigation() {
     const { stores, setStores } = useContext(StoresContext);
 
     useEffect(() => {
-        api.get('stores')
+        if (isAuthenticated) {
+            api.get('stores')
             .then(response => response.data)
             .then(data => setStores(data))
             .catch(err => console.log(err));
+        }
     }, []);
 
     console.log(`isAuthenticated: ${isAuthenticated}`);
