@@ -1,14 +1,22 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import AuthContext from "../contexts/authContext";
 import StoresContext from '../contexts/storesContext';
 import Path from '../paths';
+import api from "../helpers/Api";
 
 
 export default function Navigation() {
     const { email, isAuthenticated } = useContext(AuthContext);
-    const stores = useContext(StoresContext);
+    const { stores, setStores } = useContext(StoresContext);
+
+    useEffect(() => {
+        api.get('stores')
+            .then(response => response.data)
+            .then(data => setStores(data))
+            .catch(err => console.log(err));
+    }, []);
 
     console.log(`isAuthenticated: ${isAuthenticated}`);
     console.log(`User: ${email}`);
