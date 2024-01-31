@@ -6,7 +6,7 @@ import usePersistedState from "../hooks/usePersistedState";
 const StoresContext = createContext();
 
 export const StoresProvider = ({ children }) => {
-    const [stores, setStores] = usePersistedState('stores', []);
+    const [stores, setStores] = usePersistedState('stores', {});
 
     const storesProps = {
         stores: stores,
