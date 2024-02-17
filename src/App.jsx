@@ -6,7 +6,7 @@ import Login from "./components/Auth/Login";
 import Logout from "./components/Auth/Logout";
 import EditProfile from './components/Auth/EditProfile';
 import Home from "./components/Home";
-import Articles from './components/Articles';
+import Articles from './components/articles/Articles';
 import Store from './components/Store';
 
 import { AuthProvider } from "./contexts/authContext";

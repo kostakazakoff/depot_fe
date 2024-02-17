@@ -56,6 +56,14 @@ export default function Navigation() {
                         </li>
                     }
 
+                    {isAuthenticated &&
+                        <li className="nav-item">
+                            <Link className="nav-link" to='#'>
+                                Добавяне на артикул
+                            </Link>
+                        </li>
+                    }
+
                 </ul>
 
                 <ul className="navbar-nav me-4">
