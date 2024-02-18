@@ -11,6 +11,7 @@ import Store from './components/Store';
 
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
+import EditArticle from './components/EditArticle';
 // import ArticlesContext from "./contexts/articlesContext";
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
           <Route path={Path.ARTICLES} element={<Articles />} />
           <Route path={Path.STORE} element={<Store />} />
+          <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
         </Routes>
         {/* </ArticlesContext.Provider> */}
         </StoresProvider>

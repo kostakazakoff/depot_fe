@@ -21,12 +21,12 @@ const Articles = () => {
 
     return (
         <>
-        <div className="container-fluid p-5">
-            <div className="row">
-                <div className="col-4">
+            <div className="container-fluid p-5">
+                <div className="row">
+                    <div className="col-4">
 
-                </div>
-                <div className="col">
+                    </div>
+                    <div className="col">
                         <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
@@ -72,18 +72,36 @@ const Articles = () => {
                                                         type="button"
                                                         className="btn btn-light text-primary"
                                                         id={data.store.id}
-                                                        to={Path.STORE} state={{ id: data.store.id }}
+                                                        to={Path.STORE}
+                                                        state={{ id: data.store.id }}
                                                     >
                                                         <i className="fa-solid fa-warehouse"></i> {data.store.name}
                                                     </Link>
-                                                    <button
+                                                    <Link
                                                         type="button"
                                                         className="btn btn-light text-primary"
                                                         id='edit'
                                                         name='edit'
+                                                        to={Path.EDIT_ARTICLE}
+                                                        state={{
+                                                            id: data.id,
+                                                            inventory_number: data.inventory_number,
+                                                            catalog_number: data.catalog_number,
+                                                            draft_number: data.draft_number,
+                                                            material: data.material,
+                                                            description: data.description,
+                                                            price: data.price,
+                                                            images: data.images,
+                                                            inventory_id: data.inventory.id,
+                                                            quantity: data.inventory.quantity,
+                                                            package: data.inventory.package,
+                                                            position: data.inventory.position,
+                                                            store_id: data.store.id,
+                                                            store_name: data.store.name
+                                                        }}
                                                     >
                                                         <i className="fa-solid fa-pen-to-square"></i>
-                                                    </button>
+                                                    </Link>
                                                     <button
                                                         type="button"
                                                         className="btn btn-light text-danger"

@@ -4,7 +4,8 @@ const Path = {
     LOGOUT: '/logout',
     ARTICLES: '/articles',
     EDIT_PROFILE: '/edit_profile',
-    STORE: '/store'
+    STORE: '/store',
+    EDIT_ARTICLE: '/edit_article'
 }
 
 export default Path;
