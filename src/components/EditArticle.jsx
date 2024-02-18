@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { useContext } from 'react';
 import StoresContext from '../contexts/storesContext';
+import api from "../helpers/Api";
+import Path from "../paths";
 
 const EditArticle = () => {
     const location = useLocation();
@@ -16,8 +18,19 @@ const EditArticle = () => {
         }));
     }
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // api.post(`/articles/edit/${article.id}`, {
+
+        // })
+    }
+
     return (
-        <form className="container-sm vertical-center mt-4 p-5 bg-white rounded-4 shadow-lg">
+        <form
+            className="container-sm vertical-center mt-4 p-5 bg-white rounded-4 shadow-lg"
+            style={{ maxWidth: '800px' }}
+            onSubmit={handleSubmit}
+        >
             <div className="input-group mb-2 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                 <input
@@ -138,7 +151,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow nav-item dropdown">
+            <div className="input-group mb-2 shadow dropdown">
                 <span className="input-group-text">Склад:</span>
                 <select
                     id="storeSelect"
@@ -156,13 +169,59 @@ const EditArticle = () => {
             </div>
 
             <div className="mt-3">
-                <div className="container p-auto d-flex justify-content-center align-items-center shadow" style={{ height: "300px", overflow: 'hidden' }}>
-                    <img
+                <div className="container p-auto d-flex justify-content-center align-items-center" style={{ height: "200px", overflow: 'hidden' }}>
+                    {article.images.map(image => (
+                        <div
+                            className="form-check"
+                            style={{ "position": "relative" }}
+                            key={image.id}>
+                            <img
+                                src={image.url}
+                                alt={image.url}
+                                className="w-25 mh-100"
+                            />
+                            <input
+                                className="form-check-input bg-danger"
+                                type="checkbox"
+                                value={image.id}
+                                id="flexCheckIndeterminate"
+                                style={{ "position": "absolute", "top": "0", "left": "0" }}
+                            />
+                        </div>
+                    ))}
+                    {/* <img
                         src={article.images[0] && article.images[0].url}
                         alt={article.images[0] && article.images[0].path}
                         className="object-fit-contain"
-                    />
+                    /> */}
                 </div>
+            </div>
+
+            <div className="btn-group shadow mt-4">
+                <button
+                    type="submit"
+                    className="btn btn-light"
+                >
+                    <i className="fa-solid fa-check pe-2 text-primary"></i>
+                    Submit
+                </button>
+
+                <button
+                    type="button"
+                    className="btn btn-light"
+                >
+                    <i className="fa-solid fa-trash pe-2 text-danger"></i>
+                    Delete
+                </button>
+
+                <Link
+                    to={Path.ARTICLES}
+                    type="button"
+                    className="btn btn-light"
+                >
+                    <i className="fa-solid fa-ban pe-2"></i>
+                    Cancel
+                </Link>
             </div>
         </form>
     )

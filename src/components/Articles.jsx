@@ -70,16 +70,16 @@ const Articles = () => {
                                                 <div className="btn-group shadow mt-2">
                                                     <Link
                                                         type="button"
-                                                        className="btn btn-light text-primary"
+                                                        className="btn btn-light"
                                                         id={data.store.id}
                                                         to={Path.STORE}
                                                         state={{ id: data.store.id }}
                                                     >
-                                                        <i className="fa-solid fa-warehouse"></i> {data.store.name}
+                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.store.name}
                                                     </Link>
                                                     <Link
                                                         type="button"
-                                                        className="btn btn-light text-primary"
+                                                        className="btn btn-light"
                                                         id='edit'
                                                         name='edit'
                                                         to={Path.EDIT_ARTICLE}
@@ -97,18 +97,20 @@ const Articles = () => {
                                                             package: data.inventory.package,
                                                             position: data.inventory.position,
                                                             store_id: data.store.id,
-                                                            store_name: data.store.name
+                                                            // store_name: data.store.name
                                                         }}
                                                     >
-                                                        <i className="fa-solid fa-pen-to-square"></i>
+                                                        <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
+                                                        Редактирай
                                                     </Link>
                                                     <button
                                                         type="button"
-                                                        className="btn btn-light text-danger"
+                                                        className="btn btn-light"
                                                         id='delete'
                                                         name='delete'
                                                     >
-                                                        <i className="fa-solid fa-trash"></i>
+                                                        <i className="fa-solid fa-trash pe-2 text-danger"></i>
+                                                        Изтрий
                                                     </button>
                                                 </div>
                                             </div>
