@@ -31,9 +31,24 @@ const EditArticle = () => {
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
+
+            <div className="input-group mb-2 shadow">
+                <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                <input
+                    id='description'
+                    type="text"
+                    className="form-control"
+                    aria-describedby="basic-addon2"
+                    name='description'
+                    value={article.description || ''}
+                    onChange={handleChange}
+                />
+            </div>
+
             <div className="input-group mb-2 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                 <input
+                    // disabled="true"
                     id="inventory_number"
                     type="text"
                     className="form-control"
@@ -82,19 +97,6 @@ const EditArticle = () => {
                     aria-describedby="basic-addon2"
                     name='material'
                     value={article.material || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-2 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
-                <input
-                    id='description'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='description'
-                    value={article.description || ''}
                     onChange={handleChange}
                 />
             </div>
@@ -170,8 +172,8 @@ const EditArticle = () => {
 
             <div className="mt-4">
                 <div
-                className="container p-auto d-flex justify-content-start align-items-center overflow-x-auto gap-4"
-                style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
+                    className="container p-auto d-flex justify-content-start align-items-center overflow-x-auto gap-4"
+                    style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
                     {article.images.map(image => (
                         <div
                             className="w-25 mh-100 overflow-hidden border border-danger rounded bg-light shadow"
@@ -194,7 +196,7 @@ const EditArticle = () => {
                 </div>
             </div>
 
-            <div className="btn-group shadow mt-4">
+            <div className="btn-group border border-dark shadow mt-5">
                 <button
                     type="submit"
                     className="btn btn-light"

@@ -23,7 +23,7 @@ const Articles = () => {
         <>
             <div className="container-fluid p-5">
                 <div className="row">
-                    <div className="col-4">
+                    <div className="col-5">
 
                     </div>
                     <div className="col">
@@ -49,14 +49,14 @@ const Articles = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="col-2 me-4">
+                                            {/* <div className="col-2 me-4">
                                                 <div
                                                     className="container bg-light border border-dark p-auto d-flex justify-content-center align-items-center overflow-y-auto d-flex flex-column align-items-center"
                                                     style={{ height: "220px" }}
                                                 >
 
                                                 </div>
-                                            </div>
+                                            </div> */}
 
                                             <div className="col me-2">
                                                 <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
@@ -67,7 +67,7 @@ const Articles = () => {
                                                 <div>Опаковка: <strong>{data.inventory.package}</strong></div>
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
-                                                <div className="btn-group shadow mt-2">
+                                                <div className="btn-group shadow mt-2 border border-dark">
                                                     <Link
                                                         type="button"
                                                         className="btn btn-light"
