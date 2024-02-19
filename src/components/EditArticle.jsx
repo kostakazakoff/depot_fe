@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
@@ -7,6 +7,7 @@ import Path from "../paths";
 
 const EditArticle = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const { state } = location;
     const [article, setArticle] = useState(state);
     const { stores } = useContext(StoresContext);
@@ -29,22 +30,41 @@ const EditArticle = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        
-        
-        api.post(`/articles/edit/${article.id}`, {
-            'inventory_number': article?.inventory_number,
-            'catalog_number': article?.catalog_number,
-            'draft_number': article?.draft_number,
-            'material': article?.material,
-            'description': article?.description,
-            'price': parseInt(article?.price),
-            'store_id': article?.store_id,
-            'quantity': article?.quantity,
-            'package': article?.package,
-            'position': article?.position,
-            'images': article?.images
-        })
-            .then(console.log(`Article ${article.description} succesfuly updated`));
+        let imagesToDelete = [];
+        Object.keys(isChecked).forEach(key => (
+            isChecked[key]
+            && imagesToDelete.push(key)
+        ));
+
+        imagesToDelete.length > 0
+            && api.post('/images/delete', imagesToDelete);
+
+        const body = {
+            'inventory_number': article.inventory_number,
+            'catalog_number': article.catalog_number,
+            'draft_number': article.draft_number,
+            'material': article.material,
+            'description': article.description,
+            'price': parseInt(article.price),
+            'store_id': article.store_id,
+            'quantity': article.quantity,
+            'package': article.package,
+            'position': article.position,
+            // 'images': article.images
+        }
+
+        api.post(`/articles/edit/${article.id}`, body)
+            .then(response => console.log(response))
+            .then(setArticle(state => ({
+                ...state, ...body
+            })))
+            .catch(err => console.log(err));
+    }
+
+    const handleDeleteArticle = (e) => {
+        api.post(`articles/delete/${e.target.value}`)
+            .catch(err => console.log(err))
+            .then(navigate(Path.ARTICLES));
     }
 
     return (
@@ -210,7 +230,7 @@ const EditArticle = () => {
                             <input
                                 className="form-check-input bg-danger"
                                 type="checkbox"
-                                checked={isChecked[image.id]}
+                                checked={isChecked[image.id] || false}
                                 onChange={handleCheckboxesChange}
                                 id={image.id}
                                 style={{ "position": "absolute", "top": "10px", "left": "10px" }}
@@ -226,15 +246,17 @@ const EditArticle = () => {
                     className="btn btn-light"
                 >
                     <i className="fa-solid fa-check pe-2 text-primary"></i>
-                    Submit
+                    Потвърди
                 </button>
 
                 <button
                     type="button"
                     className="btn btn-light"
+                    value={article.id}
+                    onClick={handleDeleteArticle}
                 >
                     <i className="fa-solid fa-trash pe-2 text-danger"></i>
-                    Delete
+                    Изтрий
                 </button>
 
                 <Link
@@ -243,7 +265,7 @@ const EditArticle = () => {
                     className="btn btn-light"
                 >
                     <i className="fa-solid fa-ban pe-2"></i>
-                    Cancel
+                    Назад
                 </Link>
             </div>
         </form>
