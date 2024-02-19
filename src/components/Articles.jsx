@@ -9,15 +9,23 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
 
+    const getArticles = () => {api.get('articles')
+        .then(response => response.data)
+        .then(result => {
+            setArticles(result.articles);
+            setTotalCost(result.totalCost);
+        })
+        .catch(err => console.log(err));}
+
     useEffect(() => {
-        api.get('articles')
-            .then(response => response.data)
-            .then(result => {
-                setArticles(result.articles);
-                setTotalCost(result.totalCost);
-            })
-            .catch(err => console.log(err));
+        getArticles()
     }, []);
+
+    const handleDeleteArticle = (e) => {
+        api.post(`articles/delete/${e.target.value}`)
+            .then(getArticles())
+            .catch(err => console.log(err))
+    }
 
     return (
         <>
@@ -71,11 +79,11 @@ const Articles = () => {
                                                     <Link
                                                         type="button"
                                                         className="btn btn-light"
-                                                        id={data.store.id}
+                                                        id={data.stores.id}
                                                         to={Path.STORE}
-                                                        state={{ id: data.store.id }}
+                                                        state={{ id: data.stores.id }}
                                                     >
-                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.store.name}
+                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.stores.name}
                                                     </Link>
                                                     <Link
                                                         type="button"
@@ -96,8 +104,8 @@ const Articles = () => {
                                                             quantity: data.inventory.quantity,
                                                             package: data.inventory.package,
                                                             position: data.inventory.position,
-                                                            store_id: data.store.id,
-                                                            // store_name: data.store.name
+                                                            s_id: data.stores.id,
+                                                            // store_name: data.stores.name
                                                         }}
                                                     >
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
@@ -108,6 +116,8 @@ const Articles = () => {
                                                         className="btn btn-light"
                                                         id='delete'
                                                         name='delete'
+                                                        value={data.id}
+                                                        onClick={handleDeleteArticle}
                                                     >
                                                         <i className="fa-solid fa-trash pe-2 text-danger"></i>
                                                         Изтрий
