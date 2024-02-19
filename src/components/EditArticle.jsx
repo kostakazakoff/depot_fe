@@ -10,6 +10,14 @@ const EditArticle = () => {
     const { state } = location;
     const [article, setArticle] = useState(state);
     const { stores } = useContext(StoresContext);
+    const [isChecked, setIsChecked] = useState({});
+
+    const handleCheckboxesChange = (e) => {
+        setIsChecked(state => ({
+            ...state,
+            [e.target.id]: e.target.checked
+        }));
+    };
 
     const handleChange = (e) => {
         setArticle(state => ({
@@ -20,9 +28,23 @@ const EditArticle = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // api.post(`/articles/edit/${article.id}`, {
 
-        // })
+        
+        
+        api.post(`/articles/edit/${article.id}`, {
+            'inventory_number': article?.inventory_number,
+            'catalog_number': article?.catalog_number,
+            'draft_number': article?.draft_number,
+            'material': article?.material,
+            'description': article?.description,
+            'price': parseInt(article?.price),
+            'store_id': article?.store_id,
+            'quantity': article?.quantity,
+            'package': article?.package,
+            'position': article?.position,
+            'images': article?.images
+        })
+            .then(console.log(`Article ${article.description} succesfuly updated`));
     }
 
     return (
@@ -178,7 +200,8 @@ const EditArticle = () => {
                         <div
                             className="w-25 mh-100 overflow-hidden border border-danger rounded bg-light shadow"
                             style={{ position: "relative" }}
-                            key={image.id}>
+                            key={image.id}
+                        >
                             <img
                                 src={image.url}
                                 alt={image.url}
@@ -187,8 +210,9 @@ const EditArticle = () => {
                             <input
                                 className="form-check-input bg-danger"
                                 type="checkbox"
-                                value={image.id}
-                                id="flexCheckIndeterminate"
+                                checked={isChecked[image.id]}
+                                onChange={handleCheckboxesChange}
+                                id={image.id}
                                 style={{ "position": "absolute", "top": "10px", "left": "10px" }}
                             />
                         </div>
