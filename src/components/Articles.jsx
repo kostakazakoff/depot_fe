@@ -40,11 +40,11 @@ const Articles = () => {
                                         <div className="accordion-body row bg-white">
 
                                             <div className="col-4 me-1">
-                                                <div className="container bg-dark p-auto  d-flex justify-content-center align-items-center" style={{ height: "220px", overflow: 'hidden' }}>
+                                                <div style={{ height: "220px", overflow: 'hidden', position: 'relative' }}>
                                                     <img
                                                         src={data.images[0] && data.images[0].url}
                                                         alt={data.images[0] && data.images[0].path}
-                                                        className="object-fit-contain"
+                                                        className="object-fit-cover mw-100 mh-100"
                                                     />
                                                 </div>
                                             </div>

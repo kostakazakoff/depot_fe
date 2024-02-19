@@ -27,7 +27,7 @@ const EditArticle = () => {
 
     return (
         <form
-            className="container-sm vertical-center mt-4 p-5 bg-white rounded-4 shadow-lg"
+            className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
@@ -168,32 +168,29 @@ const EditArticle = () => {
                 </select>
             </div>
 
-            <div className="mt-3">
-                <div className="container p-auto d-flex justify-content-center align-items-center" style={{ height: "200px", overflow: 'hidden' }}>
+            <div className="mt-4">
+                <div
+                className="container p-auto d-flex justify-content-start align-items-center overflow-x-auto gap-4"
+                style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
                     {article.images.map(image => (
                         <div
-                            className="form-check"
-                            style={{ "position": "relative" }}
+                            className="w-25 mh-100 overflow-hidden border border-danger rounded bg-light shadow"
+                            style={{ position: "relative" }}
                             key={image.id}>
                             <img
                                 src={image.url}
                                 alt={image.url}
-                                className="w-25 mh-100"
+                                className="object-fit-cover mw-100 mh-100"
                             />
                             <input
                                 className="form-check-input bg-danger"
                                 type="checkbox"
                                 value={image.id}
                                 id="flexCheckIndeterminate"
-                                style={{ "position": "absolute", "top": "0", "left": "0" }}
+                                style={{ "position": "absolute", "top": "10px", "left": "10px" }}
                             />
                         </div>
                     ))}
-                    {/* <img
-                        src={article.images[0] && article.images[0].url}
-                        alt={article.images[0] && article.images[0].path}
-                        className="object-fit-contain"
-                    /> */}
                 </div>
             </div>
 
