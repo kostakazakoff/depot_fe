@@ -170,9 +170,9 @@ const EditArticle = () => {
                 </select>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 shadow p-3 overflow-x-auto">
                 <div
-                    className="container p-auto d-flex justify-content-start align-items-center overflow-x-auto gap-4"
+                    className="container p-auto d-flex justify-content-start align-items-center gap-4"
                     style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
                     {article.images.map(image => (
                         <div
