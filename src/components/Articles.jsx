@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 import api from "../helpers/Api";
 import './css/Accordion.css';
 import Path from "../paths";
@@ -9,22 +12,41 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
 
-    const getArticles = () => {api.get('articles')
-        .then(response => response.data)
-        .then(result => {
-            setArticles(result.articles);
-            setTotalCost(result.totalCost);
-        })
-        .catch(err => console.log(err));}
+    const getArticles = () => {
+        api.get('articles')
+            .then(response => response.data)
+            .then(result => {
+                setArticles(result.articles);
+                setTotalCost(result.totalCost);
+            })
+            .catch(err => console.log(err));
+    }
 
     useEffect(() => {
         getArticles()
     }, []);
 
     const handleDeleteArticle = (e) => {
-        api.post(`articles/delete/${e.target.value}`)
-            .then(getArticles())
-            .catch(err => console.log(err))
+        Swal.fire({
+            title: "Сигурен ли сте?",
+            text: "Няма да можете да възстановите този артикул!",
+            icon: "Внимание",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Да, изтрий!",
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    api.post(`articles/delete/${e.target.value}`)
+                        .then(getArticles())
+                        .then(Swal.fire(
+                            "Изтрит!",
+                            "Артикулът беше изтрит.",
+                            "success"
+                        ))
+                }
+            })
     }
 
     return (
@@ -109,7 +131,7 @@ const Articles = () => {
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
                                                         Редактирай
                                                     </Link>
-                                                    
+
                                                     <button
                                                         type="button"
                                                         className="btn btn-light"
