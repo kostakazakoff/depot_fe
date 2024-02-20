@@ -36,9 +36,6 @@ const EditArticle = () => {
             && imagesToDelete.push(key)
         ));
 
-        imagesToDelete.length > 0
-            && api.post('/images/delete', imagesToDelete);
-
         const body = {
             'inventory_number': article.inventory_number,
             'catalog_number': article.catalog_number,
@@ -53,12 +50,20 @@ const EditArticle = () => {
             // 'images': article.images
         }
 
+        imagesToDelete.length > 0
+            && api.post('/images/delete', imagesToDelete)
+            .then(setArticle(state => ({
+                ...state, ...body
+            })))
+            .catch(err => console.log(err));
+
         api.post(`/articles/edit/${article.id}`, body)
             .then(response => console.log(response))
             .then(setArticle(state => ({
                 ...state, ...body
             })))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .then(navigate(Path.ARTICLES));
     }
 
     const handleDeleteArticle = (e) => {

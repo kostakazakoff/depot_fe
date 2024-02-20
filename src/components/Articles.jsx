@@ -73,23 +73,22 @@ const Articles = () => {
                                                 <div>Цена: <strong>{data.price}</strong> лв.</div>
                                                 <div>Количество: <strong>{data.inventory.quantity}</strong> бр.</div>
                                                 <div>Опаковка: <strong>{data.inventory.package}</strong></div>
+                                                {/* <div>Склад: <strong>{data.stores.name}</strong></div> */}
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
                                                 <div className="btn-group shadow mt-2 border border-dark">
                                                     <Link
                                                         type="button"
                                                         className="btn btn-light"
-                                                        id={data.stores.id}
                                                         to={Path.STORE}
-                                                        state={{ id: data.stores.id }}
+                                                        state={{ id: data.stores[0].id }}
                                                     >
-                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.stores.name}
+                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.stores[0].name}
                                                     </Link>
+
                                                     <Link
                                                         type="button"
                                                         className="btn btn-light"
-                                                        id='edit'
-                                                        name='edit'
                                                         to={Path.EDIT_ARTICLE}
                                                         state={{
                                                             id: data.id,
@@ -111,6 +110,7 @@ const Articles = () => {
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
                                                         Редактирай
                                                     </Link>
+                                                    
                                                     <button
                                                         type="button"
                                                         className="btn btn-light"
