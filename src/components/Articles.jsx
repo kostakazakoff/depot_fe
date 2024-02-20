@@ -42,7 +42,7 @@ const Articles = () => {
                         .then(getArticles())
                         .then(Swal.fire(
                             "Готово!",
-                            "Артикулът беше изтрит.",
+                            `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
                 }
@@ -135,7 +135,7 @@ const Articles = () => {
                                                         type="button"
                                                         className="btn btn-light"
                                                         id='delete'
-                                                        name='delete'
+                                                        name={data.description}
                                                         value={data.id}
                                                         onClick={handleDeleteArticle}
                                                     >

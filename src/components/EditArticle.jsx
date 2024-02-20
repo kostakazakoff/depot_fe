@@ -89,7 +89,7 @@ const EditArticle = () => {
                     api.post(`articles/delete/${e.target.value}`)
                         .then(Swal.fire(
                             "Готово!",
-                            "Артикулът беше изтрит.",
+                            `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
                         .then(navigate(Path.ARTICLES))
@@ -288,6 +288,7 @@ const EditArticle = () => {
                 <button
                     type="button"
                     className="btn btn-light"
+                    name={article.description}
                     value={article.id}
                     onClick={handleDeleteArticle}
                 >
