@@ -73,7 +73,6 @@ const Articles = () => {
                                                 <div>Цена: <strong>{data.price}</strong> лв.</div>
                                                 <div>Количество: <strong>{data.inventory.quantity}</strong> бр.</div>
                                                 <div>Опаковка: <strong>{data.inventory.package}</strong></div>
-                                                {/* <div>Склад: <strong>{data.stores.name}</strong></div> */}
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
                                                 <div className="btn-group shadow mt-2 border border-dark">
