@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
@@ -67,10 +71,33 @@ const EditArticle = () => {
     }
 
     const handleDeleteArticle = (e) => {
-        api.post(`articles/delete/${e.target.value}`)
-            .catch(err => console.log(err))
-            .then(navigate(Path.ARTICLES));
+        Swal.fire({
+            title: "Сигурен ли сте?",
+            text: "Няма да можете да възстановите този артикул!",
+            icon: "Внимание",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Да, изтрий!",
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    api.post(`articles/delete/${e.target.value}`)
+                        .then(Swal.fire(
+                            "Изтрит!",
+                            "Артикулът беше изтрит.",
+                            "success"
+                        ))
+                        .then(navigate(Path.ARTICLES))
+                }
+            })
     }
+
+    // const handleDeleteArticle = (e) => {
+    //     api.post(`articles/delete/${e.target.value}`)
+    //         .catch(err => console.log(err))
+    //         .then(navigate(Path.ARTICLES));
+    // }
 
     return (
         <form
