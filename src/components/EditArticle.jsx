@@ -56,17 +56,21 @@ const EditArticle = () => {
 
         imagesToDelete.length > 0
             && api.post('/images/delete', imagesToDelete)
-            .then(setArticle(state => ({
-                ...state, ...body
-            })))
-            .catch(err => console.log(err));
+                .then(setArticle(state => ({
+                    ...state, ...body
+                })))
+                .catch(err => console.log(err));
 
         api.post(`/articles/edit/${article.id}`, body)
-            .then(response => console.log(response))
             .then(setArticle(state => ({
                 ...state, ...body
             })))
             .catch(err => console.log(err))
+            .then(Swal.fire(
+                "Готово!",
+                "Артикулът беше редактиран.",
+                "success"
+            ))
             .then(navigate(Path.ARTICLES));
     }
 
@@ -74,7 +78,7 @@ const EditArticle = () => {
         Swal.fire({
             title: "Сигурен ли сте?",
             text: "Няма да можете да възстановите този артикул!",
-            icon: "Внимание",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
@@ -84,7 +88,7 @@ const EditArticle = () => {
                 if (result.isConfirmed) {
                     api.post(`articles/delete/${e.target.value}`)
                         .then(Swal.fire(
-                            "Изтрит!",
+                            "Готово!",
                             "Артикулът беше изтрит.",
                             "success"
                         ))

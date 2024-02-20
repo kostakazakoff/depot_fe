@@ -30,7 +30,7 @@ const Articles = () => {
         Swal.fire({
             title: "Сигурен ли сте?",
             text: "Няма да можете да възстановите този артикул!",
-            icon: "Внимание",
+            icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
@@ -41,7 +41,7 @@ const Articles = () => {
                     api.post(`articles/delete/${e.target.value}`)
                         .then(getArticles())
                         .then(Swal.fire(
-                            "Изтрит!",
+                            "Готово!",
                             "Артикулът беше изтрит.",
                             "success"
                         ))

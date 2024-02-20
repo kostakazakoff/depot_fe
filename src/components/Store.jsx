@@ -8,7 +8,6 @@ const Store = () => {
     const location = useLocation();
     const { state } = location;
     const id = state.id;
-    console.log(state);
 
     const [obj, setObj] = useState([]);
 
