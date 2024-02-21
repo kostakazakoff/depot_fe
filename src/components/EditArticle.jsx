@@ -1,12 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { useState, useCallback } from "react";
-=======
-import { useEffect, useState } from "react";
->>>>>>> c0444ac (none)
-=======
-import { useState } from "react";
->>>>>>> e652b75 (init)
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
@@ -75,7 +67,7 @@ const EditArticle = () => {
         ));
 
         let formData = new FormData()
-        
+
         if (files.length) {
             files.forEach(file => {
                 formData.append('images[]', file)
@@ -92,12 +84,9 @@ const EditArticle = () => {
             'store_id': article.s_id,
             'quantity': article.quantity,
             'package': article.package,
-<<<<<<< HEAD
             'position': article.position,
             // 'images': [...files]
-=======
             'position': article.position
->>>>>>> c0444ac (none)
         }
 
         imagesToDelete.length > 0
