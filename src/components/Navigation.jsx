@@ -10,7 +10,7 @@ export default function Navigation() {
     const { email, isAuthenticated } = useContext(AuthContext);
     const { stores } = useContext(StoresContext);
 
-    // console.log(`isAuthenticated: ${isAuthenticated}`);
+    console.log(`isAuthenticated: ${isAuthenticated}`);
     // console.log(`User: ${email}`);
 
     return (
@@ -24,6 +24,7 @@ export default function Navigation() {
                             Начало
                         </Link>
                     </li>
+
                     {isAuthenticated &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ARTICLES}>
@@ -53,6 +54,14 @@ export default function Navigation() {
                                     </li>
                                 ))}
                             </ul>
+                        </li>
+                    }
+
+                    {isAuthenticated &&
+                        <li className="nav-item">
+                            <Link className="nav-link" to={Path.ADD_ARTICLE}>
+                                Добави артикул
+                            </Link>
                         </li>
                     }
 

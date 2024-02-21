@@ -5,7 +5,8 @@ const Path = {
     ARTICLES: '/articles',
     EDIT_PROFILE: '/edit_profile',
     STORE: '/store',
-    EDIT_ARTICLE: '/edit_article'
+    EDIT_ARTICLE: '/edit_article',
+    ADD_ARTICLE: '/add_article'
 }
 
 export default Path;

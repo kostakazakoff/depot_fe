@@ -8,6 +8,7 @@ import EditProfile from './components/Auth/EditProfile';
 import Home from "./components/Home";
 import Articles from './components/Articles';
 import Store from './components/Store';
+import AddArticle from './components/AddArticle';
 
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
@@ -30,6 +31,7 @@ function App() {
           <Route path={Path.ARTICLES} element={<Articles />} />
           <Route path={Path.STORE} element={<Store />} />
           <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
+          <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
         </Routes>
         {/* </ArticlesContext.Provider> */}
         </StoresProvider>
