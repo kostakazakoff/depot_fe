@@ -11,6 +11,7 @@ import Path from "../paths";
 const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
+    console.log(articles);
 
     const getArticles = () => {
         api.get('articles')
@@ -124,7 +125,7 @@ const Articles = () => {
                                                             quantity: data.inventory.quantity,
                                                             package: data.inventory.package,
                                                             position: data.inventory.position,
-                                                            s_id: data.stores[0].id,
+                                                            store_id: data.stores[0].id,
                                                         }}
                                                     >
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>

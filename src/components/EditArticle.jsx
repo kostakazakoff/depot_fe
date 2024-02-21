@@ -56,6 +56,7 @@ const EditArticle = () => {
             [e.target.name]: e.target.value
         }));
     }
+    // console.log(article);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -80,8 +81,8 @@ const EditArticle = () => {
             'draft_number': article.draft_number,
             'material': article.material,
             'description': article.description,
-            'price': parseInt(article.price),
-            'store_id': article.s_id,
+            'price': parseFloat(article.price),
+            'store_id': article.store_id,
             'quantity': article.quantity,
             'package': article.package,
             'position': article.position,
@@ -390,6 +391,5 @@ const EditArticle = () => {
         </form>
     )
 }
-
 
 export default EditArticle;
