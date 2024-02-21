@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
+import { useDropzone } from 'react-dropzone'
+
 import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
+
 
 const EditArticle = () => {
     const location = useLocation();
@@ -16,6 +19,29 @@ const EditArticle = () => {
     const [article, setArticle] = useState(state);
     const { stores } = useContext(StoresContext);
     const [isChecked, setIsChecked] = useState({});
+    const [files, setFiles] = useState([]);
+
+    const onDrop = useCallback((acceptedFiles) => {
+        if (acceptedFiles?.length) {
+            setFiles(state => [
+                ...state,
+                ...acceptedFiles.map(file =>
+                    Object.assign(file, { preview: URL.createObjectURL(file) }))
+            ])
+        }
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        accept: {
+            'image/*': []
+        },
+        // maxSize: 1200 * 980,
+        onDrop
+    })
+
+    const removeFile = name => {
+        setFiles(files => files.filter(file => file.name !== name))
+    }
 
     const handleCheckboxesChange = (e) => {
         setIsChecked(state => ({
@@ -40,6 +66,14 @@ const EditArticle = () => {
             && imagesToDelete.push(key)
         ));
 
+        let formData = new FormData()
+        
+        if (files.length) {
+            files.forEach(file => {
+                formData.append('images[]', file)
+            })
+        }
+
         const body = {
             'inventory_number': article.inventory_number,
             'catalog_number': article.catalog_number,
@@ -47,11 +81,11 @@ const EditArticle = () => {
             'material': article.material,
             'description': article.description,
             'price': parseInt(article.price),
-            'store_id': article.store_id,
+            'store_id': article.s_id,
             'quantity': article.quantity,
             'package': article.package,
             'position': article.position,
-            // 'images': article.images
+            // 'images': [...files]
         }
 
         imagesToDelete.length > 0
@@ -61,7 +95,13 @@ const EditArticle = () => {
                 })))
                 .catch(err => console.log(err));
 
-        api.post(`/articles/edit/${article.id}`, body)
+        Object.entries(body).forEach(
+            ([key, value]) => {
+                formData.append(key, value);
+            }
+        )
+
+        api.post(`/articles/edit/${article.id}`, formData)
             .then(setArticle(state => ({
                 ...state, ...body
             })))
@@ -97,20 +137,17 @@ const EditArticle = () => {
             })
     }
 
-    // const handleDeleteArticle = (e) => {
-    //     api.post(`articles/delete/${e.target.value}`)
-    //         .catch(err => console.log(err))
-    //         .then(navigate(Path.ARTICLES));
-    // }
-
     return (
         <form
-            className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg"
+            className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
+            <h2 className="py-1 px-4 text-secondary position-absolute bg-light border border-2 border-gray rounded" style={{ top: '-30px', left: '60px' }}>
+                {article.description}
+            </h2>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                 <input
                     id='description'
@@ -123,7 +160,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                 <input
                     // disabled="true"
@@ -138,7 +175,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
                 <input
                     id="catalog_number"
@@ -152,7 +189,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
                 <input
                     id="draft_number"
@@ -166,7 +203,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
                 <input
                     id='material'
@@ -179,7 +216,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
                 <input
                     id='price'
@@ -192,7 +229,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
                 <input
                     id='quantity'
@@ -205,7 +242,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
                 <input
                     id='package'
@@ -218,7 +255,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow">
+            <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
                 <input
                     id='position'
@@ -231,7 +268,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-2 shadow dropdown">
+            <div className="input-group mb-4 shadow dropdown">
                 <span className="input-group-text">Склад:</span>
                 <select
                     id="storeSelect"
@@ -248,10 +285,13 @@ const EditArticle = () => {
                 </select>
             </div>
 
-            <div className="mt-4 shadow p-3 overflow-x-auto">
+            <div className="w-100 shadow mt-4 rounded p-4 position-relative">
+                <h2 className='text-primary fs-3'>Изтрий файлове</h2>
+                <p>Маркирай за изтриване</p>
                 <div
                     className="container p-auto d-flex justify-content-start align-items-center gap-4"
                     style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
+
                     {article.images.map(image => (
                         <div
                             className="w-25 mh-100 overflow-hidden border border-danger rounded bg-light shadow"
@@ -269,8 +309,55 @@ const EditArticle = () => {
                                 checked={isChecked[image.id] || false}
                                 onChange={handleCheckboxesChange}
                                 id={image.id}
-                                style={{ "position": "absolute", "top": "10px", "left": "10px" }}
+                                style={{ "position": "absolute", "top": "10px", "right": "10px" }}
                             />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* <Dropzone
+                className='w-100 shadow mt-4 rounded p-4 position-relative'
+            /> */}
+            <div
+                {...getRootProps({
+                    className: 'w-100 shadow mt-4 rounded p-4 position-relative',
+                })}
+            >
+                <h2 className='text-primary fs-3'>Качи нови файлове</h2>
+                <input
+                    className='text-secondary'
+                    {...getInputProps()}
+                />
+                {
+                    isDragActive ?
+                        <p>Пусни файла тук ...</p> :
+                        <p>Провлачи и пусни файловете тук ...</p>
+                }
+
+                <div className='overflow-hidden top-0 start-0 d-flex justify-content-start align-items-center gap-4'>
+                    {files.map(file => (
+                        <div
+                            key={file.name}
+                            className='rounded shadow position-relative overflow-hidden'
+                            style={{ width: '100px', height: '100px' }}
+                        >
+                            <img
+                                src={file.preview}
+                                alt={file.name}
+                                className='className="object-fit-contain mh-100'
+                                onLoad={() => {
+                                    URL.revokeObjectURL(file.preview)
+                                }}
+                            />
+                            <button
+                                type='button'
+                                className='position-absolute bg-danger text-white'
+                                style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
+                                onClick={() => removeFile(file.name)}
+                            >
+                                <i className="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -308,5 +395,6 @@ const EditArticle = () => {
         </form>
     )
 }
+
 
 export default EditArticle;

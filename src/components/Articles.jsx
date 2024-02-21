@@ -124,7 +124,7 @@ const Articles = () => {
                                                             quantity: data.inventory.quantity,
                                                             package: data.inventory.package,
                                                             position: data.inventory.position,
-                                                            s_id: data.stores.id,
+                                                            s_id: data.stores[0].id,
                                                         }}
                                                     >
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
