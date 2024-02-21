@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState, useCallback } from "react";
+=======
+import { useEffect, useState } from "react";
+>>>>>>> c0444ac (none)
 import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
@@ -84,8 +88,12 @@ const EditArticle = () => {
             'store_id': article.s_id,
             'quantity': article.quantity,
             'package': article.package,
+<<<<<<< HEAD
             'position': article.position,
             // 'images': [...files]
+=======
+            'position': article.position
+>>>>>>> c0444ac (none)
         }
 
         imagesToDelete.length > 0
