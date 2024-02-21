@@ -85,8 +85,6 @@ const EditArticle = () => {
             'quantity': article.quantity,
             'package': article.package,
             'position': article.position,
-            // 'images': [...files]
-            'position': article.position
         }
 
         imagesToDelete.length > 0
@@ -164,7 +162,6 @@ const EditArticle = () => {
             <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                 <input
-                    // disabled="true"
                     id="inventory_number"
                     type="text"
                     className="form-control"
@@ -286,7 +283,7 @@ const EditArticle = () => {
                 </select>
             </div>
 
-            <div className="w-100 shadow mt-4 rounded p-4 position-relative">
+            <section className="w-100 shadow mt-4 rounded p-4 position-relative">
                 <h2 className='text-primary fs-3'>Изтрий файлове</h2>
                 <p>Маркирай за изтриване</p>
                 <div
@@ -315,12 +312,9 @@ const EditArticle = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
-            {/* <Dropzone
-                className='w-100 shadow mt-4 rounded p-4 position-relative'
-            /> */}
-            <div
+            <section
                 {...getRootProps({
                     className: 'w-100 shadow mt-4 rounded p-4 position-relative',
                 })}
@@ -362,7 +356,7 @@ const EditArticle = () => {
                         </div>
                     ))}
                 </div>
-            </div>
+            </section>
 
             <div className="btn-group border border-dark shadow mt-5">
                 <button
