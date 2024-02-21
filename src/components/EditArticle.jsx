@@ -66,9 +66,13 @@ const EditArticle = () => {
             && imagesToDelete.push(key)
         ));
 
-        const formData = new FormData()
-        files?.length && formData.append('images', files)
-        // files?.length && files.forEach(file => formData.append('images', file))
+        let formData = new FormData()
+        
+        if (files.length) {
+            files.forEach(file => {
+                formData.append('images[]', file)
+            })
+        }
 
         const body = {
             'inventory_number': article.inventory_number,
