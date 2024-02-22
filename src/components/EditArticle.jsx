@@ -288,19 +288,19 @@ const EditArticle = () => {
                 <h2 className='text-primary fs-3'>Изтрий файлове</h2>
                 <p>Маркирай за изтриване</p>
                 <div
-                    className="container p-auto d-flex justify-content-start align-items-center gap-4"
-                    style={{ height: "100px", overflow: 'hidden', position: "relative" }}>
+                    className="container d-flex justify-content-start align-items-center gap-4 position-relative overflow-x-auto"
+                    style={{ height: "120px" }}>
 
                     {article.images.map(image => (
                         <div
-                            className="w-25 mh-100 overflow-hidden border border-danger rounded bg-light shadow"
-                            style={{ position: "relative" }}
+                            className="overflow-hidden border border-danger rounded bg-light shadow position-relative d-flex justify-content-center"
+                            style={{ width: '100px', height: '100px', minWidth: '100px' }}
                             key={image.id}
                         >
                             <img
                                 src={image.url}
                                 alt={image.url}
-                                className="object-fit-cover mw-100 mh-100"
+                                className="object-fit-cover w-100 h-100"
                             />
                             <input
                                 className="form-check-input bg-danger"
@@ -335,13 +335,13 @@ const EditArticle = () => {
                     {files.map(file => (
                         <div
                             key={file.name}
-                            className='rounded shadow position-relative overflow-hidden'
-                            style={{ width: '100px', height: '100px' }}
+                            className='rounded shadow position-relative overflow-hidden d-flex justify-content-center'
+                            style={{ width: '100px', height: '100px', minWidth: '100px' }}
                         >
                             <img
                                 src={file.preview}
                                 alt={file.name}
-                                className='className="object-fit-contain h-100'
+                                className='className="object-fit-cover h-100'
                                 onLoad={() => {
                                     URL.revokeObjectURL(file.preview)
                                 }}
