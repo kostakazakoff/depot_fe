@@ -13,6 +13,7 @@ import AddArticle from './components/AddArticle';
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
 import EditArticle from './components/EditArticle';
+import ImagesPreview from './components/ImagesPreview';
 // import ArticlesContext from "./contexts/articlesContext";
 
 
@@ -32,6 +33,7 @@ function App() {
           <Route path={Path.STORE} element={<Store />} />
           <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
           <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
+          <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
         </Routes>
         {/* </ArticlesContext.Provider> */}
         </StoresProvider>

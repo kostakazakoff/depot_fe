@@ -331,7 +331,7 @@ const EditArticle = () => {
                         <p>Провлачи и пусни файловете тук ...</p>
                 }
 
-                <div className='overflow-hidden top-0 start-0 d-flex justify-content-start align-items-center gap-4'>
+                <div className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative'>
                     {files.map(file => (
                         <div
                             key={file.name}
@@ -341,7 +341,7 @@ const EditArticle = () => {
                             <img
                                 src={file.preview}
                                 alt={file.name}
-                                className='className="object-fit-contain mh-100'
+                                className='className="object-fit-contain h-100'
                                 onLoad={() => {
                                     URL.revokeObjectURL(file.preview)
                                 }}

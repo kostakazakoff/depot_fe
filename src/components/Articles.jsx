@@ -11,7 +11,6 @@ import Path from "../paths";
 const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
-    console.log(articles);
 
     const getArticles = () => {
         api.get('articles')
@@ -70,26 +69,22 @@ const Articles = () => {
 
                                         <div className="accordion-body row bg-white">
 
-                                            <div className="col-4 me-1">
-                                                <div style={{ height: "220px", overflow: 'hidden', position: 'relative' }}>
-                                                    <img
-                                                        src={data.images[0] && data.images[0].url}
-                                                        alt={data.images[0] && data.images[0].path}
-                                                        className="object-fit-cover mw-100 mh-100"
-                                                    />
-                                                </div>
-                                            </div>
+                                            <Link
+                                                to={Path.IMAGES_PREVIEW}
+                                                state={data.images ? { images: data.images } : {}}
+                                                className="me-1 w-50"
+                                                style={{ height: "300px", overflow: 'hidden', position: 'relative' }}
+                                                type="button"
+                                                id={data.id}
+                                            >
+                                                <img
+                                                    src={data.images[0] && data.images[0].url}
+                                                    alt={data.images[0] && data.images[0].path}
+                                                    className="object-fit-cover w-100 mh-100"
+                                                />
+                                            </Link>
 
-                                            {/* <div className="col-2 me-4">
-                                                <div
-                                                    className="container bg-light border border-dark p-auto d-flex justify-content-center align-items-center overflow-y-auto d-flex flex-column align-items-center"
-                                                    style={{ height: "220px" }}
-                                                >
-
-                                                </div>
-                                            </div> */}
-
-                                            <div className="col me-2">
+                                            <div className="col me-2 lh-lg">
                                                 <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
                                                 <div>Чертожен номер: <strong>{data.draft_number}</strong></div>
                                                 <div>Материал: <strong>{data.material}</strong></div>
@@ -98,7 +93,7 @@ const Articles = () => {
                                                 <div>Опаковка: <strong>{data.inventory.package}</strong></div>
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
 
-                                                <div className="btn-group shadow mt-2 border border-dark">
+                                                <div className="btn-group shadow mt-4 border border-dark">
                                                     <Link
                                                         type="button"
                                                         className="btn btn-light"
@@ -158,7 +153,7 @@ const Articles = () => {
                         </div>
                     </footer>
                 </div>
-            </div>
+            </div >
         </>
     );
 }
