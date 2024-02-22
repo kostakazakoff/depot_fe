@@ -18,8 +18,8 @@ const EditArticle = () => {
     const { state } = location;
     const [article, setArticle] = useState(state);
     const { stores } = useContext(StoresContext);
-    const [isChecked, setIsChecked] = useState({});
     const [files, setFiles] = useState([]);
+    const [imagesToDelete, setImagesToDelete] = useState([]);
 
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
@@ -43,11 +43,16 @@ const EditArticle = () => {
         setFiles(files => files.filter(file => file.name !== name))
     }
 
-    const handleCheckboxesChange = (e) => {
-        setIsChecked(state => ({
+    const removeExistedImage = id => {
+        const newImages = article.images.filter(image => image.id !== id);
+        article.images = newImages;
+        setArticle(state => ({
             ...state,
-            [e.target.id]: e.target.checked
+            [state.images]: article.images
         }));
+        setImagesToDelete(state => ([
+            ...state, id
+        ]))
     };
 
     const handleChange = (e) => {
@@ -59,12 +64,6 @@ const EditArticle = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        let imagesToDelete = [];
-        Object.keys(isChecked).forEach(key => (
-            isChecked[key]
-            && imagesToDelete.push(key)
-        ));
 
         let formData = new FormData()
 
@@ -135,15 +134,6 @@ const EditArticle = () => {
                 }
             })
     }
-
-    // const previewImage = (e) => {
-    //     Swal.fire({
-    //         html: `<img src="${e.target.src}" style="max-width: 100%; height: auto;" />`,
-    //         showCloseButton: false,
-    //         showCancelButton: false,
-    //         showConfirmButton: false,
-    //     });
-    // }
 
     return (
         <form
@@ -304,23 +294,20 @@ const EditArticle = () => {
                             className="overflow-hidden border border-danger rounded bg-light shadow position-relative d-flex justify-content-center"
                             style={{ width: '100px', height: '100px', minWidth: '100px' }}
                             key={image.id}
-                            // name={image.url}
-                            // type="button"
-                            // onClick={previewImage}
                         >
                             <img
                                 src={image.url}
                                 alt={image.url}
                                 className="object-fit-cover w-100 h-100"
                             />
-                            <input
-                                className="form-check-input bg-danger"
-                                type="checkbox"
-                                checked={isChecked[image.id] || false}
-                                onChange={handleCheckboxesChange}
-                                id={image.id}
-                                style={{ "position": "absolute", "top": "10px", "right": "10px" }}
-                            />
+                            <button
+                                type='button'
+                                className='position-absolute bg-danger text-white'
+                                style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
+                                onClick={() => removeExistedImage(image.id)}
+                            >
+                                <i className="fa-solid fa-xmark"></i>
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -347,7 +334,7 @@ const EditArticle = () => {
                 {files.map(file => (
                     <div
                         key={file.name}
-                        className='rounded shadow position-relative overflow-hidden d-flex justify-content-center'
+                        className='rounded bg-light shadow position-relative overflow-hidden d-flex justify-content-center'
                         style={{ width: '100px', height: '100px', minWidth: '100px' }}
                     >
                         <img
