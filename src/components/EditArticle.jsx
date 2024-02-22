@@ -283,8 +283,8 @@ const EditArticle = () => {
             </div>
 
             <section className="w-100 shadow mt-4 rounded p-4 position-relative">
-                <h2 className='text-primary fs-3'>Изтрий файлове</h2>
-                <p>Маркирай за изтриване</p>
+                <h2 className='text-primary fs-3'>Текущи файлове</h2>
+                {/* <p>Кликни за изтриване</p> */}
                 <div
                     className="container d-flex justify-content-start align-items-center gap-4 position-relative overflow-x-auto"
                     style={{ height: "120px" }}>
