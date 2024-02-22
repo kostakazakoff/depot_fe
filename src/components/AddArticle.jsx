@@ -14,7 +14,7 @@ import Path from "../paths";
 
 const AddArticle = () => {
     const navigate = useNavigate();
-    const [article, setArticle] = useState([]);
+    const [article, setArticle] = useState({'store_id': '1'});
     const { stores } = useContext(StoresContext);
     const [files, setFiles] = useState([]);
 
@@ -46,6 +46,8 @@ const AddArticle = () => {
             [e.target.name]: e.target.value
         }));
     }
+    
+    console.log(article);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -77,14 +79,11 @@ const AddArticle = () => {
             }
         )
 
-        api.post(`/articles/edit/${article.id}`, formData)
-            .then(setArticle(state => ({
-                ...state, ...body
-            })))
+        api.post(`/articles/store`, formData)
             .catch(err => console.log(err))
             .then(Swal.fire(
                 "Готово!",
-                "Артикулът беше редактиран.",
+                "Артикулът беше създаден.",
                 "success"
             ))
             .then(navigate(Path.ARTICLES));
@@ -235,6 +234,7 @@ const AddArticle = () => {
             </div>
 
             <section
+                {...getRootProps()}
                 className='w-100 shadow rounded p-4 position-relative border border-dark-subtle'
             >
                 <h2 className='text-primary fs-3'>Качи файлове</h2>
