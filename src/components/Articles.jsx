@@ -68,21 +68,27 @@ const Articles = () => {
                                     <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#articlesList">
 
                                         <div className="accordion-body row bg-white">
-
-                                            <Link
-                                                to={Path.IMAGES_PREVIEW}
-                                                state={data.images ? { images: data.images } : {}}
-                                                className="me-1 w-50"
-                                                style={{ height: "300px", overflow: 'hidden', position: 'relative' }}
-                                                type="button"
-                                                id={data.id}
-                                            >
-                                                <img
-                                                    src={data.images[0] && data.images[0].url}
-                                                    alt={data.images[0] && data.images[0].path}
-                                                    className="object-fit-cover w-100 mh-100"
-                                                />
-                                            </Link>
+                                            {data.images.length
+                                                ?
+                                                <Link
+                                                    to={Path.IMAGES_PREVIEW}
+                                                    state={{ images: data.images, path: window.location.pathname }}
+                                                    className="me-1 w-50"
+                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative' }}
+                                                    type="button"
+                                                    id={data.id}
+                                                >
+                                                    <img
+                                                        src={data.images[0] && data.images[0].url}
+                                                        alt={data.images[0] && data.images[0].path}
+                                                        className="object-fit-cover w-100 mh-100"
+                                                    />
+                                                </Link>
+                                                :
+                                                <div className="w-50 d-flex justify-content-center align-items-center">
+                                                    <i className="fa-regular fa-images fa-10x text-primary"></i>
+                                                </div>
+                                            }
 
                                             <div className="col me-2 lh-lg">
                                                 <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
