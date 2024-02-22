@@ -56,7 +56,6 @@ const EditArticle = () => {
             [e.target.name]: e.target.value
         }));
     }
-    // console.log(article);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -137,13 +136,22 @@ const EditArticle = () => {
             })
     }
 
+    // const previewImage = (e) => {
+    //     Swal.fire({
+    //         html: `<img src="${e.target.src}" style="max-width: 100%; height: auto;" />`,
+    //         showCloseButton: false,
+    //         showCancelButton: false,
+    //         showConfirmButton: false,
+    //     });
+    // }
+
     return (
         <form
             className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
-            <h2 className="py-1 px-4 text-secondary position-absolute bg-light border border-2 border-gray rounded" style={{ top: '-30px', left: '60px' }}>
+            <h2 className="py-1 px-4 text-primary position-absolute bg-light border border-2 border-gray rounded shadow" style={{ top: '-24px', left: '50px' }}>
                 {article.description}
             </h2>
 
@@ -296,6 +304,9 @@ const EditArticle = () => {
                             className="overflow-hidden border border-danger rounded bg-light shadow position-relative d-flex justify-content-center"
                             style={{ width: '100px', height: '100px', minWidth: '100px' }}
                             key={image.id}
+                            // name={image.url}
+                            // type="button"
+                            // onClick={previewImage}
                         >
                             <img
                                 src={image.url}
@@ -317,7 +328,7 @@ const EditArticle = () => {
 
             <section
                 {...getRootProps({
-                    className: 'w-100 shadow mt-4 rounded p-4 position-relative',
+                    className: 'w-100 shadow mt-4 rounded p-4 position-relative border border-dark-subtle',
                 })}
             >
                 <h2 className='text-primary fs-3'>Качи нови файлове</h2>
@@ -330,33 +341,33 @@ const EditArticle = () => {
                         <p>Пусни файла тук ...</p> :
                         <p>Провлачи и пусни файловете тук ...</p>
                 }
+            </section>
 
-                <div className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative'>
-                    {files.map(file => (
-                        <div
-                            key={file.name}
-                            className='rounded shadow position-relative overflow-hidden d-flex justify-content-center'
-                            style={{ width: '100px', height: '100px', minWidth: '100px' }}
+            <section className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative mt-4'>
+                {files.map(file => (
+                    <div
+                        key={file.name}
+                        className='rounded shadow position-relative overflow-hidden d-flex justify-content-center'
+                        style={{ width: '100px', height: '100px', minWidth: '100px' }}
+                    >
+                        <img
+                            src={file.preview}
+                            alt={file.name}
+                            className='className="object-fit-cover h-100'
+                            onLoad={() => {
+                                URL.revokeObjectURL(file.preview)
+                            }}
+                        />
+                        <button
+                            type='button'
+                            className='position-absolute bg-danger text-white'
+                            style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
+                            onClick={() => removeFile(file.name)}
                         >
-                            <img
-                                src={file.preview}
-                                alt={file.name}
-                                className='className="object-fit-cover h-100'
-                                onLoad={() => {
-                                    URL.revokeObjectURL(file.preview)
-                                }}
-                            />
-                            <button
-                                type='button'
-                                className='position-absolute bg-danger text-white'
-                                style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
-                                onClick={() => removeFile(file.name)}
-                            >
-                                <i className="fa-solid fa-xmark"></i>
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                            <i className="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                ))}
             </section>
 
             <div className="btn-group border border-dark shadow mt-5">
