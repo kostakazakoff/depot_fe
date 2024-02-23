@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
@@ -12,12 +12,11 @@ const ImagesPreview = () => {
     const imagePreviewRef = useRef(images[0]);
 
     const [img, setImg] = useState(images[0]);
-    
+
     const setImagePreview = (image) => {
         imagePreviewRef.current = image;
         setImg(imagePreviewRef.current);
     }
-    // const [imagePreview, setImagePreview] = useState(images[0])
 
     return (
         <section
@@ -40,7 +39,7 @@ const ImagesPreview = () => {
                         limitToBounds={true}
                         minScale={0.5}
                         centerZoomedOut={true}
-                        className="object-fit-cover mw-100 mh-100"
+                        // className="object-fit-cover mw-100 mh-100"
                     >
                         <TransformComponent>
                     <img
@@ -78,6 +77,7 @@ const ImagesPreview = () => {
                 to={data.path}
                 className="btn btn-secondary align-self-end me-5"
             >
+                <i className="fa-solid fa-angle-left pe-2"></i>
                 Назад
             </Link>
         </section>

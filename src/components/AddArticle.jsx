@@ -46,8 +46,6 @@ const AddArticle = () => {
             [e.target.name]: e.target.value
         }));
     }
-    
-    console.log(article);
 
     const handleSubmit = (e) => {
         e.preventDefault();

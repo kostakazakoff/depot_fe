@@ -23,6 +23,7 @@ const Articles = () => {
     }
 
     useEffect(() => {
+        console.log('Articles component mounted')
         getArticles()
     }, []);
 
