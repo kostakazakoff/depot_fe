@@ -15,6 +15,7 @@
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
     "react-router-dom": "^6.21.3",
+    "react-zoom-pan-pinch": "^3.4.2",
     "sweetalert2": "^11.10.5"
   },
   "devDependencies": {
