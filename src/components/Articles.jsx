@@ -11,6 +11,9 @@ import Path from "../paths";
 const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
+    const [filter, setFilter] = useState({
+        store: 1,
+    });
 
     const getArticles = () => {
         api.get('articles')
@@ -55,7 +58,16 @@ const Articles = () => {
             <div className="container-fluid p-5">
                 <div className="row">
                     <div className="col-5">
-
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => {
+                                setFilter(1);
+                                setArticles(state => (state.filter(function (article) { return article.stores[0].id === filter.store })))
+                            }}
+                        >
+                            Filter
+                        </button>
                     </div>
                     <div className="col">
                         <div className="accordion accordion-flush" id="articlesList">
