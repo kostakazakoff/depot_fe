@@ -25,6 +25,11 @@ const Articles = () => {
             .catch(err => console.log(err));
     }
 
+    const filterArticles = () => {
+        setFilter(state => ({...state, store: 1}));
+        setArticles(state => (state.filter(function (article) { return article.stores[0].id === filter.store })))
+    }
+
     useEffect(() => {
         console.log('Articles component mounted')
         getArticles()
@@ -57,18 +62,17 @@ const Articles = () => {
         <>
             <div className="container-fluid p-5">
                 <div className="row">
+
                     <div className="col-5">
                         <button
                             type="button"
                             className="btn btn-primary"
-                            onClick={() => {
-                                setFilter(1);
-                                setArticles(state => (state.filter(function (article) { return article.stores[0].id === filter.store })))
-                            }}
+                            onClick={filterArticles}
                         >
                             Filter
                         </button>
                     </div>
+
                     <div className="col">
                         <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
