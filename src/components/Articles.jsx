@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link } from 'react-router-dom';
 
 import Swal from "sweetalert2";
@@ -7,42 +7,57 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import api from "../helpers/Api";
 import './css/Accordion.css';
 import Path from "../paths";
+import StoresContext from "../contexts/storesContext";
 
 const Articles = () => {
+    const { stores } = useContext(StoresContext);
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
-    const filterRef = useRef({
-        store: null,
-    });
+    const [filterOptions, setFilterOptions] = useState({});
+    console.log(filterOptions);
 
     useEffect(() => {
-        console.log('Articles component mounted')
-        getArticles()
+        console.log('Articles component mounted');
+        getArticles();
     }, []);
 
-    const getArticles = () => {
-        api.get('articles')
+    const getArticles = (e) => {
+        e?.preventDefault();
+        api.get('articles', { params: filterOptions })
             .then(response => response.data)
             .then(result => {
                 setArticles(result.articles);
+                setTotalCost(result.totalCost);
             })
             .catch(err => console.log(err));
     }
 
-    useEffect(() => {
-        setTotalCost(0)
-        articles.forEach(article => {
-            setTotalCost(total => total + article.price * article.inventory.quantity);
-        })
-    }, [articles]);
+    // useEffect(() => {
+    //     setTotalCost(0)
+    //     articles.forEach(article => {
+    //         setTotalCost(total => total + article.price * article.inventory.quantity);
+    //     })
+    // }, [articles]);
+
+    const handleFilterChange = (e) => {
+        setFilterOptions(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+    }
 
     const filterArticles = (e) => {
         e.preventDefault();
-        filterRef.current.store = 2;
-        filterRef.current.store &&
-            setArticles(state => (
-                state.filter(function (article) { return article.stores[0].id === filterRef.current.store })
-            ))
+        // Object.keys(filterOptions).forEach((key) => {
+        //     switch (key) {
+        //         case 'store':
+        //             setArticles(state => (
+        //                 state.filter(function (article) { return article.stores[0].id == filterOptions[key] })
+        //             ));
+        //             break;
+        //         default: getArticles();
+        //     }
+        // })
     }
 
     const handleDeleteArticle = (e) => {
@@ -73,12 +88,12 @@ const Articles = () => {
             <div className="container-fluid p-5">
                 <div className="row">
 
-                    <div className="col-4">
+                    <section className="col-4">
 
                         <form
                             className="container-sm vertical-center p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
                             style={{ maxWidth: '800px' }}
-                            onSubmit={filterArticles}
+                            onSubmit={getArticles}
                         >
 
                             <div className="input-group mb-4 shadow">
@@ -89,8 +104,8 @@ const Articles = () => {
                                     className="form-control"
                                     aria-describedby="basic-addon2"
                                     name='description'
-                                // value=''
-                                // onChange={handleChange}
+                                    value={filterOptions.description}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
@@ -200,15 +215,14 @@ const Articles = () => {
                                 // onChange={handleChange}
                                 />
                             </div>
-
-                            {/* <div className="input-group mb-4 shadow dropdown">
+                            <div className="input-group mb-4 shadow dropdown">
                                 <span className="input-group-text">Склад:</span>
                                 <select
                                     id="storeSelect"
                                     className="form-select"
-                                    name="store_id"
-                                    value={article.store_id}
-                                    onChange={handleChange}
+                                    name="store"
+                                    value={filterOptions.store}
+                                    onChange={handleFilterChange}
                                 >
                                     {stores.map((store) => (
                                         <option key={store.id} value={store.id}>
@@ -216,7 +230,7 @@ const Articles = () => {
                                         </option>
                                     ))}
                                 </select>
-                            </div> */}
+                            </div>
 
                             <div className="btn-group border border-dark shadow mt-4">
                                 <button
@@ -228,9 +242,9 @@ const Articles = () => {
                                 </button>
                             </div>
                         </form>
-                    </div>
+                    </section>
 
-                    <div className="col">
+                    <section className="col">
                         <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
@@ -326,7 +340,7 @@ const Articles = () => {
                                 </article>
                             ))}
                         </div>
-                    </div>
+                    </section>
                     <footer>
                         <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
                             <div>Обща стойност на складовите наличности: <strong className='text-primary'>{totalCost}  лв.</strong></div>
