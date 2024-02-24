@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from 'react-router-dom';
 
 import Swal from "sweetalert2";
@@ -11,29 +11,39 @@ import Path from "../paths";
 const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
-    const [filter, setFilter] = useState({
-        store: 1,
+    const filterRef = useRef({
+        store: null,
     });
+
+    useEffect(() => {
+        console.log('Articles component mounted')
+        getArticles()
+    }, []);
 
     const getArticles = () => {
         api.get('articles')
             .then(response => response.data)
             .then(result => {
                 setArticles(result.articles);
-                setTotalCost(result.totalCost);
             })
             .catch(err => console.log(err));
     }
 
-    const filterArticles = () => {
-        setFilter(state => ({...state, store: 1}));
-        setArticles(state => (state.filter(function (article) { return article.stores[0].id === filter.store })))
-    }
-
     useEffect(() => {
-        console.log('Articles component mounted')
-        getArticles()
-    }, []);
+        setTotalCost(0)
+        articles.forEach(article => {
+            setTotalCost(total => total + article.price * article.inventory.quantity);
+        })
+    }, [articles]);
+
+    const filterArticles = (e) => {
+        e.preventDefault();
+        filterRef.current.store = 2;
+        filterRef.current.store &&
+            setArticles(state => (
+                state.filter(function (article) { return article.stores[0].id === filterRef.current.store })
+            ))
+    }
 
     const handleDeleteArticle = (e) => {
         Swal.fire({
@@ -63,14 +73,161 @@ const Articles = () => {
             <div className="container-fluid p-5">
                 <div className="row">
 
-                    <div className="col-5">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={filterArticles}
+                    <div className="col-4">
+
+                        <form
+                            className="container-sm vertical-center p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
+                            style={{ maxWidth: '800px' }}
+                            onSubmit={filterArticles}
                         >
-                            Filter
-                        </button>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                                <input
+                                    id='description'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='description'
+                                // value=''
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
+                                <input
+                                    id="inventory_number"
+                                    type="text"
+                                    className="form-control"
+                                    aria-label="Inventory number"
+                                    aria-describedby="basic-addon2"
+                                    name="inventory_number"
+                                // value={article.inventory_number || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
+                                <input
+                                    id="catalog_number"
+                                    type="text"
+                                    className="form-control"
+                                    aria-label="Catalog number"
+                                    aria-describedby="basic-addon2"
+                                    name='catalog_number'
+                                // value={article.catalog_number || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
+                                <input
+                                    id="draft_number"
+                                    type="text"
+                                    className="form-control"
+                                    aria-label="Drafft number"
+                                    aria-describedby="basic-addon2"
+                                    name='draft_number'
+                                // value={article.draft_number || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
+                                <input
+                                    id='material'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='material'
+                                // value={article.material || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
+                                <input
+                                    id='price'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='price'
+                                // value={article.price || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
+                                <input
+                                    id='quantity'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='quantity'
+                                // value={article.quantity || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
+                                <input
+                                    id='package'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='package'
+                                // value={article.package || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-4 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
+                                <input
+                                    id='position'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='position'
+                                // value={article.position || ''}
+                                // onChange={handleChange}
+                                />
+                            </div>
+
+                            {/* <div className="input-group mb-4 shadow dropdown">
+                                <span className="input-group-text">Склад:</span>
+                                <select
+                                    id="storeSelect"
+                                    className="form-select"
+                                    name="store_id"
+                                    value={article.store_id}
+                                    onChange={handleChange}
+                                >
+                                    {stores.map((store) => (
+                                        <option key={store.id} value={store.id}>
+                                            {store.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div> */}
+
+                            <div className="btn-group border border-dark shadow mt-4">
+                                <button
+                                    type="submit"
+                                    className="btn btn-light"
+                                >
+                                    <i className="fa-solid fa-check pe-2 text-primary"></i>
+                                    Филтрирай
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     <div className="col">
