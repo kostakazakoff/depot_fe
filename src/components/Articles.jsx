@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useRef } from "react";
 import { Link } from 'react-router-dom';
 
 import Swal from "sweetalert2";
@@ -14,6 +14,8 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
     const [filterOptions, setFilterOptions] = useState({});
+    const resetBtn = useRef(null);
+    const iconRef = useRef(null);
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -68,14 +70,22 @@ const Articles = () => {
             })
     }
 
+    useEffect(() => {
+        if (Object.keys(filterOptions).length === 0) {
+            iconRef.current.className = ('fa-solid fa-rotate-right pe-2 text-primary');
+        } else {
+            iconRef.current.className = ('fa-solid fa-power-off pe-2 text-danger');
+        }
+    }, [filterOptions])
+
     return (
         <>
-            <div className="container-fluid p-5" style={{minHeight: '90vh'}}>
+            <div className="container-fluid p-5" style={{ minHeight: '90vh' }}>
                 <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
 
                     <section
-                    className="me-5 mb-5 fixed-top bg-light overflow-y-auto p-3"
-                    style={{ width: '30%', minWidth: '400px', height: '90%', top: '9%', left: '60px' }}
+                        className="me-5 mb-5 fixed-top bg-light overflow-y-auto p-3"
+                        style={{ width: '30%', minWidth: '400px', height: '90%', top: '9%', left: '60px' }}
                     >
                         <form
                             className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow position-relative"
@@ -152,66 +162,14 @@ const Articles = () => {
                             </div>
 
                             <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="min_price">Минимална цена (лв.):</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="min_price">От дата:</label>
                                 <input
-                                    id='min_price'
-                                    type="text"
+                                    id='from_date'
+                                    type="date"
                                     className="form-control"
                                     aria-describedby="basic-addon2"
-                                    name='min_price'
-                                    value={filterOptions.price}
-                                    onChange={handleFilterChange}
-                                />
-                            </div>
-
-                            <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="max_price">Максимална цена (лв.):</label>
-                                <input
-                                    id='max_price'
-                                    type="text"
-                                    className="form-control"
-                                    aria-describedby="basic-addon2"
-                                    name='max_price'
-                                    value={filterOptions.price}
-                                    onChange={handleFilterChange}
-                                />
-                            </div>
-
-                            <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="min_quantity">Минимално количество (бр.):</label>
-                                <input
-                                    id='min_quantity'
-                                    type="text"
-                                    className="form-control"
-                                    aria-describedby="basic-addon2"
-                                    name='min_quantity'
-                                    value={filterOptions.min_quantity}
-                                    onChange={handleFilterChange}
-                                />
-                            </div>
-
-                            <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="max_quantity">Максимално количество (бр.):</label>
-                                <input
-                                    id='max_quantity'
-                                    type="text"
-                                    className="form-control"
-                                    aria-describedby="basic-addon2"
-                                    name='max_quantity'
-                                    value={filterOptions.max_quantity}
-                                    onChange={handleFilterChange}
-                                />
-                            </div>
-
-                            <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
-                                <input
-                                    id='package'
-                                    type="text"
-                                    className="form-control"
-                                    aria-describedby="basic-addon2"
-                                    name='package'
-                                    value={filterOptions.package}
+                                    name='from_date'
+                                    value={filterOptions.from_date}
                                     onChange={handleFilterChange}
                                 />
                             </div>
@@ -256,15 +214,15 @@ const Articles = () => {
                                     }
                                 >
                                     <i className="fa-solid fa-check pe-2 text-primary"></i>
-                                    Филтрирай
+                                    Филтриране
                                 </button>
                                 <button
                                     type="reset"
-                                    className="btn btn-light"
-                                    onClick={() => { setFilterOptions({}); getArticles() }}
+                                    className="btn"
+                                    onClick={() => { setFilterOptions({});  getArticles() }}
+                                    ref={resetBtn}
                                 >
-                                    <i className="fa-solid fa-rotate-right pe-2"></i>
-                                    Нулирай
+                                    <i ref={iconRef} className="fa-solid fa-power-off"></i>
                                 </button>
                             </div>
                         </form>
@@ -288,7 +246,7 @@ const Articles = () => {
                                                     to={Path.IMAGES_PREVIEW}
                                                     state={{ images: data.images, path: window.location.pathname }}
                                                     className="me-1 w-50"
-                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative',  minWidth: '400px' }}
+                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative', minWidth: '400px' }}
                                                     type="button"
                                                     id={data.id}
                                                 >
