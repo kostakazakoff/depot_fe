@@ -14,7 +14,6 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
     const [filterOptions, setFilterOptions] = useState({});
-    console.log(filterOptions);
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -44,20 +43,6 @@ const Articles = () => {
             ...state,
             [e.target.name]: e.target.value
         }));
-    }
-
-    const filterArticles = (e) => {
-        e.preventDefault();
-        // Object.keys(filterOptions).forEach((key) => {
-        //     switch (key) {
-        //         case 'store':
-        //             setArticles(state => (
-        //                 state.filter(function (article) { return article.stores[0].id == filterOptions[key] })
-        //             ));
-        //             break;
-        //         default: getArticles();
-        //     }
-        // })
     }
 
     const handleDeleteArticle = (e) => {
@@ -263,11 +248,10 @@ const Articles = () => {
                                 <button
                                     type="submit"
                                     className="btn btn-light"
-                                    onClick={() => {
-                                        if (!Object.keys(filterOptions)) {
-                                            setFilterOptions({ store: '1' });
-                                        }
-                                    }}
+                                    onClick={() =>
+                                        Object.keys(filterOptions).length === 0 &&
+                                        setFilterOptions({ store: '1' })
+                                    }
                                 >
                                     <i className="fa-solid fa-check pe-2 text-primary"></i>
                                     Филтрирай
