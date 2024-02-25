@@ -71,10 +71,9 @@ const Articles = () => {
     return (
         <>
             <div className="container-fluid p-5">
-                <div className="row">
+                <div className="d-flex flex-column flex-xxl-row">
 
-                    <section className="col-4">
-
+                    <section className="me-5 mb-5" style={{ width: '30%', minWidth: '400px' }}>
                         <form
                             className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
                             style={{ maxWidth: '800px' }}
@@ -261,14 +260,15 @@ const Articles = () => {
                                     className="btn btn-light"
                                     onClick={() => { setFilterOptions({}); getArticles() }}
                                 >
+                                    <i className="fa-solid fa-rotate-right pe-2"></i>
                                     Нулирай
                                 </button>
                             </div>
                         </form>
                     </section>
 
-                    <section className="col overflow-y-auto">
-                        <div className="accordion accordion-flush" id="articlesList">
+                    <section className="col">
+                        <div className="accordion accordion-flush overflow-auto ps-3 pe-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
                                     <h2 className="accordion-header">
@@ -285,7 +285,7 @@ const Articles = () => {
                                                     to={Path.IMAGES_PREVIEW}
                                                     state={{ images: data.images, path: window.location.pathname }}
                                                     className="me-1 w-50"
-                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative' }}
+                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative',  minWidth: '400px' }}
                                                     type="button"
                                                     id={data.id}
                                                 >
@@ -301,7 +301,7 @@ const Articles = () => {
                                                 </div>
                                             }
 
-                                            <div className="col me-2 lh-lg">
+                                            <div className="col me-2 lh-lg" style={{ minWidth: '400px' }}>
                                                 <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
                                                 <div>Чертожен номер: <strong>{data.draft_number}</strong></div>
                                                 <div>Материал: <strong>{data.material}</strong></div>
