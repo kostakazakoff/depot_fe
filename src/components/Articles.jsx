@@ -8,6 +8,7 @@ import api from "../helpers/Api";
 import './css/Accordion.css';
 import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
+import convertDate from "./ConvertDate";
 
 const Articles = () => {
     const { stores } = useContext(StoresContext);
@@ -32,13 +33,6 @@ const Articles = () => {
             })
             .catch(err => console.log(err));
     }
-
-    // useEffect(() => {
-    //     setTotalCost(0)
-    //     articles.forEach(article => {
-    //         setTotalCost(total => total + article.price * article.inventory.quantity);
-    //     })
-    // }, [articles]);
 
     const handleFilterChange = (e) => {
         setFilterOptions(state => ({
@@ -162,7 +156,20 @@ const Articles = () => {
                             </div>
 
                             <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="min_price">От дата:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
+                                <input
+                                    id='position'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='position'
+                                    value={filterOptions.position}
+                                    onChange={handleFilterChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-3 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="from_date">От дата:</label>
                                 <input
                                     id='from_date'
                                     type="date"
@@ -175,14 +182,14 @@ const Articles = () => {
                             </div>
 
                             <div className="input-group mb-3 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="to_date">До дата:</label>
                                 <input
-                                    id='position'
-                                    type="text"
+                                    id='to_date'
+                                    type="date"
                                     className="form-control"
                                     aria-describedby="basic-addon2"
-                                    name='position'
-                                    value={filterOptions.position}
+                                    name='to_date'
+                                    value={filterOptions.to_date}
                                     onChange={handleFilterChange}
                                 />
                             </div>
@@ -219,7 +226,7 @@ const Articles = () => {
                                 <button
                                     type="reset"
                                     className="btn"
-                                    onClick={() => { setFilterOptions({});  getArticles() }}
+                                    onClick={() => { setFilterOptions({}); getArticles() }}
                                     ref={resetBtn}
                                 >
                                     <i ref={iconRef} className="fa-solid fa-power-off"></i>
@@ -234,7 +241,7 @@ const Articles = () => {
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
-                                            <strong className='text-primary'>{data.description}</strong>, инвентарен номер {data.inventory_number}
+                                            <strong className='text-primary'>{data.description}</strong>, въведен на {convertDate(data.created_at)}
                                         </button>
                                     </h2>
                                     <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#articlesList">
@@ -327,7 +334,7 @@ const Articles = () => {
                     </section>
                     <footer>
                         <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-2 border-top border-dark bg-dark text-light">
-                            <div>Обща стойност на складовите наличности: <strong className='text-primary'>{totalCost}  лв.</strong></div>
+                            <div>Обща стойност на наличностите: <strong className='text-primary'>{totalCost}  лв.</strong></div>
                         </div>
                     </footer>
                 </div>
