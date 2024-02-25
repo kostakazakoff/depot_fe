@@ -91,12 +91,12 @@ const Articles = () => {
                     <section className="col-4">
 
                         <form
-                            className="container-sm vertical-center p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
+                            className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
                             style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                                 <input
                                     id='description'
@@ -109,7 +109,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                                 <input
                                     id="inventory_number"
@@ -118,12 +118,12 @@ const Articles = () => {
                                     aria-label="Inventory number"
                                     aria-describedby="basic-addon2"
                                     name="inventory_number"
-                                // value={article.inventory_number || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.inventory_number}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
                                 <input
                                     id="catalog_number"
@@ -132,12 +132,12 @@ const Articles = () => {
                                     aria-label="Catalog number"
                                     aria-describedby="basic-addon2"
                                     name='catalog_number'
-                                // value={article.catalog_number || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.catalog_number}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
                                 <input
                                     id="draft_number"
@@ -146,12 +146,12 @@ const Articles = () => {
                                     aria-label="Drafft number"
                                     aria-describedby="basic-addon2"
                                     name='draft_number'
-                                // value={article.draft_number || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.draft_number}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
                                 <input
                                     id='material'
@@ -159,38 +159,64 @@ const Articles = () => {
                                     className="form-control"
                                     aria-describedby="basic-addon2"
                                     name='material'
-                                // value={article.material || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.material}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
+                            <div className="input-group mb-3 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="min_price">Минимална цена (лв.):</label>
                                 <input
-                                    id='price'
+                                    id='min_price'
                                     type="text"
                                     className="form-control"
                                     aria-describedby="basic-addon2"
-                                    name='price'
-                                // value={article.price || ''}
-                                // onChange={handleChange}
+                                    name='min_price'
+                                    value={filterOptions.price}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
+                            <div className="input-group mb-3 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="max_price">Максимална цена (лв.):</label>
                                 <input
-                                    id='quantity'
+                                    id='max_price'
                                     type="text"
                                     className="form-control"
                                     aria-describedby="basic-addon2"
-                                    name='quantity'
-                                // value={article.quantity || ''}
-                                // onChange={handleChange}
+                                    name='max_price'
+                                    value={filterOptions.price}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="min_quantity">Минимално количество (бр.):</label>
+                                <input
+                                    id='min_quantity'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='min_quantity'
+                                    value={filterOptions.min_quantity}
+                                    onChange={handleFilterChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-3 shadow">
+                                <label className="input-group-text" id="basic-addon2" htmlFor="max_quantity">Максимално количество (бр.):</label>
+                                <input
+                                    id='max_quantity'
+                                    type="text"
+                                    className="form-control"
+                                    aria-describedby="basic-addon2"
+                                    name='max_quantity'
+                                    value={filterOptions.max_quantity}
+                                    onChange={handleFilterChange}
+                                />
+                            </div>
+
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
                                 <input
                                     id='package'
@@ -198,12 +224,12 @@ const Articles = () => {
                                     className="form-control"
                                     aria-describedby="basic-addon2"
                                     name='package'
-                                // value={article.package || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.package}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
 
-                            <div className="input-group mb-4 shadow">
+                            <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
                                 <input
                                     id='position'
@@ -211,11 +237,12 @@ const Articles = () => {
                                     className="form-control"
                                     aria-describedby="basic-addon2"
                                     name='position'
-                                // value={article.position || ''}
-                                // onChange={handleChange}
+                                    value={filterOptions.position}
+                                    onChange={handleFilterChange}
                                 />
                             </div>
-                            <div className="input-group mb-4 shadow dropdown">
+
+                            <div className="input-group mb-3 shadow dropdown">
                                 <span className="input-group-text">Склад:</span>
                                 <select
                                     id="storeSelect"
@@ -232,19 +259,31 @@ const Articles = () => {
                                 </select>
                             </div>
 
-                            <div className="btn-group border border-dark shadow mt-4">
+                            <div className="btn-group border border-dark shadow mt-3">
                                 <button
                                     type="submit"
                                     className="btn btn-light"
+                                    onClick={() => {
+                                        if (!Object.keys(filterOptions)) {
+                                            setFilterOptions({ store: '1' });
+                                        }
+                                    }}
                                 >
                                     <i className="fa-solid fa-check pe-2 text-primary"></i>
                                     Филтрирай
+                                </button>
+                                <button
+                                    type="reset"
+                                    className="btn btn-light"
+                                    onClick={() => { setFilterOptions({}); getArticles() }}
+                                >
+                                    Нулирай
                                 </button>
                             </div>
                         </form>
                     </section>
 
-                    <section className="col">
+                    <section className="col overflow-y-auto">
                         <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
