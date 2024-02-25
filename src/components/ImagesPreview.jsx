@@ -75,7 +75,7 @@ const ImagesPreview = () => {
             </div>
             <Link
                 to={data.path}
-                className="btn btn-secondary align-self-end me-5"
+                className="btn btn-lg btn-secondary align-self-end me-5"
             >
                 <i className="fa-solid fa-angle-left pe-2"></i>
                 Назад
