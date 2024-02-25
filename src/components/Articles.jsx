@@ -70,12 +70,15 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5">
-                <div className="d-flex flex-column flex-xxl-row">
+            <div className="container-fluid p-5" style={{minHeight: '90vh'}}>
+                <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
 
-                    <section className="me-5 mb-5" style={{ width: '30%', minWidth: '400px' }}>
+                    <section
+                    className="me-5 mb-5 fixed-top bg-light overflow-y-auto p-3"
+                    style={{ width: '30%', minWidth: '400px', height: '90%', top: '9%', left: '60px' }}
+                    >
                         <form
-                            className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
+                            className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow position-relative"
                             style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
@@ -267,8 +270,8 @@ const Articles = () => {
                         </form>
                     </section>
 
-                    <section className="col">
-                        <div className="accordion accordion-flush overflow-auto ps-3 pe-3" id="articlesList">
+                    <section style={{ width: '66%', alignSelf: 'end' }}>
+                        <div className="accordion accordion-flush ps-3 pe-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
                                     <h2 className="accordion-header">
@@ -365,7 +368,7 @@ const Articles = () => {
                         </div>
                     </section>
                     <footer>
-                        <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-light">
+                        <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-2 border-top border-dark bg-dark text-light">
                             <div>Обща стойност на складовите наличности: <strong className='text-primary'>{totalCost}  лв.</strong></div>
                         </div>
                     </footer>
