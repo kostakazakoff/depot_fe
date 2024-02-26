@@ -279,16 +279,9 @@ const Articles = () => {
                                                 <div>Количество: <strong>{data.inventory.quantity}</strong> бр.</div>
                                                 <div>Опаковка: <strong>{data.inventory.package}</strong></div>
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
+                                                <div>Склад: <strong>{data.stores[0].name}</strong></div>
 
                                                 <div className="btn-group shadow mt-4 border border-dark">
-                                                    <Link
-                                                        type="button"
-                                                        className="btn btn-light"
-                                                        to={Path.STORE}
-                                                        state={{ id: data.stores[0].id }}
-                                                    >
-                                                        <i className="fa-solid fa-warehouse pe-2 text-primary"></i> {data.stores[0].name}
-                                                    </Link>
 
                                                     <Link
                                                         type="button"
