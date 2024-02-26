@@ -18,8 +18,6 @@ const Articles = () => {
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
 
-    useEffect
-
     useEffect(() => {
         console.log('Articles component mounted');
         getArticles();
@@ -205,6 +203,7 @@ const Articles = () => {
                                     value={filterOptions.store}
                                     onChange={handleFilterChange}
                                 >
+                                    <option value="">Всички складове</option>
                                     {stores.map((store) => (
                                         <option key={store.id} value={store.id}>
                                             {store.name}
@@ -217,10 +216,6 @@ const Articles = () => {
                                 <button
                                     type="submit"
                                     className="btn btn-light"
-                                    onClick={() =>
-                                        Object.keys(filterOptions).length === 0 &&
-                                        setFilterOptions({ store: '1' })
-                                    }
                                 >
                                     <i className="fa-solid fa-check pe-2 text-primary"></i>
                                     Филтриране
