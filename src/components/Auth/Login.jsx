@@ -36,13 +36,12 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (user.isAuthenticated) {
+            console.log('Login');
             api.get('stores')
                 .then(response => response.data)
                 .then(data => setStores(data))
                 .catch(err => console.log(err));
-        }
-    }, [user]);
+    }, []);
 
     return (
         <>

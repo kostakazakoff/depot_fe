@@ -7,7 +7,6 @@ import Logout from "./components/Auth/Logout";
 import EditProfile from './components/Auth/EditProfile';
 import Home from "./components/Home";
 import Articles from './components/Articles';
-import Store from './components/Store';
 import AddArticle from './components/AddArticle';
 
 import { AuthProvider } from "./contexts/authContext";
@@ -30,7 +29,6 @@ function App() {
           <Route path={Path.LOGOUT} element={<Logout />} />
           <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
           <Route path={Path.ARTICLES} element={<Articles />} />
-          <Route path={Path.STORE} element={<Store />} />
           <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
           <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
           <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />

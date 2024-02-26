@@ -7,6 +7,7 @@ import Path from '../paths';
 
 const Home = () => {
     const { isAuthenticated } = useContext(AuthContext);
+
     return (
         <>
             <img src="https://www.rowse.co.uk/static/images/blog/posts/open-graph/what-is-the-digital-railway-open-graph.jpg"

@@ -33,9 +33,9 @@ export default function Navigation() {
                         </li>
                     }
 
-                    {isAuthenticated &&
+                    {/* {isAuthenticated &&
                         <li className="nav-item dropdown">
-                            {/* <Link
+                            <Link
                                 className="nav-link dropdown-toggle"
                                 to="#"
                                 role="button"
@@ -43,7 +43,7 @@ export default function Navigation() {
                                 aria-expanded="false"
                             >
                                 Складове
-                            </Link> */}
+                            </Link>
 
                             <ul className="dropdown-menu dropdown-menu-dark">
                                 {stores.map(store => (
@@ -55,7 +55,7 @@ export default function Navigation() {
                                 ))}
                             </ul>
                         </li>
-                    }
+                    } */}
 
                     {isAuthenticated &&
                         <li className="nav-item">

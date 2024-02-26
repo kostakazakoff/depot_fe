@@ -18,6 +18,8 @@ const Articles = () => {
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
 
+    useEffect
+
     useEffect(() => {
         console.log('Articles component mounted');
         getArticles();
