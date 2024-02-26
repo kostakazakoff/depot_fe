@@ -74,11 +74,11 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5" style={{ minHeight: '90vh' }}>
+            <div className="container-fluid p-5 mb-5 mt-3" style={{ minHeight: '90vh' }}>
                 <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
 
                     <section
-                        className="me-5 mb-5 fixed-top bg-light overflow-y-auto p-3"
+                        className="me-5 mb-5 mt-3 fixed-top bg-light overflow-y-auto pb-5 ps-3 pe-3"
                         style={{ width: '30%', minWidth: '400px', height: '90%', top: '9%', left: '60px' }}
                     >
                         <form

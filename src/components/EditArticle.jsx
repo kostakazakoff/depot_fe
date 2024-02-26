@@ -137,13 +137,13 @@ const EditArticle = () => {
 
     return (
         <form
-            className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
+            className="container-sm vertical-center mt-5 mb-4 p-5 bg-white border border border-2 border-dark rounded-4 shadow-lg position-relative"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
-            <h2 className="py-1 px-4 text-primary position-absolute bg-light border border-2 border-gray rounded shadow" style={{ top: '-24px', left: '50px' }}>
+            <h3 className="py-1 px-4 text-primary position-absolute bg-light border border-2 border-dark rounded shadow" style={{ top: '-24px', left: '50px' }}>
                 {article.description}
-            </h2>
+            </h3>
 
             <div className="input-group mb-4 shadow">
                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
@@ -315,7 +315,7 @@ const EditArticle = () => {
 
             <section
                 {...getRootProps({
-                    className: 'w-100 shadow mt-4 rounded p-4 position-relative border border-dark-subtle',
+                    className: 'w-100 shadow mt-4 rounded p-4 position-relative border border-dark',
                 })}
             >
                 <h2 className='text-primary fs-3'>Качи нови файлове</h2>
@@ -357,7 +357,7 @@ const EditArticle = () => {
                 ))}
             </section>
 
-            <div className="btn-group border border-dark shadow mt-5">
+            <div className="btn-group border border-dark shadow mt-4">
                 <button
                     type="submit"
                     className="btn btn-light"
