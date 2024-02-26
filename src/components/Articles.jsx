@@ -255,7 +255,7 @@ const Articles = () => {
                                                     to={Path.IMAGES_PREVIEW}
                                                     state={{ images: data.images, path: window.location.pathname }}
                                                     className="me-1 w-50"
-                                                    style={{ height: "300px", overflow: 'hidden', position: 'relative', minWidth: '400px' }}
+                                                    style={{ height: "350px", overflow: 'hidden', position: 'relative', minWidth: '400px' }}
                                                     type="button"
                                                     id={data.id}
                                                 >
@@ -271,7 +271,7 @@ const Articles = () => {
                                                 </div>
                                             }
 
-                                            <div className="col me-2 lh-lg" style={{ minWidth: '400px' }}>
+                                            <div className="col me-2 lh-lg" style={{ minWidth: '350px' }}>
                                                 <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
                                                 <div>Чертожен номер: <strong>{data.draft_number}</strong></div>
                                                 <div>Материал: <strong>{data.material}</strong></div>
