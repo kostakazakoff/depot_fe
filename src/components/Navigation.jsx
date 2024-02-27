@@ -33,30 +33,6 @@ export default function Navigation() {
                         </li>
                     }
 
-                    {/* {isAuthenticated &&
-                        <li className="nav-item dropdown">
-                            <Link
-                                className="nav-link dropdown-toggle"
-                                to="#"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                Складове
-                            </Link>
-
-                            <ul className="dropdown-menu dropdown-menu-dark">
-                                {stores.map(store => (
-                                    <li key={store.id}>
-                                        <Link className="dropdown-item" to={Path.STORE} state={{ id: store.id }}>
-                                            {store.name}
-                                        </Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        </li>
-                    } */}
-
                     {isAuthenticated &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ADD_ARTICLE}>
