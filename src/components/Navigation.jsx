@@ -2,16 +2,13 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 
 import AuthContext from "../contexts/authContext";
-import StoresContext from '../contexts/storesContext';
 import Path from '../paths';
 
 
 export default function Navigation() {
     const { email, isAuthenticated } = useContext(AuthContext);
-    const { stores } = useContext(StoresContext);
 
     console.log(`isAuthenticated: ${isAuthenticated}`);
-    // console.log(`User: ${email}`);
 
     return (
         <>
