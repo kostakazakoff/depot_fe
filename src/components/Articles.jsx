@@ -10,13 +10,16 @@ import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 
+
 const Articles = () => {
     const { stores } = useContext(StoresContext);
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
     const [filterOptions, setFilterOptions] = useState({});
+    const [orderOptions, setOrderOptions] = useState([]);
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
+    console.log(filterOptions);
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -35,6 +38,17 @@ const Articles = () => {
     }
 
     const handleFilterChange = (e) => {
+        if (e.target.name === 'by') {
+            setFilterOptions(state => ({
+                ...state,
+                'sort[by]': e.target.value
+            }));
+        } else if (e.target.name === 'order') {
+            setFilterOptions(state => ({
+                ...state,
+                'sort[order]': e.target.value
+            }));
+        }
         setFilterOptions(state => ({
             ...state,
             [e.target.name]: e.target.value
@@ -168,6 +182,24 @@ const Articles = () => {
                                 />
                             </div>
 
+                            <div className="input-group mb-3 shadow dropdown">
+                                <span className="input-group-text">Склад:</span>
+                                <select
+                                    id="storeSelect"
+                                    className="form-select"
+                                    name="store"
+                                    value={filterOptions.store}
+                                    onChange={handleFilterChange}
+                                >
+                                    <option value="">Всички складове</option>
+                                    {stores.map((store) => (
+                                        <option key={store.id} value={store.id}>
+                                            {store.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
                             <div className="input-group mb-3 shadow">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="from_date">От дата:</label>
                                 <input
@@ -195,20 +227,33 @@ const Articles = () => {
                             </div>
 
                             <div className="input-group mb-3 shadow dropdown">
-                                <span className="input-group-text">Склад:</span>
+                                <span className="input-group-text">Сортиране по:</span>
                                 <select
-                                    id="storeSelect"
+                                    id="order"
                                     className="form-select"
-                                    name="store"
-                                    value={filterOptions.store}
+                                    name="by"
+                                    value={filterOptions.by}
                                     onChange={handleFilterChange}
                                 >
-                                    <option value="">Всички складове</option>
-                                    {stores.map((store) => (
-                                        <option key={store.id} value={store.id}>
-                                            {store.name}
-                                        </option>
-                                    ))}
+                                    <option value=""></option>
+                                    <option value="created_at">Дата на въвеждане</option>
+                                    <option value="updated_at">Дата на промяна</option>
+                                    <option value="price">Цена</option>
+                                </select>
+                            </div>
+
+                            <div className="input-group mb-3 shadow dropdown">
+                                <span className="input-group-text">Ред на сортиране:</span>
+                                <select
+                                    id="sortby"
+                                    className="form-select"
+                                    name="order"
+                                    value={filterOptions.order}
+                                    onChange={handleFilterChange}
+                                >
+                                    <option value=""></option>
+                                    <option value="asc">Възходящ</option>
+                                    <option value="desc">Низходящ</option>
                                 </select>
                             </div>
 
