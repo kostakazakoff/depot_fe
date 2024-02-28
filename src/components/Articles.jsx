@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { Link } from 'react-router-dom';
+import { Link, redirect, useNavigate } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -18,7 +18,7 @@ const Articles = () => {
     const [filterOptions, setFilterOptions] = useState({});
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
-    console.log(filterOptions);
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -56,7 +56,7 @@ const Articles = () => {
 
     const handleDeleteArticle = (e) => {
         Swal.fire({
-            title: "Сигурен ли сте?",
+            title: "Сигурни ли сте?",
             text: "Няма да можете да възстановите този артикул!",
             icon: "warning",
             showCancelButton: true,
@@ -277,7 +277,7 @@ const Articles = () => {
                     </section>
 
                     <section style={{ width: '66%', alignSelf: 'end' }}>
-                        <div className="accordion accordion-flush ps-3 pe-3" id="articlesList">
+                        <div className="accordion accordion-flush pe-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
                                     <h2 className="accordion-header">
