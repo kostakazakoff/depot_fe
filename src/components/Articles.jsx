@@ -16,7 +16,6 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const [totalCost, setTotalCost] = useState(0);
     const [filterOptions, setFilterOptions] = useState({});
-    const [orderOptions, setOrderOptions] = useState([]);
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
     console.log(filterOptions);
