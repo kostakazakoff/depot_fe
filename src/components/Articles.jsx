@@ -98,7 +98,7 @@ const Articles = () => {
 
                     <section
                         className="me-5 mb-5 mt-3 fixed-top bg-light overflow-y-auto pb-5 ps-3 pe-3"
-                        style={{ width: '30%', minWidth: '400px', height: '90%', top: '9%', left: '60px' }}
+                        style={{ width: '30%', minWidth: '400px', height: '90%', top: '10%', left: '60px' }}
                     >
                         <form
                             className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow position-relative"
