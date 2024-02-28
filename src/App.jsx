@@ -14,6 +14,7 @@ import ImagesPreview from './components/ImagesPreview';
 
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
+import Dashboard from './components/Dashboard';
 // import ArticlesContext from "./contexts/articlesContext";
 
 
@@ -34,6 +35,7 @@ function App() {
           <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
           <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
           <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
+          <Route path={Path.DASHBOARD} element={<Dashboard />} />
         </Routes>
         {/* </ArticlesContext.Provider> */}
         </StoresProvider>

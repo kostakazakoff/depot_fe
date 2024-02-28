@@ -8,6 +8,7 @@ const Path = {
     EDIT_ARTICLE: '/edit_article',
     ADD_ARTICLE: '/add_article',
     IMAGES_PREVIEW: '/images_preview',
+    DASHBOARD: '/dashboard',
     // STORE: '/store',
 }
 
