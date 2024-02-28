@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import api from "../../helpers/Api";
 import AuthContext from "../../contexts/authContext";
@@ -36,27 +36,27 @@ const Login = () => {
     }
 
     useEffect(() => {
-            console.log('Login');
-            api.get('stores')
-                .then(response => response.data)
-                .then(data => setStores(data))
-                .catch(err => console.log(err));
+        api.get('stores')
+            .then(response => response.data)
+            .then(data => setStores(data))
+            .catch(err => console.log(err));
     }, []);
 
     return (
         <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3 w-25"
+                style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
-                <div className="mb-3 text-center fs-1">Login</div>
+                <div className="mb-3 text-center fs-1">Вход</div>
 
-                <div className="mb-2 d-flex">
-                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
+                <div className="mb-2 d-flex text-secondary">
+                    <span className="input-group-text" id="email"><i className="fa-solid fa-at"></i></span>
                     <input type="email"
                         autoComplete="true"
                         className="form-control"
-                        placeholder="Email"
+                        placeholder="Електронна поща"
                         aria-label="Email"
                         aria-describedby="basic-addon1"
                         name="email"
@@ -65,11 +65,11 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="mb-4 d-flex">
-                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
+                <div className="mb-4 d-flex text-secondary">
+                    <span className="input-group-text" id="password"><i className="fa-solid fa-key"></i></span>
                     <input type="password"
                         className="form-control"
-                        placeholder="Password"
+                        placeholder="Парола"
                         aria-label="Password"
                         aria-describedby="basic-addon1"
                         name="password"
@@ -78,8 +78,13 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-2">
-                    <button type="submit" className="btn btn-outline-primary">Login</button>
+                <div className="d-grid gap-2 mb-4">
+                    <button type="submit" className="btn btn-outline-primary">Потвърди</button>
+                </div>
+
+                <div className="d-flex justify-content-center">
+                    <p className="pe-2">Нямате регистрация?</p>
+                    <Link to={Path.REGISTER}>Регистрирайте се тук</Link>
                 </div>
 
             </form>

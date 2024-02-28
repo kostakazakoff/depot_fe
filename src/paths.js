@@ -2,12 +2,13 @@ const Path = {
     HOME: '/',
     LOGIN: '/login',
     LOGOUT: '/logout',
-    ARTICLES: '/articles',
+    REGISTER: '/register',
     EDIT_PROFILE: '/edit_profile',
-    STORE: '/store',
+    ARTICLES: '/articles',
     EDIT_ARTICLE: '/edit_article',
     ADD_ARTICLE: '/add_article',
-    IMAGES_PREVIEW: '/images_preview'
+    IMAGES_PREVIEW: '/images_preview',
+    // STORE: '/store',
 }
 
 export default Path;

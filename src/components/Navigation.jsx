@@ -6,7 +6,7 @@ import Path from '../paths';
 
 
 export default function Navigation() {
-    const { email, isAuthenticated } = useContext(AuthContext);
+    const { email, isAuthenticated, role } = useContext(AuthContext);
 
     console.log(`isAuthenticated: ${isAuthenticated}`);
 
@@ -22,7 +22,7 @@ export default function Navigation() {
                         </Link>
                     </li>
 
-                    {isAuthenticated &&
+                    {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ARTICLES}>
                                 Артикули
@@ -30,7 +30,7 @@ export default function Navigation() {
                         </li>
                     }
 
-                    {isAuthenticated &&
+                    {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ADD_ARTICLE}>
                                 Добави артикул
@@ -71,10 +71,24 @@ export default function Navigation() {
                                     </Link>
                                 </li>
                             }
+                            {!isAuthenticated &&
+                                <li>
+                                    <Link className="dropdown-item" to={Path.REGISTER}>
+                                        Регистриране
+                                    </Link>
+                                </li>
+                            }
                             {isAuthenticated &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.LOGOUT}>
                                         Отписване
+                                    </Link>
+                                </li>
+                            }
+                            {isAuthenticated && (role === 'admin' || role === 'superuser') &&
+                                <li>
+                                    <Link className="dropdown-item" to='#'>
+                                        Админ панел
                                     </Link>
                                 </li>
                             }

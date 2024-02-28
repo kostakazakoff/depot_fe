@@ -5,14 +5,15 @@ import Path from "./paths";
 import Login from "./components/Auth/Login";
 import Logout from "./components/Auth/Logout";
 import EditProfile from './components/Auth/EditProfile';
+import Register from './components/Auth/Register';
 import Home from "./components/Home";
 import Articles from './components/Articles';
 import AddArticle from './components/AddArticle';
+import EditArticle from './components/EditArticle';
+import ImagesPreview from './components/ImagesPreview';
 
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
-import EditArticle from './components/EditArticle';
-import ImagesPreview from './components/ImagesPreview';
 // import ArticlesContext from "./contexts/articlesContext";
 
 
@@ -27,6 +28,7 @@ function App() {
           <Route path={Path.HOME} element={<Home />} />
           <Route path={Path.LOGIN} element={<Login />} />
           <Route path={Path.LOGOUT} element={<Logout />} />
+          <Route path={Path.REGISTER} element={<Register />} />
           <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
           <Route path={Path.ARTICLES} element={<Articles />} />
           <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
