@@ -14,11 +14,10 @@ import convertDate from "./ConvertDate";
 const Articles = () => {
     const { stores } = useContext(StoresContext);
     const [articles, setArticles] = useState([]);
-    const [totalCost, setTotalCost] = useState(0);
+    const totalCost = useRef(0);
     const [filterOptions, setFilterOptions] = useState({});
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -31,7 +30,7 @@ const Articles = () => {
             .then(response => response.data)
             .then(result => {
                 setArticles(result.articles);
-                setTotalCost(result.totalCost);
+                totalCost.current = result.totalCost;
             })
             .catch(err => console.log(err));
     }
@@ -368,7 +367,7 @@ const Articles = () => {
                     </section>
                     <footer>
                         <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-2 border-top border-dark bg-dark text-light">
-                            <div>Обща стойност на наличностите: <strong className='text-primary'>{totalCost}  лв.</strong></div>
+                            <div>Обща стойност на наличностите: <strong className='text-primary'>{totalCost.current}  лв.</strong></div>
                         </div>
                     </footer>
                 </div>
