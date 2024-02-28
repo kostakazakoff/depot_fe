@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -9,6 +9,7 @@ import './css/Accordion.css';
 import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
+import AuthContext from "../contexts/authContext";
 
 
 const Articles = () => {
@@ -18,11 +19,17 @@ const Articles = () => {
     const [filterOptions, setFilterOptions] = useState({});
     const resetBtn = useRef(null);
     const iconRef = useRef(null);
+    const { authorized } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log('Articles component mounted');
         getArticles();
     }, []);
+
+    useEffect(() => {
+        !authorized && navigate(Path.HOME);
+    }, [authorized])
 
     const getArticles = (e) => {
         e?.preventDefault();

@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
@@ -10,13 +10,19 @@ import { useDropzone } from 'react-dropzone'
 import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
+import AuthContext from "../contexts/authContext";
 
 
 const AddArticle = () => {
     const navigate = useNavigate();
-    const [article, setArticle] = useState({'store_id': '1'});
+    const [article, setArticle] = useState({ 'store_id': '1' });
     const { stores } = useContext(StoresContext);
+    const { authorized } = useContext(AuthContext);
     const [files, setFiles] = useState([]);
+
+    useEffect(() => {
+        !authorized && navigate(Path.HOME);
+    }, [authorized])
 
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
