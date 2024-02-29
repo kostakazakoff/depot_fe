@@ -30,7 +30,9 @@ const Login = () => {
                     ...credentials,
                     ...response.data.user,
                     'jwt': response.data.jwt,
-                    'first_name': response.data.first_name
+                    'first_name': response.data.first_name,
+                    'last_name': response.data.last_name,
+                    'phone': response.data.phone,
                 })))
             .then(navigate(Path.HOME))
             .catch(err => console.log(err))
