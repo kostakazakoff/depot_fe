@@ -97,11 +97,11 @@ const Articles = () => {
                 <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
 
                     <section
-                        className="me-5 mb-5 mt-3 fixed-top bg-light overflow-y-auto pb-5 ps-3 pe-3"
+                        className="me-5 mb-5 mt-3 fixed-top overflow-y-auto pb-5 ps-3 pe-3"
                         style={{ width: '30%', minWidth: '400px', height: '90%', top: '10%', left: '60px' }}
                     >
                         <form
-                            className="container-sm vertical-center p-4 bg-white border border border-2 border-gray rounded-4 shadow position-relative"
+                            className="container-sm vertical-center p-4 bg-white border border border-1 border-secondary rounded-4 shadow-lg position-relative"
                             style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
@@ -262,12 +262,12 @@ const Articles = () => {
                                 </select>
                             </div>
 
-                            <div className="btn-group border border-dark shadow mt-3">
+                            <div className="btn-group border border-secondary shadow mt-3">
                                 <button
                                     type="submit"
                                     className="btn btn-light"
                                 >
-                                    <i className="fa-solid fa-check pe-2 text-primary"></i>
+                                    <i className="fa-solid fa-magnifying-glass pe-2"></i>
                                     Филтриране
                                 </button>
                                 <button
@@ -326,7 +326,7 @@ const Articles = () => {
                                                 <div>Позиция: <strong>{data.inventory.position}</strong></div>
                                                 <div>Склад: <strong>{data.stores[0].name}</strong></div>
 
-                                                <div className="btn-group shadow mt-4 border border-dark">
+                                                <div className="btn-group shadow mt-4 border border-secondary">
 
                                                     <Link
                                                         type="button"
