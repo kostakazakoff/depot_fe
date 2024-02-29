@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const userProps = {
         user_id: credentials.id,
         email: credentials.email,
-        first_name: credentials.first_name? credentials.first_name : credentials.email,
+        name: credentials.first_name? credentials.first_name : credentials.email,
         role: credentials.role,
         // jwt: credentials.jwt,
         isAuthenticated: !!credentials.jwt,
