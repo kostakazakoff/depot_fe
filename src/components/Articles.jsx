@@ -317,13 +317,27 @@ const Articles = () => {
                                             }
 
                                             <div className="col me-2 lh-lg" style={{ minWidth: '350px' }}>
-                                                <div>Каталожен номер: <strong>{data.catalog_number}</strong></div>
-                                                <div>Чертожен номер: <strong>{data.draft_number}</strong></div>
-                                                <div>Материал: <strong>{data.material}</strong></div>
-                                                <div>Цена: <strong>{data.price}</strong> лв.</div>
-                                                <div>Количество: <strong>{data.inventory.quantity}</strong> бр.</div>
-                                                <div>Опаковка: <strong>{data.inventory.package}</strong></div>
-                                                <div>Позиция: <strong>{data.inventory.position}</strong></div>
+                                                <div>Каталожен номер: <strong>
+                                                    {data.catalog_number?data.catalog_number:''}
+                                                </strong></div>
+                                                <div>Чертожен номер: <strong>
+                                                    {data.draft_number?data.draft_number:''}
+                                                </strong></div>
+                                                <div>Материал: <strong>
+                                                    {data.material?data.material:''}
+                                                </strong></div>
+                                                <div>Цена: <strong>
+                                                    {data.price}
+                                                </strong> лв.</div>
+                                                <div>Количество: <strong>
+                                                    {data.inventory.quantity}
+                                                </strong> бр.</div>
+                                                <div>Опаковка: <strong>
+                                                    {data.inventory.package?data.inventory.package:''}
+                                                </strong></div>
+                                                <div>Позиция: <strong>
+                                                    {data.inventory.position ? data.inventory.position : ''}
+                                                </strong></div>
                                                 <div>Склад: <strong>{data.stores[0].name}</strong></div>
 
                                                 <div className="btn-group shadow mt-4 border border-secondary">
