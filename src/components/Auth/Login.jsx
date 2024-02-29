@@ -30,10 +30,15 @@ const Login = () => {
                     ...credentials,
                     ...response.data.user,
                     'jwt': response.data.jwt,
+                    'first_name': response.data.first_name
                 })))
             .then(navigate(Path.HOME))
             .catch(err => console.log(err))
     }
+
+    useEffect(() =>{
+        api.get('me')
+    }, [user]);
 
     useEffect(() => {
         api.get('stores')
