@@ -87,7 +87,7 @@ export default function Navigation() {
                             }
                             {isAuthenticated && (role === 'admin' || role === 'superuser') &&
                                 <li>
-                                    <Link className="dropdown-item" to='#'>
+                                    <Link className="dropdown-item" to={Path.DASHBOARD}>
                                         Админ панел
                                     </Link>
                                 </li>
