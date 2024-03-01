@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import authContext from "../contexts/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
 import api from "../helpers/Api";
+import Swal from "sweetalert2";
 
 
 const Dashboard = () => {
@@ -10,6 +11,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState({});
     const [userToEdit, setUserToEdit] = useState({});
+
 
     useEffect(() => {
         !admin && navigate(Path.HOME);
@@ -20,12 +22,12 @@ const Dashboard = () => {
 
     const handleUserToEditSelect = (e) => {
         setUserToEdit({
-            'id': users[e.target.value].id,
-            'email': users[e.target.value].email,
-            'role': users[e.target.value].role,
-            'first_name': users[e.target.value].profile.first_name,
-            'last_name': users[e.target.value].profile.last_name,
-            'phone': users[e.target.value].profile.phone
+            'id': users[e.target.value]?.id,
+            'email': users[e.target.value]?.email,
+            'role': users[e.target.value]?.role,
+            'first_name': users[e.target.value]?.profile.first_name,
+            'last_name': users[e.target.value]?.profile.last_name,
+            'phone': users[e.target.value]?.profile.phone
         });
     }
 
@@ -38,6 +40,26 @@ const Dashboard = () => {
 
     const SubmitHandler = (e) => {
         e.preventDefault();
+        api.post(`dashboard/edit_user/${userToEdit.id}`, {
+            'id': userToEdit.id,
+            'email': userToEdit.email,
+            'role': userToEdit.role,
+            'first_name': userToEdit.first_name,
+            'last_name': userToEdit.last_name,
+            'phone': userToEdit.phone
+        })
+        .then(Swal.fire(
+            "Готово!",
+            "Потребителят беше променен.",
+            "success"
+        ))
+            .catch(err => console.log(err));
+    }
+
+    const deleteUser = () => {
+        const id = userToEdit.id;
+        api.post(`dashboard/delete_user/${id}`)
+            .catch(err => console.log(err));
     }
 
     useEffect(() => {
@@ -57,18 +79,12 @@ const Dashboard = () => {
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
-                <h4 className="text-primary text-center">
-                    {userToEdit && userToEdit.name || userToEdit.email}
-                </h4>
-
-                <p className="mb-4 text-primary text-center">
-                    Роля: {userToEdit && userToEdit.role}
-                </p>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <span className="input-group-text">Персонал:</span>
+                    <label className="input-group-text" htmlFor="user">Персонал</label>
                     <select
                         id="user"
+                        name="user"
                         className="form-select"
                         onChange={handleUserToEditSelect}
                     >
@@ -85,7 +101,7 @@ const Dashboard = () => {
                 </div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <span className="input-group-text">Роля:</span>
+                    <label className="input-group-text" htmlFor="role">Роля</label>
                     <select
                         id="role"
                         name='role'
@@ -96,25 +112,24 @@ const Dashboard = () => {
                         <option value=''>
                             Назначи роля
                         </option>
-                        <option value='superuser' hidden={userToEdit.role == 'superuser'}>
+                        <option value='superuser' hidden={userToEdit && userToEdit.role == 'superuser'}>
                             Superuser
                         </option>
-                        <option value='admin' hidden={userToEdit.role == 'admin'}>
+                        <option value='admin' hidden={userToEdit && userToEdit.role == 'admin'}>
                             Администратор
                         </option>
-                        <option value='staff' hidden={userToEdit.role == 'staff'}>
+                        <option value='staff' hidden={userToEdit && userToEdit.role == 'staff'}>
                             Персонал
                         </option>
                     </select>
                 </div>
 
-                <div className="input-group mb-2 d-flex text-secondary">
-                    <span className="input-group-text" id="email"><i className="fa-solid fa-at"></i></span>
+                <div className="input-group mb-3 d-flex shadow text-secondary">
+                    <label className="input-group-text" htmlFor="email">Email</label>
                     <input type="email"
+                        id="email"
                         autoComplete="true"
                         className="form-control"
-                        placeholder="Електронна поща"
-                        aria-label="Email"
                         aria-describedby="basic-addon1"
                         name="email"
                         value={userToEdit && userToEdit.email || ''}
@@ -122,10 +137,70 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-2 mb-4">
-                    <button type="submit" className="btn btn-outline-primary">Потвърди</button>
+                <div className="input-group mb-3 d-flex shadow text-secondary">
+                    <label className="input-group-text" htmlFor="first_name">Име</label>
+                    <input type="text"
+                        id="first_name"
+                        autoComplete="true"
+                        className="form-control"
+                        aria-describedby="basic-addon1"
+                        name="first_name"
+                        value={userToEdit && userToEdit.first_name || ''}
+                        onChange={handleChange}
+                    />
                 </div>
-            </form>
+
+                <div className="input-group mb-3 d-flex shadow text-secondary">
+                    <label className="input-group-text" htmlFor="last_name">Фамилия</label>
+                    <input type="text"
+                        id="last_name"
+                        autoComplete="true"
+                        className="form-control"
+                        aria-describedby="basic-addon1"
+                        name="last_name"
+                        value={userToEdit && userToEdit.last_name || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3 d-flex shadow text-secondary">
+                    <label className="input-group-text" htmlFor="phone">Телефон</label>
+                    <input type="text"
+                        id="phone"
+                        autoComplete="true"
+                        className="form-control"
+                        aria-describedby="basic-addon1"
+                        name="phone"
+                        value={userToEdit && userToEdit.phone || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="d-grid gap-2 mt-5">
+                    <button
+                        type="submit"
+                        className="btn btn-outline-primary"
+                        disabled={!userToEdit.id}
+                    >
+                        Потвърди промяната
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-outline-danger"
+                        onClick={deleteUser}
+                        disabled={!userToEdit.id}
+                    >
+                        Изтрий потребител
+                    </button>
+                    <Link
+                        type="button"
+                        className="btn btn-outline-dark"
+                    >
+                        Отказ
+                    </Link>
+                </div>
+
+            </form >
         </>
     )
 }
