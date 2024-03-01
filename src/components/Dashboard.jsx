@@ -74,6 +74,25 @@ const Dashboard = () => {
             .catch(err => console.log(err));
     }
 
+    const HandleUserDeletion = () => {
+        Swal.fire({
+            title: "Сигурен ли сте?",
+            text: "Потребителят ще бъде изтрит от базата данни!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Да, изтрий!",
+        })
+            .then(result => {
+                if (result.isConfirmed) {
+                    deleteUser()
+                        .then(setUserToEdit({}))
+                        .catch(err => console.log(err));
+                }
+            })
+    }
+
     useEffect(() => {
         Object.values(users).forEach(user => {
             console.log(user);
@@ -194,21 +213,24 @@ const Dashboard = () => {
                         className="btn btn-outline-primary"
                         disabled={!userToEdit.id}
                     >
-                        Потвърди промяната
+                        <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
+                        Редактирай
                     </button>
                     <button
                         type="button"
                         className="btn btn-outline-danger"
-                        onClick={deleteUser}
+                        onClick={HandleUserDeletion}
                         disabled={!userToEdit.id}
                     >
-                        Изтрий потребител
+                        <i className="fa-solid fa-trash pe-2 text-danger"></i>
+                        Изтрий
                     </button>
                     <Link
                         to={Path.REGISTER}
                         type="button"
                         className="btn btn-outline-dark"
                     >
+                        <i className="fa-solid fa-user-plus pe-2 text-primary"></i>
                         Добави потребител
                     </Link>
                     <button
@@ -216,6 +238,7 @@ const Dashboard = () => {
                         className="btn btn-outline-dark"
                         onClick={() => setUserToEdit({})}
                     >
+                        <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
                         Нулирай
                     </button>
                 </div>
