@@ -19,11 +19,21 @@ const Dashboard = () => {
     }, []);
 
     const handleUserToEditSelect = (e) => {
-        setUserToEdit(e.target.value);
+        setUserToEdit({
+            'id': users[e.target.value].id,
+            'email': users[e.target.value].email,
+            'role': users[e.target.value].role,
+            'first_name': users[e.target.value].profile.first_name,
+            'last_name': users[e.target.value].profile.last_name,
+            'phone': users[e.target.value].profile.phone
+        });
     }
 
     const handleChange = (e) => {
-        // 
+        setUserToEdit(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }))
     }
 
     const SubmitHandler = (e) => {
@@ -37,10 +47,8 @@ const Dashboard = () => {
     }, [users]);
 
     useEffect(() => {
-        console.log(`User to edit: ${userToEdit}`);
+        Object.keys(userToEdit).forEach(k => console.log(k, userToEdit[k]));
     }, [userToEdit]);
-
-
 
     return (
         <>
@@ -49,6 +57,13 @@ const Dashboard = () => {
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
+                <h4 className="text-primary text-center">
+                    {userToEdit && userToEdit.name || userToEdit.email}
+                </h4>
+
+                <p className="mb-4 text-primary text-center">
+                    Роля: {userToEdit && userToEdit.role}
+                </p>
 
                 <div className="input-group mb-3 shadow dropdown">
                     <span className="input-group-text">Персонал:</span>
@@ -67,6 +82,44 @@ const Dashboard = () => {
                             </option>
                         ))}
                     </select>
+                </div>
+
+                <div className="input-group mb-3 shadow dropdown">
+                    <span className="input-group-text">Роля:</span>
+                    <select
+                        id="role"
+                        name='role'
+                        className="form-select"
+                        value={userToEdit.role}
+                        onChange={handleChange}
+                    >
+                        <option value=''>
+                            Назначи роля
+                        </option>
+                        <option value='superuser' hidden={userToEdit.role == 'superuser'}>
+                            Superuser
+                        </option>
+                        <option value='admin' hidden={userToEdit.role == 'admin'}>
+                            Администратор
+                        </option>
+                        <option value='staff' hidden={userToEdit.role == 'staff'}>
+                            Персонал
+                        </option>
+                    </select>
+                </div>
+
+                <div className="input-group mb-2 d-flex text-secondary">
+                    <span className="input-group-text" id="email"><i className="fa-solid fa-at"></i></span>
+                    <input type="email"
+                        autoComplete="true"
+                        className="form-control"
+                        placeholder="Електронна поща"
+                        aria-label="Email"
+                        aria-describedby="basic-addon1"
+                        name="email"
+                        value={userToEdit && userToEdit.email || ''}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className="d-grid gap-2 mb-4">
