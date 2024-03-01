@@ -13,21 +13,25 @@ const Dashboard = () => {
     const [userToEdit, setUserToEdit] = useState({});
 
 
-    useEffect(() => {
-        !admin && navigate(Path.HOME);
+    const getUsersList = () => {
         api.get('dashboard/users_list')
             .then(response => setUsers(response.data.users))
             .catch(err => console.log(err));
+    }
+
+    useEffect(() => {
+        !admin && navigate(Path.HOME);
+        getUsersList();
     }, []);
 
     const handleUserToEditSelect = (e) => {
         setUserToEdit({
-            'id': users[e.target.value]?.id,
-            'email': users[e.target.value]?.email,
-            'role': users[e.target.value]?.role,
-            'first_name': users[e.target.value]?.profile.first_name,
-            'last_name': users[e.target.value]?.profile.last_name,
-            'phone': users[e.target.value]?.profile.phone
+            'id': users[e.target.value] ? users[e.target.value].id : '',
+            'email': users[e.target.value] ? users[e.target.value].email : '',
+            'role': users[e.target.value] ? users[e.target.value].role : '',
+            'first_name': users[e.target.value] ? users[e.target.value].profile.first_name : '',
+            'last_name': users[e.target.value] ? users[e.target.value].profile.last_name : '',
+            'phone': users[e.target.value] ? users[e.target.value].profile.phone : ''
         });
     }
 
@@ -48,17 +52,25 @@ const Dashboard = () => {
             'last_name': userToEdit.last_name,
             'phone': userToEdit.phone
         })
-        .then(Swal.fire(
-            "Готово!",
-            "Потребителят беше променен.",
-            "success"
-        ))
+            .then(getUsersList())
+            .then(Swal.fire(
+                "Готово!",
+                "Потребителят беше променен.",
+                "success"
+            ))
             .catch(err => console.log(err));
     }
 
     const deleteUser = () => {
         const id = userToEdit.id;
         api.post(`dashboard/delete_user/${id}`)
+            .then(setUserToEdit({}))
+            .then(getUsersList())
+            .then(Swal.fire(
+                "Готово!",
+                "Потребителят беше изтрит.",
+                "success"
+            ))
             .catch(err => console.log(err));
     }
 
