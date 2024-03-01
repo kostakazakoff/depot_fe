@@ -55,7 +55,7 @@ const Dashboard = () => {
             .then(getUsersList())
             .then(Swal.fire(
                 "Готово!",
-                "Потребителят беше променен.",
+                "Данните на потребителя бяха променени.",
                 "success"
             ))
             .catch(err => console.log(err));
@@ -121,8 +121,8 @@ const Dashboard = () => {
                         value={userToEdit.role}
                         onChange={handleChange}
                     >
-                        <option value=''>
-                            Назначи роля
+                        <option value='member'>
+                            Без достъп
                         </option>
                         <option value='superuser' hidden={userToEdit && userToEdit.role == 'superuser'}>
                             Superuser
@@ -211,12 +211,13 @@ const Dashboard = () => {
                     >
                         Добави потребител
                     </Link>
-                    <Link
-                        type="button"
+                    <button
+                        type="reset"
                         className="btn btn-outline-dark"
+                        onClick={() => setUserToEdit({})}
                     >
-                        Назад
-                    </Link>
+                        Нулирай
+                    </button>
                 </div>
 
             </form >
