@@ -10,14 +10,14 @@ const EditProfile = () => {
     return (
         <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg border border-1 border-secondary"
             // onSubmit={SubmitHandler}
             >
                 <div className="text-center fs-1">Edit Credentials</div>
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
-                <div className="mb-2 d-flex">
-                    <span className="input-group-text bg-primary" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
+                <div className="input-group mb-3 shadow dropdown">
+                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
                     <input type="email"
                         autoComplete="true"
                         className="form-control"
@@ -30,8 +30,8 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="mb-2 d-flex">
-                    <span className="input-group-text bg-primary" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
+                <div className="input-group mb-3 shadow dropdown">
+                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></span>
                     <input type="email"
                         autoComplete="true"
                         className="form-control"
@@ -44,7 +44,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="mb-2 d-flex">
+                <div className="input-group mb-3 shadow dropdown">
                     <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
                     <input type="password"
                         className="form-control"
@@ -57,8 +57,8 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="mb-2 d-flex">
-                    <span className="input-group-text bg-primary" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
+                <div className="input-group mb-3 shadow dropdown">
+                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
                     <input type="password"
                         className="form-control"
                         placeholder="New password"
@@ -70,8 +70,8 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="mb-4 d-flex">
-                    <span className="input-group-text bg-primary" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
+                <div className="input-group mb-5 shadow dropdown">
+                    <span className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></span>
                     <input type="password"
                         className="form-control"
                         placeholder="Retype new password"
@@ -84,11 +84,17 @@ const EditProfile = () => {
                 </div>
 
                 <div className="d-grid gap-2 mb-2">
-                    <button type="submit" className="btn btn-outline-primary">Save</button>
+                    <button type="submit" className="btn btn-outline-primary">
+                        <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
+                        Редактирай
+                    </button>
                 </div>
 
                 <div className="d-grid gap-2">
-                    <Link to={Path.HOME} className="btn btn-outline-dark">Cancel</Link>
+                    <Link to={Path.HOME} className="btn btn-outline-dark">
+                        <i className="fa-solid fa-ban pe-2"></i>
+                        Отказ
+                    </Link>
                 </div>
 
             </form>

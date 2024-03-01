@@ -106,7 +106,7 @@ const Dashboard = () => {
     return (
         <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3 w-25"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white border border-1 border-secondary rounded-4 shadow-lg z-3 w-25"
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >

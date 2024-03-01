@@ -17,17 +17,19 @@ export default function Navigation() {
                 <ul className="navbar-nav ms-4 me-auto">
 
                     {isAuthenticated &&
-                        <li className="nav-item">
+                        <li className="nav-item me-3">
                             <Link className="nav-link" to={Path.HOME}>
-                                Начало
+                            <i className="fa-solid fa-house pe-2"></i>
+                            Начало
                             </Link>
                         </li>
                     }
 
                     {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
-                        <li className="nav-item">
+                        <li className="nav-item me-3">
                             <Link className="nav-link" to={Path.ARTICLES}>
-                                Артикули
+                            <i className="fa-solid fa-boxes-stacked pe-2"></i>
+                                Складови наличности
                             </Link>
                         </li>
                     }
@@ -35,6 +37,7 @@ export default function Navigation() {
                     {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ADD_ARTICLE}>
+                            <i className="fa-solid fa-square-plus pe-2"></i>
                                 Добави артикул
                             </Link>
                         </li>
