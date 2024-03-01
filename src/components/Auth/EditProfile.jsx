@@ -13,7 +13,7 @@ const EditProfile = () => {
                 className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg border border-1 border-secondary"
             // onSubmit={SubmitHandler}
             >
-                <div className="text-center fs-1">Edit Credentials</div>
+                <div className="text-center fs-1">Редактиране на профил</div>
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
                 <div className="input-group mb-3 shadow dropdown">
@@ -85,7 +85,7 @@ const EditProfile = () => {
 
                 <div className="d-grid gap-2 mb-2">
                     <button type="submit" className="btn btn-outline-primary">
-                        <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
+                        <i className="fa-solid fa-pen-to-square pe-2"></i>
                         Редактирай
                     </button>
                 </div>

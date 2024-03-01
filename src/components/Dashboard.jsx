@@ -110,6 +110,7 @@ const Dashboard = () => {
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
+            <div className="text-center fs-1 mb-3">Админ панел</div>
 
                 <div className="input-group mb-3 shadow dropdown">
                     <label className="input-group-text" htmlFor="user">Персонал</label>
