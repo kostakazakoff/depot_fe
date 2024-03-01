@@ -38,10 +38,6 @@ const Login = () => {
             .catch(err => console.log(err))
     }
 
-    useEffect(() =>{
-        api.get('me')
-    }, [user]);
-
     useEffect(() => {
         api.get('stores')
             .then(response => response.data)

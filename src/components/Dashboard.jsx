@@ -19,10 +19,7 @@ const Dashboard = () => {
     }, []);
 
     const handleUserToEditSelect = (e) => {
-        setUserToEdit(state => ({
-            ...state,
-            ...e.target.value
-        }));
+        setUserToEdit(e.target.value);
     }
 
     const handleChange = (e) => {
@@ -53,22 +50,20 @@ const Dashboard = () => {
                 onSubmit={SubmitHandler}
             >
 
-
                 <div className="input-group mb-3 shadow dropdown">
                     <span className="input-group-text">Персонал:</span>
                     <select
                         id="user"
                         className="form-select"
-                        value={userToEdit || userToEdit}
                         onChange={handleUserToEditSelect}
                     >
                         <option value="">Избери потребител</option>
-                        {users && Object.values(users).map(user => (
-                            <option key={user.id} value={user}>
-                                {user.profile.first_name
-                                ?user.profile.first_name
-                                :user.email
-                            }
+                        {users && Object.keys(users).map(key => (
+                            <option key={key} value={key}>
+                                {users[key].profile.first_name
+                                    ? users[key].profile.first_name
+                                    : users[key].email
+                                }
                             </option>
                         ))}
                     </select>
