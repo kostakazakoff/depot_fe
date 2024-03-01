@@ -23,18 +23,18 @@ function App() {
       <AuthProvider>
         <StoresProvider>
           <Navigation />
-        <Routes>
-          <Route path={Path.HOME} element={<Home />} />
-          <Route path={Path.LOGIN} element={<Login />} />
-          <Route path={Path.LOGOUT} element={<Logout />} />
-          <Route path={Path.REGISTER} element={<Register />} />
-          <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
-          <Route path={Path.ARTICLES} element={<Articles />} />
-          <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
-          <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
-          <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
-          <Route path={Path.DASHBOARD} element={<Dashboard />} />
-        </Routes>
+          <Routes>
+            <Route path={Path.HOME} element={<Home />} />
+            <Route path={Path.LOGIN} element={<Login />} />
+            <Route path={Path.LOGOUT} element={<Logout />} />
+            <Route path={Path.REGISTER} element={<Register />} />
+            <Route path={Path.EDIT_PROFILE} element={<EditProfile />} />
+            <Route path={Path.ARTICLES} element={<Articles />} />
+            <Route path={Path.EDIT_ARTICLE} element={<EditArticle />} />
+            <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
+            <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
+            <Route path={Path.DASHBOARD} element={<Dashboard />} />
+          </Routes>
         </StoresProvider>
       </AuthProvider>
     </>
