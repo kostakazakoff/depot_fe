@@ -15,7 +15,6 @@ import ImagesPreview from './components/ImagesPreview';
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
 import Dashboard from './components/Dashboard';
-// import ArticlesContext from "./contexts/articlesContext";
 
 
 function App() {
@@ -24,7 +23,6 @@ function App() {
       <AuthProvider>
         <StoresProvider>
           <Navigation />
-        {/* <ArticlesContext.Provider value={GetDataFromBackEnd('articles')}> */}
         <Routes>
           <Route path={Path.HOME} element={<Home />} />
           <Route path={Path.LOGIN} element={<Login />} />
@@ -37,7 +35,6 @@ function App() {
           <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
           <Route path={Path.DASHBOARD} element={<Dashboard />} />
         </Routes>
-        {/* </ArticlesContext.Provider> */}
         </StoresProvider>
       </AuthProvider>
     </>

@@ -205,10 +205,17 @@ const Dashboard = () => {
                         Изтрий потребител
                     </button>
                     <Link
+                        to={Path.REGISTER}
                         type="button"
                         className="btn btn-outline-dark"
                     >
-                        Отказ
+                        Добави потребител
+                    </Link>
+                    <Link
+                        type="button"
+                        className="btn btn-outline-dark"
+                    >
+                        Назад
                     </Link>
                 </div>
 

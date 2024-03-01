@@ -80,19 +80,19 @@ export default function Navigation() {
                                     </Link>
                                 </li>
                             }
-                            {isAuthenticated &&
-                                <li>
-                                    <Link className="dropdown-item" to={Path.LOGOUT}>
-                                    <i className="fa-solid fa-arrow-right-from-bracket pe-2"></i>
-                                        Отписване
-                                    </Link>
-                                </li>
-                            }
                             {isAuthenticated && (role === 'admin' || role === 'superuser') &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.DASHBOARD}>
                                     <i className="fa-solid fa-screwdriver-wrench pe-2"></i>
                                         Админ панел
+                                    </Link>
+                                </li>
+                            }
+                            {isAuthenticated &&
+                                <li>
+                                    <Link className="dropdown-item" to={Path.LOGOUT}>
+                                    <i className="fa-solid fa-arrow-right-from-bracket pe-2"></i>
+                                        Отписване
                                     </Link>
                                 </li>
                             }
