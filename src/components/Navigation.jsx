@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 
 import AuthContext from "../contexts/authContext";
 import Path from '../paths';
@@ -19,8 +19,8 @@ export default function Navigation() {
                     {isAuthenticated &&
                         <li className="nav-item me-3">
                             <Link className="nav-link" to={Path.HOME}>
-                            <i className="fa-solid fa-house pe-2"></i>
-                            Начало
+                                <i className="fa-solid fa-house pe-2"></i>
+                                Начало
                             </Link>
                         </li>
                     }
@@ -28,7 +28,7 @@ export default function Navigation() {
                     {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item me-3">
                             <Link className="nav-link" to={Path.ARTICLES}>
-                            <i className="fa-solid fa-boxes-stacked pe-2"></i>
+                                <i className="fa-solid fa-boxes-stacked pe-2"></i>
                                 Складови наличности
                             </Link>
                         </li>
@@ -37,7 +37,7 @@ export default function Navigation() {
                     {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item">
                             <Link className="nav-link" to={Path.ADD_ARTICLE}>
-                            <i className="fa-solid fa-square-plus pe-2"></i>
+                                <i className="fa-solid fa-square-plus pe-2"></i>
                                 Добави артикул
                             </Link>
                         </li>
@@ -86,7 +86,7 @@ export default function Navigation() {
                             {isAuthenticated && (role === 'admin' || role === 'superuser') &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.DASHBOARD}>
-                                    <i className="fa-solid fa-screwdriver-wrench pe-2"></i>
+                                        <i className="fa-solid fa-screwdriver-wrench pe-2"></i>
                                         Админ панел
                                     </Link>
                                 </li>
@@ -94,7 +94,7 @@ export default function Navigation() {
                             {isAuthenticated &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.LOGOUT}>
-                                    <i className="fa-solid fa-arrow-right-from-bracket pe-2"></i>
+                                        <i className="fa-solid fa-arrow-right-from-bracket pe-2"></i>
                                         Отписване
                                     </Link>
                                 </li>

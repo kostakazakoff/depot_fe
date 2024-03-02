@@ -5,10 +5,12 @@ import Path from '../../paths';
 import AuthContext from '../../contexts/authContext';
 import api from '../../helpers/Api';
 import Swal from 'sweetalert2';
+import PreviousLocationContext from '../../contexts/previousLocationContext';
 
 
 const EditProfile = () => {
-    const { email, name, last_name, phone } = useContext(AuthContext);
+    const { email } = useContext(AuthContext);
+    const { previousLocation } = useContext(PreviousLocationContext)
     const navigate = useNavigate();
     const [profile, setProfile] = useState({
         'email_1': null,
@@ -20,6 +22,8 @@ const EditProfile = () => {
         'last_name': null,
         'phone': null
     });
+
+    console.log(`Previous location: ${previousLocation}`);
 
     const handleChange = (e) => {
         setProfile(state => ({
@@ -182,7 +186,7 @@ const EditProfile = () => {
                 </div>
 
                 <div className="d-grid gap-2">
-                    <Link to={Path.HOME} className="btn btn-outline-dark">
+                    <Link to={previousLocation || Path.HOME} className="btn btn-outline-dark">
                         <i className="fa-solid fa-ban pe-2"></i>
                         Отказ
                     </Link>

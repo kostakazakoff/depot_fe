@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -10,6 +10,7 @@ import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 import AuthContext from "../contexts/authContext";
+import PreviousLocationContext from '../contexts/previousLocationContext';
 
 
 const Articles = () => {
@@ -21,6 +22,17 @@ const Articles = () => {
     const iconRef = useRef(null);
     const { authorized } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    const { setPreviousLocation } = useContext(PreviousLocationContext);
+    const location = useLocation();
+
+    useEffect(() => {
+        setPreviousLocation(location.pathname);
+        // Object.keys(location).forEach(key => {
+        //     console.log(`Location: ${key}`);
+        // });
+        console.log(location.pathname);
+    });
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -318,13 +330,13 @@ const Articles = () => {
 
                                             <div className="col me-2 lh-lg" style={{ minWidth: '350px' }}>
                                                 <div>Каталожен номер: <strong>
-                                                    {data.catalog_number?data.catalog_number:''}
+                                                    {data.catalog_number ? data.catalog_number : ''}
                                                 </strong></div>
                                                 <div>Чертожен номер: <strong>
-                                                    {data.draft_number?data.draft_number:''}
+                                                    {data.draft_number ? data.draft_number : ''}
                                                 </strong></div>
                                                 <div>Материал: <strong>
-                                                    {data.material?data.material:''}
+                                                    {data.material ? data.material : ''}
                                                 </strong></div>
                                                 <div>Цена: <strong>
                                                     {data.price}
@@ -333,7 +345,7 @@ const Articles = () => {
                                                     {data.inventory.quantity}
                                                 </strong> бр.</div>
                                                 <div>Опаковка: <strong>
-                                                    {data.inventory.package?data.inventory.package:''}
+                                                    {data.inventory.package ? data.inventory.package : ''}
                                                 </strong></div>
                                                 <div>Позиция: <strong>
                                                     {data.inventory.position ? data.inventory.position : ''}
@@ -343,6 +355,7 @@ const Articles = () => {
                                                 <div className="btn-group shadow mt-4 border border-secondary">
 
                                                     <Link
+                                                        onClick={setPreviousLocation(location.pathname)}
                                                         type="button"
                                                         className="btn btn-light"
                                                         to={Path.EDIT_ARTICLE}
