@@ -16,9 +16,9 @@ const EditProfile = () => {
         'password': null,
         'password_1': null,
         'password_2': null,
-        'first_name': name,
-        'last_name': last_name,
-        'phone': phone
+        'first_name': null,
+        'last_name': null,
+        'phone': null
     });
 
     const handleChange = (e) => {
@@ -51,7 +51,7 @@ const EditProfile = () => {
     }
 
     return (
-        <>
+        <div className='p-5'>
             <form
                 className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg border border-1 border-secondary"
                 onSubmit={SubmitHandler}
@@ -60,36 +60,12 @@ const EditProfile = () => {
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='email_1' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></label>
-                    <input type="email"
-                        autoComplete="true"
-                        className="form-control"
-                        placeholder="New email address"
-                        name="email_1"
-                        id="email_1"
-                        value={profile.email_1 || ''}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='email_2' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-at"></i></label>
-                    <input type="email"
-                        autoComplete="true"
-                        className="form-control"
-                        placeholder="Retype new email address"
-                        name="email_2"
-                        id="email_2"
-                        value={profile.email_2 || ''}
-                        onChange={handleChange}
-                    />
-                </div>
-
-                <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='password' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></label>
+                    <label htmlFor='password' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-key"></i>
+                    </label>
                     <input type="password"
                         className="form-control"
-                        placeholder="Current password"
+                        placeholder="Текуща парола"
                         name="password"
                         id="password"
                         value={profile.password || ''}
@@ -98,10 +74,43 @@ const EditProfile = () => {
                 </div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='password_1' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></label>
+                    <label htmlFor='email_1' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-at"></i>
+                    </label>
+                    <input type="email"
+                        autoComplete="true"
+                        className="form-control"
+                        placeholder="Нов email"
+                        name="email_1"
+                        id="email_1"
+                        value={profile.email_1 || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3 shadow dropdown">
+                    <label htmlFor='email_2' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-at"></i>
+                    </label>
+                    <input type="email"
+                        autoComplete="true"
+                        className="form-control"
+                        placeholder="Потвърди email"
+                        name="email_2"
+                        id="email_2"
+                        value={profile.email_2 || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3 shadow dropdown">
+                    <label htmlFor='password_1' className="input-group-text" id="basic-addon1">
+
+                        <i className="fa-solid fa-key"></i>
+                    </label>
                     <input type="password"
                         className="form-control"
-                        placeholder="New password"
+                        placeholder="Нова парола"
                         name="password_1"
                         id="password_1"
                         value={profile.password_1 || ''}
@@ -110,10 +119,12 @@ const EditProfile = () => {
                 </div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='password_2' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-key"></i></label>
+                    <label htmlFor='password_2' className="input-group-text" id="bas
+                    ic-addon1"><i className="fa-solid fa-key"></i>
+                    </label>
                     <input type="password"
                         className="form-control"
-                        placeholder="Retype new password"
+                        placeholder="Потвърди парола"
                         name="password_2"
                         id="password_2"
                         value={profile.password_2 || ''}
@@ -122,10 +133,12 @@ const EditProfile = () => {
                 </div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='first_name' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-file-signature"></i></label>
+                    <label htmlFor='first_name' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-file-signature"></i>
+                    </label>
                     <input type="text"
                         className="form-control"
-                        placeholder="Your first name"
+                        placeholder="Име"
                         name="first_name"
                         id="first_name"
                         value={profile.first_name || ''}
@@ -134,10 +147,12 @@ const EditProfile = () => {
                 </div>
 
                 <div className="input-group mb-3 shadow dropdown">
-                    <label htmlFor='last_name' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-file-signature"></i></label>
+                    <label htmlFor='last_name' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-file-signature"></i>
+                    </label>
                     <input type="text"
                         className="form-control"
-                        placeholder="Your last name"
+                        placeholder="Фамилия"
                         name="last_name"
                         id="last_name"
                         value={profile.last_name || ''}
@@ -146,10 +161,12 @@ const EditProfile = () => {
                 </div>
 
                 <div className="input-group mb-5 shadow dropdown">
-                    <label htmlFor='phone' className="input-group-text" id="basic-addon1"><i className="fa-solid fa-file-signature"></i></label>
+                    <label htmlFor='phone' className="input-group-text" id="basic-addon1">
+                        <i className="fa-solid fa-file-signature"></i>
+                    </label>
                     <input type="text"
                         className="form-control"
-                        placeholder="Your phone number"
+                        placeholder="Телефон"
                         name="phone"
                         id="phone"
                         value={profile.phone || ''}
@@ -172,7 +189,7 @@ const EditProfile = () => {
                 </div>
 
             </form>
-        </>
+        </div>
     );
 }
 
