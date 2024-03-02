@@ -1,12 +1,15 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
 import Path from '../../paths';
 import AuthContext from '../../contexts/authContext';
+import api from '../../helpers/Api';
+import Swal from 'sweetalert2';
 
 
 const EditProfile = () => {
     const { email, name, last_name, phone } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [profile, setProfile] = useState({
         'email_1': null,
         'email_2': null,
@@ -27,7 +30,24 @@ const EditProfile = () => {
 
     const SubmitHandler = (e) => {
         e.preventDefault();
-        // TODO:
+        const userData = {
+            'email': profile.email_1 || email,
+            'password': profile.password,
+            'new_password': profile.password_1,
+            'first_name': profile.first_name,
+            'last_name': profile.last_name,
+            'phone': profile.phone
+        }
+
+        api.post('edit_my_profile', userData)
+            .then(response => console.log(response))
+            .then(Swal.fire(
+                "Готово!",
+                "Профилът ви е редактиран.",
+                "success"
+            ))
+            .then(navigate(Path.HOME))
+            .catch(err => console.log(err));
     }
 
     return (
