@@ -14,7 +14,6 @@ import ImagesPreview from './components/ImagesPreview';
 
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
-import { PreviousLocationProvider } from "./contexts/previousLocationContext";
 import Dashboard from './components/Dashboard';
 
 
@@ -22,7 +21,6 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <PreviousLocationProvider props={PreviousLocationProvider}>
           <StoresProvider>
             <Navigation />
             <Routes>
@@ -38,7 +36,6 @@ function App() {
               <Route path={Path.DASHBOARD} element={<Dashboard />} />
             </Routes>
           </StoresProvider>
-        </PreviousLocationProvider>
       </AuthProvider>
     </>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
@@ -10,7 +10,6 @@ import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 import AuthContext from "../contexts/authContext";
-import PreviousLocationContext from '../contexts/previousLocationContext';
 
 
 const Articles = () => {
@@ -22,17 +21,6 @@ const Articles = () => {
     const iconRef = useRef(null);
     const { authorized } = useContext(AuthContext);
     const navigate = useNavigate();
-
-    const { setPreviousLocation } = useContext(PreviousLocationContext);
-    const location = useLocation();
-
-    useEffect(() => {
-        setPreviousLocation(location.pathname);
-        // Object.keys(location).forEach(key => {
-        //     console.log(`Location: ${key}`);
-        // });
-        console.log(location.pathname);
-    });
 
     useEffect(() => {
         console.log('Articles component mounted');
@@ -113,7 +101,7 @@ const Articles = () => {
                         style={{ width: '30%', minWidth: '400px', height: '90%', top: '10%', left: '60px' }}
                     >
                         <form
-                            className="container-sm vertical-center p-4 bg-white border border border-1 border-secondary rounded-4 shadow-lg position-relative"
+                            className="container-sm vertical-center p-4 bg-white border border border-1 border-secondary rounded-4 shadow position-relative"
                             style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
@@ -355,7 +343,6 @@ const Articles = () => {
                                                 <div className="btn-group shadow mt-4 border border-secondary">
 
                                                     <Link
-                                                        onClick={setPreviousLocation(location.pathname)}
                                                         type="button"
                                                         className="btn btn-light"
                                                         to={Path.EDIT_ARTICLE}

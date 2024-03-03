@@ -5,6 +5,7 @@ import api from "../../helpers/Api";
 import AuthContext from "../../contexts/authContext";
 import Path from "../../paths";
 import StoresContext from "../../contexts/storesContext";
+import Swal from "sweetalert2";
 
 
 const Login = () => {
@@ -17,24 +18,42 @@ const Login = () => {
         setUser(old => ({ ...old, [e.target.name]: e.target.value }));
     }
 
+    const HandleResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                "Неуспешна автентикация!",
+                `Грешно потребителско име или парола.`,
+                "error"
+            )
+        } else {
+            setCredentials(credentials => ({
+                ...credentials,
+                ...response.user,
+                'jwt': response.jwt,
+                'first_name': response.first_name,
+                'last_name': response.last_name,
+                'phone': response.phone,
+            }));
+            navigate(Path.HOME);
+        }
+    };
+
     const SubmitHandler = (e) => {
         e.preventDefault();
 
         if (!user.email || !user.password) {
-            throw new Error('Please enter your email and password');
+            Swal.fire(
+                "Неуспешна автентикация!",
+                `Моля, попълнете имейл и парола.`,
+                "error"
+            )
+            // throw new Error('Please enter your email and password');
         }
 
         api.post('login', user)
             .then(
-                response => setCredentials(credentials => ({
-                    ...credentials,
-                    ...response.data.user,
-                    'jwt': response.data.jwt,
-                    'first_name': response.data.first_name,
-                    'last_name': response.data.last_name,
-                    'phone': response.data.phone,
-                })))
-            .then(navigate(Path.HOME))
+                response => HandleResponse(response.data)
+            )
             .catch(err => console.log(err))
     }
 
