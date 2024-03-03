@@ -22,7 +22,7 @@ const Login = () => {
         if (response.message !== 'success') {
             Swal.fire(
                 "Неуспешна автентикация!",
-                `Грешно потребителско име или парола.`,
+                response.message,
                 "error"
             )
         } else {
@@ -41,15 +41,6 @@ const Login = () => {
     const SubmitHandler = (e) => {
         e.preventDefault();
 
-        if (!user.email || !user.password) {
-            Swal.fire(
-                "Неуспешна автентикация!",
-                `Моля, попълнете имейл и парола.`,
-                "error"
-            )
-            // throw new Error('Please enter your email and password');
-        }
-
         api.post('login', user)
             .then(
                 response => HandleResponse(response.data)
@@ -61,7 +52,11 @@ const Login = () => {
         api.get('stores')
             .then(response => response.data)
             .then(data => setStores(data))
-            .catch(err => console.log(err));
+            .catch(Swal.fire(
+                "Опс... Нещо се обърка.",
+                "Моля, опитайте по-късно",
+                "error"
+            ));
     }, []);
 
     return (
