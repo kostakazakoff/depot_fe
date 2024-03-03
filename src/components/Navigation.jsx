@@ -16,14 +16,12 @@ export default function Navigation() {
 
                 <ul className="navbar-nav ms-4 me-auto">
 
-                    {isAuthenticated &&
-                        <li className="nav-item me-3">
-                            <Link className="nav-link" to={Path.HOME}>
-                                <i className="fa-solid fa-house pe-2"></i>
-                                Начало
-                            </Link>
-                        </li>
-                    }
+                    <li className="nav-item me-3">
+                        <Link className="nav-link" to={Path.HOME}>
+                            <i className="fa-solid fa-house pe-2"></i>
+                            Начало
+                        </Link>
+                    </li>
 
                     {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
                         <li className="nav-item me-3">

@@ -15,6 +15,7 @@ import ImagesPreview from './components/ImagesPreview';
 import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
 import Dashboard from './components/Dashboard';
+import Error404 from './components/Error404';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
               <Route path={Path.ADD_ARTICLE} element={<AddArticle />} />
               <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
               <Route path={Path.DASHBOARD} element={<Dashboard />} />
+              <Route path={Path.Error404} element={<Error404 />} />
             </Routes>
           </StoresProvider>
       </AuthProvider>

@@ -45,18 +45,14 @@ const Login = () => {
             .then(
                 response => HandleResponse(response.data)
             )
-            .catch(err => console.log(err))
+            .catch(() => navigate(Path.Error404));
     }
 
     useEffect(() => {
         api.get('stores')
             .then(response => response.data)
             .then(data => setStores(data))
-            .catch(Swal.fire(
-                "Опс... Нещо се обърка.",
-                "Моля, опитайте по-късно",
-                "error"
-            ));
+            .catch(() => navigate(Path.Error404));
     }, []);
 
     return (

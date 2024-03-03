@@ -1,14 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import api from "../../helpers/Api";
-import AuthContext from "../../contexts/authContext";
 import Path from "../../paths";
-import StoresContext from "../../contexts/storesContext";
+import Swal from "sweetalert2";
 
 
 const Register = () => {
-    const { setCredentials } = useContext(AuthContext);
     const [user, setUser] = useState({});
     const navigate = useNavigate();
 
@@ -16,23 +14,37 @@ const Register = () => {
         setUser(old => ({ ...old, [e.target.name]: e.target.value }));
     }
 
+    const HandleResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                "Неуспешна регистрация!",
+                response.message,
+                "error"
+            )
+        } else {
+            Swal.fire(
+                'Успешна регистрация!',
+                'Обадете се на вашия администратор за оторизация на достъпа.',
+                'success'
+            );
+            navigate(Path.HOME);
+        }
+    }
+
     const SubmitHandler = (e) => {
         e.preventDefault();
 
-        if (!user.email || !user.password || !user.password_confirmation || user.password !== user.password_confirmation) {
-            throw new Error('Please enter your email and password');
+        if (user.password !== user.password_confirmation) {
+            Swal.fire(
+                "Неуспешна регистрация!",
+                'Паролата и потвърждението не съвпадат! Моля, въведете ги отново.',
+                "error"
+            )
+            // throw new Error('Паролата и потвърждението не съвпадат! Моля, въведете ги отново.');
         }
 
-        console.log(user);
-
-        api.post('register', {email: user.email, password: user.password})
-            // .then(
-            //     response => setCredentials(credentials => ({
-            //         ...credentials,
-            //         ...response.data.user,
-            //         'jwt': response.data.jwt,
-            //     })))
-            .then(navigate(Path.HOME))
+        api.post('register', { email: user.email, password: user.password })
+            .then(response => HandleResponse(response.data))
             .catch(err => console.log(err))
     }
 
