@@ -65,16 +65,16 @@ const AddArticle = () => {
         }
 
         const body = {
-            'inventory_number': article.inventory_number,
-            'catalog_number': article.catalog_number,
-            'draft_number': article.draft_number,
-            'material': article.material,
-            'description': article.description,
-            'price': parseFloat(article.price),
-            'store_id': article.store_id,
-            'quantity': article.quantity,
-            'package': article.package,
-            'position': article.position,
+            'inventory_number': article.inventory_number || '',
+            'catalog_number': article.catalog_number || '',
+            'draft_number': article.draft_number || '',
+            'material': article.material || '',
+            'description': article.description || '',
+            'price': parseFloat(article.price) || '',
+            'store_id': article.store_id || '',
+            'quantity': article.quantity || '',
+            'package': article.package || '',
+            'position': article.position || '',
         }
 
         Object.entries(body).forEach(
@@ -83,14 +83,29 @@ const AddArticle = () => {
             }
         )
 
-        api.post(`/articles/store`, formData)
-            .catch(err => console.log(err))
-            .then(Swal.fire(
+        api.post('/articles/store', formData)
+        .then((response) => handleResponse(response.data))
+        .catch(() => navigate(Path.Error404));
+    }
+
+    const handleResponse = (response) => {
+        if (response.message !== 'success') {
+            const errors = response.data;
+            let message = '';
+            Object.values(errors).forEach(e => message += e + '\n');
+            Swal.fire(
+                "Грешка!",
+                message,
+                "error"
+            );
+        } else {
+            Swal.fire(
                 "Готово!",
                 "Артикулът беше създаден.",
                 "success"
-            ))
-            .then(navigate(Path.ARTICLES));
+            );
+            navigate(Path.ARTICLES);
+        }
     }
 
     return (
@@ -249,8 +264,8 @@ const AddArticle = () => {
                     />
                     {
                         isDragActive ?
-                            <p>Пусни файла тук ...</p> :
-                            <p>Провлачи и пусни файловете тук ...</p>
+                            <p>Пусни файла тук...</p> :
+                            <p>Провлачи и пусни файловете тук (локални файлове или от мрежата)...</p>
                     }
                 </section>
 
