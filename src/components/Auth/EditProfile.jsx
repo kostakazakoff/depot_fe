@@ -59,11 +59,12 @@ const EditProfile = () => {
                 <div className="text-center fs-1">Редактиране на профил</div>
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='password' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-key"></i>
                     </label>
-                    <input type="password"
+                    <input
+                        type="password"
                         className="form-control"
                         placeholder="Текуща парола"
                         name="password"
@@ -73,11 +74,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='email_1' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
-                    <input type="email"
+                    <input
+                        type="email"
                         autoComplete="true"
                         className="form-control"
                         placeholder="Нов email"
@@ -88,11 +90,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='email_2' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
-                    <input type="email"
+                    <input
+                        type="email"
                         autoComplete="true"
                         className="form-control"
                         placeholder="Потвърди email"
@@ -103,12 +106,13 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='password_1' className="input-group-text" id="basic-addon1">
 
                         <i className="fa-solid fa-key"></i>
                     </label>
-                    <input type="password"
+                    <input
+                        type="password"
                         className="form-control"
                         placeholder="Нова парола"
                         name="password_1"
@@ -118,11 +122,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='password_2' className="input-group-text" id="bas
                     ic-addon1"><i className="fa-solid fa-key"></i>
                     </label>
-                    <input type="password"
+                    <input
+                        type="password"
                         className="form-control"
                         placeholder="Потвърди парола"
                         name="password_2"
@@ -132,11 +137,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='first_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
-                    <input type="text"
+                    <input
+                        type="text"
                         className="form-control"
                         placeholder="Име"
                         name="first_name"
@@ -146,11 +152,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 shadow">
                     <label htmlFor='last_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
-                    <input type="text"
+                    <input
+                        type="text"
                         className="form-control"
                         placeholder="Фамилия"
                         name="last_name"
@@ -160,11 +167,12 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-5 shadow dropdown">
+                <div className="input-group mb-5 shadow">
                     <label htmlFor='phone' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
-                    <input type="text"
+                    <input
+                        type="text"
                         className="form-control"
                         placeholder="Телефон"
                         name="phone"

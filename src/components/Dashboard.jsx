@@ -16,7 +16,7 @@ const Dashboard = () => {
     const getUsersList = () => {
         api.get('dashboard/users_list')
             .then(response => setUsers(response.data.users))
-            .catch(err => console.log(err));
+            .catch(() => navigate(Path.Error404));
     }
 
     useEffect(() => {
@@ -52,26 +52,63 @@ const Dashboard = () => {
             'last_name': userToEdit.last_name,
             'phone': userToEdit.phone
         })
-            .then(getUsersList())
-            .then(Swal.fire(
-                "Готово!",
-                "Данните на потребителя бяха променени.",
-                "success"
-            ))
-            .catch(err => console.log(err));
+            .then(response => handleEditUserResponse(response.data)
+                .then(getUsersList())
+                .catch(() => navigate(Path.Error404))
+                .then(Swal.fire(
+                    "Готово!",
+                    "Данните на потребителя бяха променени.",
+                    "success"
+                )));
     }
 
     const deleteUser = () => {
         const id = userToEdit.id;
         api.post(`dashboard/delete_user/${id}`)
-            .then(setUserToEdit({}))
-            .then(getUsersList())
-            .then(Swal.fire(
+            .then(response => handleUserDeletionResponse(response.data))
+            // .then(getUsersList())
+            // .then(Swal.fire(
+            //     "Готово!",
+            //     "Потребителят беше изтрит.",
+            //     "success"
+            // ))
+            // .catch(err => console.log(err));
+    }
+
+    const handleEditUserResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                "Неуспешна операция!",
+                response.message,
+                "error"
+            )
+        } else {
+            getUsersList();
+            Swal.fire(
                 "Готово!",
-                "Потребителят беше изтрит.",
+                "Данните на потребителя бяха променени.",
                 "success"
-            ))
-            .catch(err => console.log(err));
+            );
+        }
+    }
+
+    const handleUserDeletionResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                "Неуспешна операция!",
+                response.message,
+                "error"
+            )
+        } else {
+            setUserToEdit({});
+            getUsersList()
+                .then(Swal.fire(
+                    "Готово!",
+                    "Потребителят беше изтрит.",
+                    "success"
+                ))
+        }
+
     }
 
     const HandleUserDeletion = () => {
@@ -87,8 +124,7 @@ const Dashboard = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     deleteUser()
-                        .then(setUserToEdit({}))
-                        .catch(err => console.log(err));
+                        .catch(() => (navigate(Path.Error404)));
                 }
             })
     }
@@ -106,13 +142,13 @@ const Dashboard = () => {
     return (
         <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white border border-1 border-secondary rounded-4 shadow-lg z-3 w-25"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3 w-25"
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
-            <div className="text-center fs-1 mb-3">Админ панел</div>
+                <div className="text-center fs-1 mb-3">Админ панел</div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 dropdown">
                     <label className="input-group-text" htmlFor="user">Персонал</label>
                     <select
                         id="user"
@@ -132,7 +168,7 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group mb-3 shadow dropdown">
+                <div className="input-group mb-3 dropdown">
                     <label className="input-group-text" htmlFor="role">Роля</label>
                     <select
                         id="role"
@@ -156,7 +192,7 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group mb-3 d-flex shadow text-secondary">
+                <div className="input-group mb-3 d-flex text-secondary">
                     <label className="input-group-text" htmlFor="email">Email</label>
                     <input type="email"
                         id="email"
@@ -169,7 +205,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex shadow text-secondary">
+                <div className="input-group mb-3 d-flex text-secondary">
                     <label className="input-group-text" htmlFor="first_name">Име</label>
                     <input type="text"
                         id="first_name"
@@ -182,7 +218,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex shadow text-secondary">
+                <div className="input-group mb-3 d-flex text-secondary">
                     <label className="input-group-text" htmlFor="last_name">Фамилия</label>
                     <input type="text"
                         id="last_name"
@@ -195,7 +231,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex shadow text-secondary">
+                <div className="input-group mb-3 d-flex text-secondary">
                     <label className="input-group-text" htmlFor="phone">Телефон</label>
                     <input type="text"
                         id="phone"
@@ -208,7 +244,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-2 mt-5">
+                <div className="d-grid gap-2 mt-4">
                     <button
                         type="submit"
                         className="btn btn-outline-primary"

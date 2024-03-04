@@ -33,6 +33,7 @@ const Register = () => {
 
     const SubmitHandler = (e) => {
         e.preventDefault();
+        console.log(user);
 
         if (user.password !== user.password_confirmation) {
             Swal.fire(
@@ -41,11 +42,11 @@ const Register = () => {
                 "error"
             )
             // throw new Error('Паролата и потвърждението не съвпадат! Моля, въведете ги отново.');
+        } else {
+            api.post('register', { email: user.email, password: user.password })
+                .then(response => HandleResponse(response.data))
+                .catch(() => navigate(Path.Error404));
         }
-
-        api.post('register', { email: user.email, password: user.password })
-            .then(response => HandleResponse(response.data))
-            .catch(err => console.log(err))
     }
 
     return (
@@ -56,9 +57,11 @@ const Register = () => {
         >
             <div className="mb-3 text-center fs-1">Регистрация</div>
 
-            <div className="mb-2 d-flex text-secondary">
-                <span className="input-group-text" id="email-2"><i className="fa-solid fa-at"></i></span>
-                <input type="email"
+            <div className="input-group mb-3">
+                <label htmlFor="email" className="input-group-text"><i className="fa-solid fa-at"></i></label>
+                <input
+                    id="email"
+                    type="email"
                     autoComplete="true"
                     className="form-control"
                     placeholder="Email"
@@ -70,9 +73,11 @@ const Register = () => {
                 />
             </div>
 
-            <div className="mb-2 d-flex text-secondary">
-                <span className="input-group-text" id="password"><i className="fa-solid fa-key"></i></span>
-                <input type="password"
+            <div className="input-group mb-3">
+                <label htmlFor="password" className="input-group-text"><i className="fa-solid fa-key"></i></label>
+                <input
+                    id="password"
+                    type="password"
                     className="form-control"
                     placeholder="Парола"
                     aria-label="Password"
@@ -83,9 +88,11 @@ const Register = () => {
                 />
             </div>
 
-            <div className="mb-4 d-flex text-secondary">
-                <span className="input-group-text" id="password-2"><i className="fa-solid fa-key"></i></span>
-                <input type="password"
+            <div className="input-group mb-4">
+                <label htmlFor="password_confirmation" className="input-group-text" id="password-2"><i className="fa-solid fa-key"></i></label>
+                <input
+                    id="password_confirmation"
+                    type="password"
                     className="form-control"
                     placeholder="Потвърди паролата"
                     aria-label="Password"
@@ -96,8 +103,11 @@ const Register = () => {
                 />
             </div>
 
-            <div className="d-grid gap-2 mb-4">
-                <button type="submit" className="btn btn-outline-primary">Потвърди</button>
+            <div className="d-grid gap-2 mb-3">
+                <button type="submit" className="btn btn-outline-primary">
+                    <i className="fa-solid fa-check pe-2"></i>
+                    Потвърди
+                </button>
             </div>
 
             <div className="d-flex justify-content-center">
