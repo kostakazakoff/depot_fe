@@ -6,7 +6,7 @@ import Path from '../paths';
 
 
 export default function Navigation() {
-    const { name, isAuthenticated, role } = useContext(AuthContext);
+    const { name, isAuthenticated, role, email } = useContext(AuthContext);
 
     console.log(`isAuthenticated: ${isAuthenticated}`);
 
@@ -58,7 +58,7 @@ export default function Navigation() {
                             {isAuthenticated &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.EDIT_PROFILE}>
-                                        {name}
+                                        {name || email}
                                     </Link>
                                 </li>
                             }

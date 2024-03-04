@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 
 
 const EditProfile = () => {
-    const { email } = useContext(AuthContext);
+    const { email, name, last_name, phone, setCredentials } = useContext(AuthContext);
     const navigate = useNavigate();
     const [profile, setProfile] = useState({
         'email_1': null,
@@ -16,9 +16,9 @@ const EditProfile = () => {
         'password': null,
         'password_1': null,
         'password_2': null,
-        'first_name': null,
-        'last_name': null,
-        'phone': null
+        'first_name': name,
+        'last_name': last_name,
+        'phone': phone
     });
 
     const handleChange = (e) => {
@@ -40,26 +40,45 @@ const EditProfile = () => {
         }
 
         api.post('edit_my_profile', userData)
-            .then(response => console.log(response))
-            .then(Swal.fire(
+            .then(response => handleResponse(response.data))
+            .catch(() => navigate(Path.Error404));
+    }
+
+    const handleResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                "Неуспешна операция!",
+                response.message,
+                "error"
+            )
+        } else {
+            console.log(response);
+            setCredentials(credentials => ({
+                ...credentials,
+                'email': response.user.email,
+                'first_name': response.profile.first_name,
+                'last_name': response.profile.last_name,
+                'phone': response.profile.phone,
+            }))
+            Swal.fire(
                 "Готово!",
                 "Профилът ви е редактиран.",
                 "success"
-            ))
-            .then(navigate(Path.HOME))
-            .catch(err => console.log(err));
+            );
+            navigate(Path.HOME);
+        }
     }
 
     return (
         <div className='p-5'>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg border border-1 border-secondary"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg mt-5 mb-5"
                 onSubmit={SubmitHandler}
             >
                 <div className="text-center fs-1">Редактиране на профил</div>
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='password' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-key"></i>
                     </label>
@@ -74,7 +93,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='email_1' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
@@ -90,7 +109,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='email_2' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
@@ -106,7 +125,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='password_1' className="input-group-text" id="basic-addon1">
 
                         <i className="fa-solid fa-key"></i>
@@ -122,7 +141,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='password_2' className="input-group-text" id="bas
                     ic-addon1"><i className="fa-solid fa-key"></i>
                     </label>
@@ -137,7 +156,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='first_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
@@ -152,7 +171,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='last_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
@@ -167,7 +186,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-5 shadow">
+                <div className="input-group mb-4">
                     <label htmlFor='phone' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
@@ -182,7 +201,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-2 mb-3">
+                <div className="d-grid gap-2 mb-2">
                     <button type="submit" className="btn btn-outline-primary">
                         <i className="fa-solid fa-pen-to-square pe-2"></i>
                         Редактирай
