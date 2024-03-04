@@ -70,20 +70,18 @@ const EditProfile = () => {
     }
 
     return (
-        <div className='p-5'>
             <form
-                className="container-xs position-relative vertical-center mx-auto pt-4 pb-5 px-5 rounded-2 shadow-lg mt-5 mb-5"
+                className="container-xs position-relative align-self-center pt-4 pb-5 px-5 rounded-2 shadow-lg mx-auto"
                 style={{ minWidth: '400px', width: '600px' }}
                 onSubmit={SubmitHandler}
             >
 
                 <h4
-                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    className="py-2 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
                     {email}
                 </h4>
 
-                {/* <div className="text-center fs-1">{email}</div> */}
                 <div className="mb-4 text-center fs-5 text-primary">{role}</div>
 
                 <div className="input-group mb-3">
@@ -224,7 +222,6 @@ const EditProfile = () => {
                 </div>
 
             </form>
-        </div>
     );
 }
 

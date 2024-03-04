@@ -93,7 +93,7 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5 mb-5 mt-3" style={{ minHeight: '90vh' }}>
+            <div className="container-fluid p-5 mb-5 mt-3" style={{ minHeight: '80vh' }}>
                 <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
 
                     <section
@@ -282,7 +282,7 @@ const Articles = () => {
                         </form>
                     </section>
 
-                    <section style={{ width: '66%', alignSelf: 'end' }}>
+                    <section style={{ width: '65%', alignSelf: 'end' }}>
                         <div className="accordion accordion-flush pe-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
