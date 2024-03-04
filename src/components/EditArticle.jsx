@@ -137,15 +137,17 @@ const EditArticle = () => {
 
     return (
         <form
-            className="container-sm vertical-center mt-5 mb-4 p-5 bg-white border border border-2 border-dark rounded-4 shadow-lg position-relative"
+            className="container-sm vertical-center mt-5 p-5 bg-white rounded-4 shadow-lg position-relative"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
-            <h3 className="py-1 px-4 text-primary position-absolute bg-light border border-2 border-dark rounded shadow" style={{ top: '-24px', left: '50px' }}>
+            <h4
+            className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+            style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
                 {article.description}
-            </h3>
+            </h4>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                 <input
                     id='description'
@@ -158,7 +160,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                 <input
                     id="inventory_number"
@@ -172,7 +174,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
                 <input
                     id="catalog_number"
@@ -186,7 +188,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
                 <input
                     id="draft_number"
@@ -200,7 +202,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
                 <input
                     id='material'
@@ -213,7 +215,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
                 <input
                     id='price'
@@ -226,7 +228,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
                 <input
                     id='quantity'
@@ -239,7 +241,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
                 <input
                     id='package'
@@ -252,7 +254,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow">
+            <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
                 <input
                     id='position'
@@ -265,7 +267,7 @@ const EditArticle = () => {
                 />
             </div>
 
-            <div className="input-group mb-4 shadow dropdown">
+            <div className="input-group mb-4 dropdown">
                 <span className="input-group-text">Склад:</span>
                 <select
                     id="storeSelect"
@@ -284,7 +286,6 @@ const EditArticle = () => {
 
             <section className="w-100 shadow mt-4 rounded p-4 position-relative">
                 <h2 className='text-primary fs-3'>Текущи файлове</h2>
-                {/* <p>Кликни за изтриване</p> */}
                 <div
                     className="container d-flex justify-content-start align-items-center gap-4 position-relative overflow-x-auto"
                     style={{ height: "120px" }}>
@@ -315,7 +316,7 @@ const EditArticle = () => {
 
             <section
                 {...getRootProps({
-                    className: 'w-100 shadow mt-4 rounded p-4 position-relative border border-dark',
+                    className: 'w-100 shadow mt-4 rounded p-4 position-relative',
                 })}
             >
                 <h2 className='text-primary fs-3'>Качи нови файлове</h2>
