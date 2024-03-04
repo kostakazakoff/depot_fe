@@ -72,7 +72,7 @@ const EditProfile = () => {
     return (
         <div className='p-5'>
             <form
-                className="container-xs position-relative vertical-center mx-auto pt-4 pb-5 px-5 rounded-4 shadow-lg mt-5 mb-5"
+                className="container-xs position-relative vertical-center mx-auto pt-4 pb-5 px-5 rounded-2 shadow-lg mt-5 mb-5"
                 style={{ minWidth: '400px', width: '600px' }}
                 onSubmit={SubmitHandler}
             >

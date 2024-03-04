@@ -96,7 +96,7 @@ const AddArticle = () => {
     return (
         <>
             <form
-                className="container-sm vertical-center mt-5 mb-5 p-5 rounded-4 shadow-lg position-relative"
+                className="container-sm align-self-center p-5 rounded-2 shadow-lg position-relative"
                 style={{ maxWidth: '800px' }}
                 onSubmit={handleSubmit}
             >

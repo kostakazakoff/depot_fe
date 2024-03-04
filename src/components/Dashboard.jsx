@@ -66,13 +66,13 @@ const Dashboard = () => {
         const id = userToEdit.id;
         api.post(`dashboard/delete_user/${id}`)
             .then(response => handleUserDeletionResponse(response.data))
-            // .then(getUsersList())
-            // .then(Swal.fire(
-            //     "Готово!",
-            //     "Потребителят беше изтрит.",
-            //     "success"
-            // ))
-            // .catch(err => console.log(err));
+        // .then(getUsersList())
+        // .then(Swal.fire(
+        //     "Готово!",
+        //     "Потребителят беше изтрит.",
+        //     "success"
+        // ))
+        // .catch(err => console.log(err));
     }
 
     const handleEditUserResponse = (response) => {
@@ -141,7 +141,7 @@ const Dashboard = () => {
 
     return (
             <form
-                className="container-sm vertical-center position-relative mx-auto p-5 mt-5 mb-5 rounded-4 shadow-lg w-25"
+                className="container-sm align-self-center position-relative mx-auto p-5 mt-5 mb-5 rounded-2 shadow-lg w-25"
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >

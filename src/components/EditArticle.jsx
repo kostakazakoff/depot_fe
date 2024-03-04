@@ -137,7 +137,7 @@ const EditArticle = () => {
 
     return (
         <form
-            className="container-sm vertical-center mt-5 p-5 bg-white rounded-4 shadow-lg position-relative"
+            className="container-sm vertical-center mt-5 p-5 bg-white rounded-2 shadow-lg position-relative"
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >

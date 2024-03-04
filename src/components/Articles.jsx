@@ -101,7 +101,7 @@ const Articles = () => {
                         style={{ width: '30%', minWidth: '400px', height: '90%', top: '10%', left: '60px' }}
                     >
                         <form
-                            className="container-sm vertical-center p-4 rounded-4 shadow position-relative"
+                            className="container-sm vertical-center p-4 rounded-2 shadow position-relative"
                             style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
