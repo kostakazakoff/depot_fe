@@ -74,16 +74,16 @@ const EditArticle = () => {
         }
 
         const body = {
-            'inventory_number': article.inventory_number,
-            'catalog_number': article.catalog_number,
-            'draft_number': article.draft_number,
-            'material': article.material,
-            'description': article.description,
-            'price': parseFloat(article.price),
-            'store_id': article.store_id,
-            'quantity': article.quantity,
-            'package': article.package,
-            'position': article.position,
+            'inventory_number': article.inventory_number || '',
+            'catalog_number': article.catalog_number || '',
+            'draft_number': article.draft_number || '',
+            'material': article.material || '',
+            'description': article.description || '',
+            'price': parseFloat(article.price) || '',
+            'store_id': article.store_id || '',
+            'quantity': article.quantity || '',
+            'package': article.package || '',
+            'position': article.position || '',
         }
 
         imagesToDelete.length > 0
@@ -100,16 +100,33 @@ const EditArticle = () => {
         )
 
         api.post(`/articles/edit/${article.id}`, formData)
-            .then(setArticle(state => ({
+            .then(response => handleResponse(response.data, body))
+            .catch(() => navigate(Path.Error404));
+    }
+
+    const handleResponse = (response, body) => {
+        if (response.message !== 'success') {
+            const errors = response.data;
+            console.log(errors);
+            let message = [];
+            Object.values(errors).forEach(e => message.push(e));
+            message = message.join(' ').toString();
+            setArticle(state => ({
                 ...state, ...body
-            })))
-            .catch(err => console.log(err))
-            .then(Swal.fire(
+            }));
+            Swal.fire(
+                "Грешка!",
+                message,
+                "error"
+            );
+        } else {
+            Swal.fire(
                 "Готово!",
                 "Артикулът беше редактиран.",
                 "success"
-            ))
-            .then(navigate(Path.ARTICLES));
+            );
+            navigate(Path.ARTICLES);
+        }
     }
 
     const handleDeleteArticle = (e) => {
@@ -141,11 +158,13 @@ const EditArticle = () => {
             style={{ maxWidth: '800px' }}
             onSubmit={handleSubmit}
         >
-            <h4
-            className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
-            style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
-                {article.description}
-            </h4>
+            {article.description &&
+                <h4
+                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
+                    {article.description}
+                </h4>
+            }
 
             <div className="input-group mb-4">
                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
