@@ -140,13 +140,16 @@ const Dashboard = () => {
     }, [userToEdit]);
 
     return (
-        <>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg z-3 w-25"
+                className="container-sm vertical-center position-relative mx-auto p-5 mt-5 mb-5 rounded-4 shadow-lg w-25"
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
-                <div className="text-center fs-1 mb-3">Админ панел</div>
+                <h4
+                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
+                    Админ панел
+                </h4>
 
                 <div className="input-group mb-3 dropdown">
                     <label className="input-group-text" htmlFor="user">Персонал</label>
@@ -281,7 +284,6 @@ const Dashboard = () => {
                 </div>
 
             </form >
-        </>
     )
 }
 
