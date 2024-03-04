@@ -272,7 +272,7 @@ const Articles = () => {
                                 </button>
                                 <button
                                     type="reset"
-                                    className="btn"
+                                    className="btn bg-light"
                                     onClick={() => { setFilterOptions({}); getArticles() }}
                                     ref={resetBtn}
                                 >
