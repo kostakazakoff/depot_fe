@@ -72,15 +72,15 @@ const EditProfile = () => {
     return (
         <div className='p-5'>
             <form
-                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 bg-white rounded-4 shadow-lg mt-5 mb-5"
+                className="container-xs vertical-center position-absolute top-50 start-50 translate-middle p-5 rounded-4 shadow-lg mt-5 mb-5"
                 onSubmit={SubmitHandler}
             >
                 <div className="text-center fs-1">Редактиране на профил</div>
                 <div className="mb-4 text-center fs-5 text-primary">{email}</div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='password' className="input-group-text" id="basic-addon1">
-                        <i className="fa-solid fa-key"></i>
+                        <i className="fa-solid fa-key text-warning"></i>
                     </label>
                     <input
                         type="password"
@@ -93,7 +93,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='email_1' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
@@ -109,7 +109,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='email_2' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-at"></i>
                     </label>
@@ -125,7 +125,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='password_1' className="input-group-text" id="basic-addon1">
 
                         <i className="fa-solid fa-key"></i>
@@ -141,7 +141,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='password_2' className="input-group-text" id="bas
                     ic-addon1"><i className="fa-solid fa-key"></i>
                     </label>
@@ -156,7 +156,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='first_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>
@@ -171,7 +171,7 @@ const EditProfile = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4">
+                <div className="input-group mb-3">
                     <label htmlFor='last_name' className="input-group-text" id="basic-addon1">
                         <i className="fa-solid fa-file-signature"></i>
                     </label>

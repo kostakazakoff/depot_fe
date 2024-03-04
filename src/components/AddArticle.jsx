@@ -94,211 +94,213 @@ const AddArticle = () => {
     }
 
     return (
-        <form
-            className="container-sm vertical-center mt-5 p-5 bg-white border border border-2 border-gray rounded-4 shadow-lg position-relative"
-            style={{ maxWidth: '800px' }}
-            onSubmit={handleSubmit}
-        >
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
-                <input
-                    id='description'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='description'
-                    value={article.description || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
-                <input
-                    id="inventory_number"
-                    type="text"
-                    className="form-control"
-                    aria-label="Inventory number"
-                    aria-describedby="basic-addon2"
-                    name="inventory_number"
-                    value={article.inventory_number || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
-                <input
-                    id="catalog_number"
-                    type="text"
-                    className="form-control"
-                    aria-label="Catalog number"
-                    aria-describedby="basic-addon2"
-                    name='catalog_number'
-                    value={article.catalog_number || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
-                <input
-                    id="draft_number"
-                    type="text"
-                    className="form-control"
-                    aria-label="Drafft number"
-                    aria-describedby="basic-addon2"
-                    name='draft_number'
-                    value={article.draft_number || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
-                <input
-                    id='material'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='material'
-                    value={article.material || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
-                <input
-                    id='price'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='price'
-                    value={article.price || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
-                <input
-                    id='quantity'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='quantity'
-                    value={article.quantity || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
-                <input
-                    id='package'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='package'
-                    value={article.package || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow">
-                <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
-                <input
-                    id='position'
-                    type="text"
-                    className="form-control"
-                    aria-describedby="basic-addon2"
-                    name='position'
-                    value={article.position || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className="input-group mb-4 shadow dropdown">
-                <span className="input-group-text">Склад:</span>
-                <select
-                    id="storeSelect"
-                    className="form-select"
-                    value={article.store_id}
-                    name="store_id"
-                    onChange={handleChange}
-                >
-                    {stores.map((store) => (
-                        <option key={store.id} value={store.id}>
-                            {store.name}
-                        </option>
-                    ))}
-                </select>
-            </div>
-
-            <section
-                {...getRootProps()}
-                className='w-100 shadow rounded p-4 position-relative border border-dark-subtle'
+        <>
+            <form
+                className="container-sm vertical-center mt-5 mb-5 p-5 rounded-4 shadow-lg position-relative"
+                style={{ maxWidth: '800px' }}
+                onSubmit={handleSubmit}
             >
-                <h2 className='text-primary fs-3'>Качи файлове</h2>
-                <input
-                    className='text-secondary'
-                    {...getInputProps()}
-                />
-                {
-                    isDragActive ?
-                        <p>Пусни файла тук ...</p> :
-                        <p>Провлачи и пусни файловете тук ...</p>
-                }
-            </section>
 
-            <section className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative mt-4'>
-                {files.map(file => (
-                    <div
-                        key={file.name}
-                        className='rounded bg-light shadow position-relative overflow-hidden d-flex justify-content-center'
-                        style={{ width: '100px', height: '100px', minWidth: '100px' }}
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                    <input
+                        id='description'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='description'
+                        value={article.description || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
+                    <input
+                        id="inventory_number"
+                        type="text"
+                        className="form-control"
+                        aria-label="Inventory number"
+                        aria-describedby="basic-addon2"
+                        name="inventory_number"
+                        value={article.inventory_number || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
+                    <input
+                        id="catalog_number"
+                        type="text"
+                        className="form-control"
+                        aria-label="Catalog number"
+                        aria-describedby="basic-addon2"
+                        name='catalog_number'
+                        value={article.catalog_number || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
+                    <input
+                        id="draft_number"
+                        type="text"
+                        className="form-control"
+                        aria-label="Drafft number"
+                        aria-describedby="basic-addon2"
+                        name='draft_number'
+                        value={article.draft_number || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
+                    <input
+                        id='material'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='material'
+                        value={article.material || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
+                    <input
+                        id='price'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='price'
+                        value={article.price || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
+                    <input
+                        id='quantity'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='quantity'
+                        value={article.quantity || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
+                    <input
+                        id='package'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='package'
+                        value={article.package || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-3">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
+                    <input
+                        id='position'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='position'
+                        value={article.position || ''}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="input-group mb-4 dropdown">
+                    <span className="input-group-text">Склад:</span>
+                    <select
+                        id="storeSelect"
+                        className="form-select"
+                        value={article.store_id}
+                        name="store_id"
+                        onChange={handleChange}
                     >
-                        <img
-                            src={file.preview}
-                            alt={file.name}
-                            className='className="object-fit-cover h-100'
-                            onLoad={() => {
-                                URL.revokeObjectURL(file.preview)
-                            }}
-                        />
-                        <button
-                            type='button'
-                            className='position-absolute bg-danger text-white'
-                            style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
-                            onClick={() => removeFile(file.name)}
+                        {stores.map((store) => (
+                            <option key={store.id} value={store.id}>
+                                {store.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <section
+                    {...getRootProps()}
+                    className='w-100 shadow rounded p-4 position-relative bg-light'
+                >
+                    <h2 className='text-primary fs-3'>Качи файлове</h2>
+                    <input
+                        className='text-secondary'
+                        {...getInputProps()}
+                    />
+                    {
+                        isDragActive ?
+                            <p>Пусни файла тук ...</p> :
+                            <p>Провлачи и пусни файловете тук ...</p>
+                    }
+                </section>
+
+                <section className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative mt-2'>
+                    {files.map(file => (
+                        <div
+                            key={file.name}
+                            className='rounded bg-light shadow position-relative overflow-hidden d-flex justify-content-center'
+                            style={{ width: '100px', height: '100px', minWidth: '100px' }}
                         >
-                            <i className="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                ))}
-            </section>
+                            <img
+                                src={file.preview}
+                                alt={file.name}
+                                className='className="object-fit-cover h-100'
+                                onLoad={() => {
+                                    URL.revokeObjectURL(file.preview)
+                                }}
+                            />
+                            <button
+                                type='button'
+                                className='position-absolute bg-danger text-light'
+                                style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
+                                onClick={() => removeFile(file.name)}
+                            >
+                                <i className="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    ))}
+                </section>
 
-            <div className="btn-group border border-dark shadow mt-4">
-                <button
-                    type="submit"
-                    className="btn btn-light"
-                >
-                    <i className="fa-solid fa-check pe-2 text-primary"></i>
-                    Потвърди
-                </button>
+                <div className="btn-group border border-secondary shadow mt-4">
+                    <button
+                        type="submit"
+                        className="btn btn-light"
+                    >
+                        <i className="fa-solid fa-check pe-2 text-primary"></i>
+                        Потвърди
+                    </button>
 
-                <Link
-                    to={Path.ARTICLES}
-                    type="button"
-                    className="btn btn-light"
-                >
-                    <i className="fa-solid fa-ban pe-2"></i>
-                    Назад
-                </Link>
-            </div>
-        </form>
+                    <Link
+                        to={Path.ARTICLES}
+                        type="button"
+                        className="btn btn-light"
+                    >
+                        <i className="fa-solid fa-ban pe-2"></i>
+                        Назад
+                    </Link>
+                </div>
+            </form>
+        </>
     )
 }
 
