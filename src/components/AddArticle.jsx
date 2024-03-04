@@ -81,18 +81,19 @@ const AddArticle = () => {
             ([key, value]) => {
                 formData.append(key, value);
             }
-        )
+        );
 
         api.post('/articles/store', formData)
-        .then((response) => handleResponse(response.data))
-        .catch(() => navigate(Path.Error404));
+            .then((response) => handleResponse(response.data))
+            .catch(() => navigate(Path.Error404));
     }
 
     const handleResponse = (response) => {
         if (response.message !== 'success') {
             const errors = response.data;
-            let message = '';
-            Object.values(errors).forEach(e => message += e + '\n');
+            let message = [];
+            Object.values(errors).forEach(e => message.push(e));
+            message = message.join(' ').toString();
             Swal.fire(
                 "Грешка!",
                 message,
