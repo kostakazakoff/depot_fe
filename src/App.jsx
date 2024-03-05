@@ -17,6 +17,7 @@ import { StoresProvider } from "./contexts/storesContext";
 import Dashboard from './components/Dashboard';
 import Error404 from './components/Error404';
 
+
 // TODO: HISTORY LOGS!!!
 function App() {
   return (
