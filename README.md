@@ -1,8 +1,10 @@
-# React + Vite
+<h1 align="center">Depot DB application</h1>
+<h3 align="center">- React JS Frontend</h3>
+<h3 align="center"><a href="https://github.com/kostakazakoff/railway_depot/tree/master">- LaravelRestful API Backend</a></h3>
+<h3 align="center">- MySQL DB</h3>
+<h3 align="center">- Bootstrap</h3>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+<hr>
+<p align="center">
+<a href="https://youtu.be/tR6hB7IcMEg"  target="_blank">VIDEO</a>
+</p>
