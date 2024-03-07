@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
 import api from "../helpers/Api";
 import Swal from "sweetalert2";
+import moment from "moment";
 
 
 const Dashboard = () => {
@@ -11,7 +12,8 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [users, setUsers] = useState({});
     const [userToEdit, setUserToEdit] = useState({});
-
+    const [logs, setLogs] = useState({});
+    const [filterOptions, setFilterOptions] = useState({});
 
     const getUsersList = () => {
         api.get('dashboard/users_list')
@@ -19,9 +21,19 @@ const Dashboard = () => {
             .catch(() => navigate(Path.Error404));
     }
 
+    const getLogsList = () => {
+        api.get('logs/list')
+            .then(response => {
+                response.data.message === 'success'
+                    && setLogs(response.data.logs)
+            })
+            .catch(() => navigate(Path.Error404));
+    }
+
     useEffect(() => {
         !admin && navigate(Path.HOME);
         getUsersList();
+        getLogsList();
     }, []);
 
     const handleUserToEditSelect = (e) => {
@@ -66,13 +78,7 @@ const Dashboard = () => {
         const id = userToEdit.id;
         api.post(`dashboard/delete_user/${id}`)
             .then(response => handleUserDeletionResponse(response.data))
-        // .then(getUsersList())
-        // .then(Swal.fire(
-        //     "Готово!",
-        //     "Потребителят беше изтрит.",
-        //     "success"
-        // ))
-        // .catch(err => console.log(err));
+            .catch(() => navigate(Path.Error404));
     }
 
     const handleEditUserResponse = (response) => {
@@ -129,21 +135,25 @@ const Dashboard = () => {
             })
     }
 
-    useEffect(() => {
-        Object.values(users).forEach(user => {
-            console.log(user);
-        })
-    }, [users]);
+    const handleFilterChange = () => {
+        //TODO: 
+    }
 
-    useEffect(() => {
-        Object.keys(userToEdit).forEach(k => console.log(k, userToEdit[k]));
-    }, [userToEdit]);
+    // useEffect(() => {
+    //     Object.values(users).forEach(user => {
+    //         console.log(user);
+    //     })
+    // }, [users]);
+
+    // useEffect(() => {
+    //     Object.keys(userToEdit).forEach(k => console.log(k, userToEdit[k]));
+    // }, [userToEdit]);
 
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
             <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
-                style={{ minWidth: '500px' }}
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
+                style={{ minWidth: '500px', height: '600px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
@@ -286,21 +296,77 @@ const Dashboard = () => {
 
             </form >
 
-            <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
-                style={{ minWidth: '500px' }}
+            <article
+                className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3"
+                style={{ minWidth: '500px', height: '600px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
                     className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
-                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
-                    ЗАПИСИ
+                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}
+                >
+                    ИСТОРИЯ
                 </h4>
-            </form>
+
+                <ul
+                    className="overflow-y-auto p-4 d-flex flex-column gap-2"
+                    style={{ maxHeight: '80%', listStyleType: 'none' }}
+                >
+                    {logs && Object.keys(logs).map(key => (
+                        <li
+                            key={key}
+                            value={key}
+                            className="px-3 pt-3 rounded rounded-2 bg-warning shadow"
+                        >
+                            <h4>{moment(logs[key].created_at).format('DD/MM/YYYY')}</h4>
+                            <p>
+                                {logs[key].created &&
+                                    <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>
+                                }
+                                {logs[key].updated &&
+                                    <p><b>ПРОМЕНЕН: </b>{logs[key].updated}</p>}
+                                {logs[key].deleted &&
+                                    <p><b>ИЗТРИТ: </b>{logs[key].deleted}</p>}
+                            </p>
+                        </li>
+                    ))}
+                </ul>
+                
+                <div className="d-flex flex-row px-4 gap-2">
+                    <div className="input-group mb-3">
+                        <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
+                            <i className="fa-solid fa-right-from-bracket"></i>
+                        </label>
+                        <input
+                            id='from_date'
+                            type="date"
+                            className="form-control"
+                            aria-describedby="basic-addon2"
+                            name='from_date'
+                            value={filterOptions.from_date}
+                            onChange={handleFilterChange}
+                        />
+                    </div>
+                    <div className="input-group mb-3">
+                        <label className="input-group-text" id="basic-addon2" htmlFor="to_date">
+                            <i className="fa-solid fa-right-to-bracket"></i>
+                        </label>
+                        <input
+                            id='to_date'
+                            type="date"
+                            className="form-control"
+                            aria-describedby="basic-addon2"
+                            name='to_date'
+                            value={filterOptions.to_date}
+                            onChange={handleFilterChange}
+                        />
+                    </div>
+                </div>
+            </article>
 
             <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
-                style={{ minWidth: '500px' }}
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
+                style={{ minWidth: '500px', height: '600px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
