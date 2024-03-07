@@ -160,7 +160,7 @@ const Dashboard = () => {
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
             <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column"
                 style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
@@ -253,7 +253,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex text-secondary">
+                <div className="input-group mb-auto d-flex text-secondary">
                     <label className="input-group-text" htmlFor="phone">Телефон</label>
                     <input type="text"
                         id="phone"
@@ -415,7 +415,7 @@ const Dashboard = () => {
             </form>
 
             <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column"
                 style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
