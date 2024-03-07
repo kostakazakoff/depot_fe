@@ -276,7 +276,7 @@ const Articles = () => {
                                     onClick={() => { setFilterOptions({}); getArticles() }}
                                     ref={resetBtn}
                                 >
-                                    <i ref={iconRef} className="fa-solid fa-power-off"></i>
+                                    <i ref={iconRef}></i>
                                 </button>
                             </div>
                         </form>
