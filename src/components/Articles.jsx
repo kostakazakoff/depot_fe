@@ -93,16 +93,14 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5 mb-5 mt-3" style={{ minHeight: '80vh' }}>
-                <div className="d-flex flex-column flex-xxl-row justify-content-end position-relative">
+            <div className="container-fluid p-5 mt-3">
+                <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center position-relative">
 
                     <section
-                        className="me-5 mb-5 mt-3 fixed-top overflow-y-auto pb-5 ps-3 pe-3"
-                        style={{ width: '30%', minWidth: '400px', height: '90%', top: '10%', left: '60px' }}
+                        className="overflow-y-auto pb-5 ps-3 pe-3"
                     >
                         <form
                             className="container-sm vertical-center p-4 rounded-2 shadow position-relative"
-                            style={{ maxWidth: '800px' }}
                             onSubmit={getArticles}
                         >
 
@@ -282,7 +280,10 @@ const Articles = () => {
                         </form>
                     </section>
 
-                    <section style={{ width: '65%', alignSelf: 'end' }}>
+                    <section
+                    className="position-relative overflow-y-auto w-lg-75 w-100"
+                    style={{height: '700px'}}
+                    >
                         <div className="accordion accordion-flush pe-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
