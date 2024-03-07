@@ -326,8 +326,8 @@ const Dashboard = () => {
                             value={key}
                             className="px-3 pt-3 rounded rounded-2 bg-warning shadow"
                         >
-                            <h4>{moment(logs[key].created_at).format('DD/MM/YYYY')}</h4>
-                            <p>
+                            <h5>{moment(logs[key].created_at).format('DD/MM/YYYY')}</h5>
+                            <p style={{fontSize: '0.85rem'}}>
                                 {logs[key].created &&
                                     <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
                                 {logs[key].updated &&

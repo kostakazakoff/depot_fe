@@ -97,7 +97,7 @@ const Articles = () => {
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center position-relative">
 
                     <section
-                        className="overflow-y-auto pb-5 ps-3 pe-3"
+                        className="overflow-y-auto pb-4 px-3 h-100"
                     >
                         <form
                             className="container-sm vertical-center p-4 rounded-2 shadow position-relative"
@@ -308,7 +308,7 @@ const Articles = () => {
                                                     <img
                                                         src={data.images[0] && data.images[0].url}
                                                         alt={data.images[0] && data.images[0].path}
-                                                        className="object-fit-cover w-100 mh-100"
+                                                        className="object-fit-cover w-lg-100 mh-100"
                                                     />
                                                 </Link>
                                                 :
@@ -388,7 +388,7 @@ const Articles = () => {
                         </div>
                     </section>
                     <footer>
-                        <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-2 border-top border-dark bg-dark text-light">
+                        <div className="container-fluid d-flex justify-content-center fs-5 fixed-bottom p-3 border-top border-dark bg-dark text-light">
                             <div>Обща стойност на наличностите: <strong className='text-primary'>{totalCost.current}  лв.</strong></div>
                         </div>
                     </footer>
