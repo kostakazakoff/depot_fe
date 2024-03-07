@@ -302,9 +302,9 @@ const Dashboard = () => {
                     </button>
                 </div>
 
-            </form >
+            </form>
 
-            <article
+            <form
                 className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3"
                 style={{ minWidth: '500px', height: '600px' }}
                 onSubmit={SubmitHandler}
@@ -317,7 +317,7 @@ const Dashboard = () => {
                 </h4>
 
                 <ul
-                    className="overflow-y-auto p-4 d-flex flex-column gap-2"
+                    className="overflow-y-auto p-4 d-flex flex-column gap-3"
                     style={{ height: '90%', listStyleType: 'none' }}
                 >
                     {logs && Object.keys(logs).map(key => (
@@ -378,7 +378,7 @@ const Dashboard = () => {
                         <i className='fa-solid fa-rotate-right'></i>
                     </button>
                 </div>
-            </article>
+            </form>
 
             <form
                 className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
