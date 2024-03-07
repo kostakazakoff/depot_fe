@@ -391,7 +391,7 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                {/* <div className="input-group mb-3 px-4">
+                <div className="input-group mb-3 px-4">
                     <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                     <input
                         id='description'
@@ -402,7 +402,7 @@ const Dashboard = () => {
                         value={filterOptions.description}
                         onChange={handleFilterChange}
                     />
-                </div> */}
+                </div>
 
                 {/* <button
                     type="reset"
