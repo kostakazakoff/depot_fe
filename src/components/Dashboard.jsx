@@ -140,15 +140,16 @@ const Dashboard = () => {
     }, [userToEdit]);
 
     return (
+        <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
             <form
-                className="container-sm align-self-center position-relative mx-auto p-5 mt-5 mb-5 rounded-2 shadow-lg w-25"
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
                 style={{ minWidth: '500px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
                     className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
-                    Админ панел
+                    ПОТРЕБИТЕЛИ
                 </h4>
 
                 <div className="input-group mb-3 dropdown">
@@ -284,6 +285,32 @@ const Dashboard = () => {
                 </div>
 
             </form >
+
+            <form
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
+                style={{ minWidth: '500px' }}
+                onSubmit={SubmitHandler}
+            >
+                <h4
+                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
+                    ЗАПИСИ
+                </h4>
+            </form>
+
+            <form
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25"
+                style={{ minWidth: '500px' }}
+                onSubmit={SubmitHandler}
+            >
+                <h4
+                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
+                    СКЛАДОВЕ
+                </h4>
+            </form>
+
+        </div>
     )
 }
 
