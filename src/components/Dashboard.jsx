@@ -305,7 +305,7 @@ const Dashboard = () => {
             </form>
 
             <form
-                className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3"
+                className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3 d-flex flex-column align-items-center"
                 style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
@@ -317,8 +317,8 @@ const Dashboard = () => {
                 </h4>
 
                 <ul
-                    className="overflow-y-auto p-4 d-flex flex-column gap-3"
-                    style={{ height: '70%', listStyleType: 'none' }}
+                    className="overflow-y-auto p-4 d-flex flex-column gap-3 mb-auto"
+                    style={{ height: '66%', listStyleType: 'none' }}
                 >
                     {logs && Object.keys(logs).map(key => (
                         <li
@@ -339,7 +339,7 @@ const Dashboard = () => {
                     ))}
                 </ul>
 
-                <div className="d-flex flex-row px-4 gap-2 mb-3">
+                <div className="d-flex flex-row px-4 gap-2 mb-2">
                     <div className="input-group">
                         <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
                             <i className="fa-solid fa-right-from-bracket"></i>
@@ -370,7 +370,7 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                <div className="input-group mb-3 px-4 dropdown">
+                <div className="input-group mb-2 px-4 dropdown">
                     <label className="input-group-text" htmlFor="user">Персонал</label>
                     <select
                         id="user"
@@ -391,7 +391,7 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group mb-3 px-4">
+                <div className="input-group mb-2 px-4">
                     <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                     <input
                         id='description'
@@ -404,13 +404,14 @@ const Dashboard = () => {
                     />
                 </div>
 
-                {/* <button
+                <button
                     type="reset"
-                    className="btn text-primary"
-                    onClick={() => { setFilterOptions([]) }}
+                    className="btn btn-outline-dark w-50"
+                    onClick={() => setFilterOptions([])}
                 >
-                    <i className='fa-solid fa-rotate-right'></i>
-                </button> */}
+                    <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
+                    Нулирай
+                </button>
             </form>
 
             <form
