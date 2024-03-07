@@ -93,7 +93,7 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5 mt-3">
+            <div className="container-fluid p-5 mt-4">
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center position-relative">
 
                     <section
@@ -317,7 +317,7 @@ const Articles = () => {
                                                 </div>
                                             }
 
-                                            <div className="col me-2 lh-lg" style={{ minWidth: '350px' }}>
+                                            <div className="col lh-lg d-flex flex-column pe-5" style={{ minWidth: '350px' }}>
                                                 <div>Каталожен номер: <strong>
                                                     {data.catalog_number ? data.catalog_number : ''}
                                                 </strong></div>
@@ -339,9 +339,9 @@ const Articles = () => {
                                                 <div>Позиция: <strong>
                                                     {data.inventory.position ? data.inventory.position : ''}
                                                 </strong></div>
-                                                <div>Склад: <strong>{data.stores[0].name}</strong></div>
+                                                <div className="mb-auto">Склад: <strong>{data.stores[0].name}</strong></div>
 
-                                                <div className="btn-group shadow mt-4 border border-secondary">
+                                                <div className="btn-group shadow mt-4 border border-secondary w-75">
 
                                                     <Link
                                                         type="button"
