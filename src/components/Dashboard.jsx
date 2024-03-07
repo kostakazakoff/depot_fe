@@ -8,7 +8,7 @@ import moment from "moment";
 
 
 const Dashboard = () => {
-    const { admin } = useContext(authContext);
+    const { admin, user_id } = useContext(authContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState({});
     const [userToEdit, setUserToEdit] = useState({});
@@ -161,7 +161,7 @@ const Dashboard = () => {
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
             <form
                 className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
-                style={{ minWidth: '500px', height: '600px' }}
+                style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
@@ -306,7 +306,7 @@ const Dashboard = () => {
 
             <form
                 className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3"
-                style={{ minWidth: '500px', height: '600px' }}
+                style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
@@ -318,7 +318,7 @@ const Dashboard = () => {
 
                 <ul
                     className="overflow-y-auto p-4 d-flex flex-column gap-3"
-                    style={{ height: '90%', listStyleType: 'none' }}
+                    style={{ height: '70%', listStyleType: 'none' }}
                 >
                     {logs && Object.keys(logs).map(key => (
                         <li
@@ -329,8 +329,7 @@ const Dashboard = () => {
                             <h4>{moment(logs[key].created_at).format('DD/MM/YYYY')}</h4>
                             <p>
                                 {logs[key].created &&
-                                    <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>
-                                }
+                                    <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
                                 {logs[key].updated &&
                                     <p><b>ПРОМЕНЕН: </b>{logs[key].updated}</p>}
                                 {logs[key].deleted &&
@@ -340,7 +339,7 @@ const Dashboard = () => {
                     ))}
                 </ul>
 
-                <div className="d-flex flex-row px-4 gap-2">
+                <div className="d-flex flex-row px-4 gap-2 mb-3">
                     <div className="input-group">
                         <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
                             <i className="fa-solid fa-right-from-bracket"></i>
@@ -369,20 +368,54 @@ const Dashboard = () => {
                             onChange={handleFilterChange}
                         />
                     </div>
-
-                    <button
-                        type="reset"
-                        className="btn text-primary"
-                        onClick={() => { setFilterOptions([])}}
-                    >
-                        <i className='fa-solid fa-rotate-right'></i>
-                    </button>
                 </div>
+
+                <div className="input-group mb-3 px-4 dropdown">
+                    <label className="input-group-text" htmlFor="user">Персонал</label>
+                    <select
+                        id="user"
+                        name="user"
+                        className="form-select"
+                        onChange={handleFilterChange}
+                    >
+                        <option value="">Избери потребител</option>
+                        <option value={user_id}>Аз</option>
+                        {users && Object.keys(users).map(key => (
+                            <option key={key} value={users[key].id}>
+                                {users[key].profile.first_name
+                                    ? users[key].profile.first_name
+                                    : users[key].email
+                                }
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* <div className="input-group mb-3 px-4">
+                    <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                    <input
+                        id='description'
+                        type="text"
+                        className="form-control"
+                        aria-describedby="basic-addon2"
+                        name='description'
+                        value={filterOptions.description}
+                        onChange={handleFilterChange}
+                    />
+                </div> */}
+
+                {/* <button
+                    type="reset"
+                    className="btn text-primary"
+                    onClick={() => { setFilterOptions([]) }}
+                >
+                    <i className='fa-solid fa-rotate-right'></i>
+                </button> */}
             </form>
 
             <form
                 className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75"
-                style={{ minWidth: '500px', height: '600px' }}
+                style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
                 <h4
