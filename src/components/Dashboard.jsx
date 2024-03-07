@@ -22,10 +22,11 @@ const Dashboard = () => {
     }
 
     const getLogsList = () => {
-        api.get('logs/list')
+        api.get('logs/list', { params: filterOptions ? filterOptions : '' })
             .then(response => {
                 response.data.message === 'success'
-                    && setLogs(response.data.logs)
+                    ? setLogs(response.data.logs)
+                    : setLogs([]);
             })
             .catch(() => navigate(Path.Error404));
     }
@@ -35,6 +36,17 @@ const Dashboard = () => {
         getUsersList();
         getLogsList();
     }, []);
+
+    useEffect(() => {
+        getLogsList();
+    }, [filterOptions]);
+
+    const handleFilterChange = (e) => {
+        setFilterOptions(state => ({
+            ...state,
+            [e.target.name]: e.target.value
+        }));
+    }
 
     const handleUserToEditSelect = (e) => {
         setUserToEdit({
@@ -133,10 +145,6 @@ const Dashboard = () => {
                         .catch(() => (navigate(Path.Error404)));
                 }
             })
-    }
-
-    const handleFilterChange = () => {
-        //TODO: 
     }
 
     // useEffect(() => {
@@ -310,7 +318,7 @@ const Dashboard = () => {
 
                 <ul
                     className="overflow-y-auto p-4 d-flex flex-column gap-2"
-                    style={{ maxHeight: '80%', listStyleType: 'none' }}
+                    style={{ height: '90%', listStyleType: 'none' }}
                 >
                     {logs && Object.keys(logs).map(key => (
                         <li
@@ -331,9 +339,9 @@ const Dashboard = () => {
                         </li>
                     ))}
                 </ul>
-                
+
                 <div className="d-flex flex-row px-4 gap-2">
-                    <div className="input-group mb-3">
+                    <div className="input-group">
                         <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
                             <i className="fa-solid fa-right-from-bracket"></i>
                         </label>
@@ -347,7 +355,7 @@ const Dashboard = () => {
                             onChange={handleFilterChange}
                         />
                     </div>
-                    <div className="input-group mb-3">
+                    <div className="input-group">
                         <label className="input-group-text" id="basic-addon2" htmlFor="to_date">
                             <i className="fa-solid fa-right-to-bracket"></i>
                         </label>
@@ -361,6 +369,14 @@ const Dashboard = () => {
                             onChange={handleFilterChange}
                         />
                     </div>
+
+                    <button
+                        type="reset"
+                        className="btn text-primary"
+                        onClick={() => { setFilterOptions([])}}
+                    >
+                        <i className='fa-solid fa-rotate-right'></i>
+                    </button>
                 </div>
             </article>
 
