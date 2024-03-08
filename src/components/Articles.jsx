@@ -287,7 +287,7 @@ const Articles = () => {
                     >
                         <div className="accordion accordion-flush pe-3" id="articlesList">
                             {articles && articles.map(data => (
-                                <article className="accordion-item border-bottom border-secondary border-1 shadow" key={data.id}>
+                                <article className="accordion-item border-bottom border-secondary border-1 shadow mb-1" key={data.id}>
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
                                             <strong className='text-primary pe-1'>{data.description}</strong> | въведен на {convertDate(data.created_at)} | последна промяна на {convertDate(data.updated_at)}
