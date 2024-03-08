@@ -53,6 +53,10 @@ const Login = () => {
             .then(response => response.data)
             .then(data => setStores(data))
             .catch(() => navigate(Path.Error404));
+        api.post('/logs/delete_old')
+        .then(response => response.data)
+        .then(data => console.log(data))
+        .catch(() => navigate(Path.Error404));
     }, []);
 
     return (

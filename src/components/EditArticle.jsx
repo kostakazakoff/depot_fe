@@ -157,7 +157,7 @@ const EditArticle = (props) => {
             className="modal-dialog modal-dialog-centered modal-xl"
             onSubmit={handleSubmit}
         >
-            <div className="modal-content p-5">
+            <div className="modal-content px-3 py-2">
                 <div className="modal-header">
                     <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
