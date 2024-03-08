@@ -146,6 +146,8 @@ const EditArticle = (props) => {
                         ))
                         .then(getArticles())
                         .catch(() => navigate(Path.Error404));
+                } else {
+                    setFiles([]);
                 }
             })
     }
