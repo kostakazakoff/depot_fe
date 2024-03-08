@@ -348,7 +348,7 @@ const Articles = () => {
                                                         type="button"
                                                         className="btn btn-light"
                                                         data-bs-toggle="modal"
-                                                        data-bs-target="#editArticleModal"
+                                                        data-bs-target={`#_${data.id}`}
                                                     >
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
                                                         Редактирай
@@ -372,9 +372,9 @@ const Articles = () => {
                                     </div>
 
                                     {/* MODAL */}
-                                    <div className="modal fade" id="editArticleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div className="modal fade" id={`_${data.id}`} tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
                                         <EditArticle
-                                            articles = {{
+                                            article = {{
                                                 id: data.id,
                                                 inventory_number: data.inventory_number,
                                                 catalog_number: data.catalog_number,

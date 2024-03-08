@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
@@ -14,11 +14,13 @@ import Path from "../paths";
 
 const EditArticle = (props) => {
     const navigate = useNavigate();
-    const [article, setArticle] = useState(props.articles);
+    const [article, setArticle] = useState(props.article);
     const getArticles = props.getArticles;
     const { stores } = useContext(StoresContext);
     const [files, setFiles] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
+
+    console.log(props);
 
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
@@ -51,7 +53,6 @@ const EditArticle = (props) => {
         setImagesToDelete(state => ([
             ...state, id
         ]))
-        console.log(article.images);
     };
 
     const handleChange = (e) => {
@@ -106,7 +107,6 @@ const EditArticle = (props) => {
     const handleResponse = (response, body) => {
         if (response.message !== 'success') {
             const errors = response.data;
-            console.log(errors);
             let message = [];
             Object.values(errors).forEach(e => message.push(e));
             message = message.join(' ').toString();
@@ -326,15 +326,14 @@ const EditArticle = (props) => {
                         }
                     </section>
 
-                    <section className="w-100 shadow rounded position-relative mb-3 p-4">
-                        <h2 className='text-primary fs-3'>Текущи файлове</h2>
+                    <section className="w-100 rounded position-relative py-2 mt-2">
                         <div
-                            className="container d-flex justify-content-start align-items-center gap-4 position-relative overflow-x-auto"
-                            style={{ height: "120px" }}>
+                            className="container d-flex flex-row justify-content-start align-items-bottom gap-3 position-relative overflow-x-auto"
+                            style={{ maxHeight: "120px" }}>
 
                             {article.images.map(image => (
                                 <div
-                                    className="overflow-hidden border border-danger rounded bg-light shadow position-relative d-flex justify-content-center"
+                                    className="overflow-hidden border border-dark rounded bg-light shadow position-relative d-flex justify-content-center"
                                     style={{ width: '100px', height: '100px', minWidth: '100px' }}
                                     key={image.id}
                                 >
