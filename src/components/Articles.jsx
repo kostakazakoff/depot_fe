@@ -10,6 +10,7 @@ import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 import AuthContext from "../contexts/authContext";
+import EditArticle from "./EditArticle";
 
 
 const Articles = () => {
@@ -281,8 +282,8 @@ const Articles = () => {
                     </section>
 
                     <section
-                    className="position-relative overflow-y-auto w-lg-75 w-100"
-                    style={{height: '700px'}}
+                        className="position-relative overflow-y-auto w-lg-75 w-100"
+                        style={{ height: '700px' }}
                     >
                         <div className="accordion accordion-flush pe-3" id="articlesList">
                             {articles && articles.map(data => (
@@ -341,31 +342,17 @@ const Articles = () => {
                                                 </strong></div>
                                                 <div className="mb-auto">Склад: <strong>{data.stores[0].name}</strong></div>
 
+                                                {/* MODAL buttno */}
                                                 <div className="btn-group shadow mt-4 border border-secondary w-75">
-
-                                                    <Link
+                                                    <button
                                                         type="button"
                                                         className="btn btn-light"
-                                                        to={Path.EDIT_ARTICLE}
-                                                        state={{
-                                                            id: data.id,
-                                                            inventory_number: data.inventory_number,
-                                                            catalog_number: data.catalog_number,
-                                                            draft_number: data.draft_number,
-                                                            material: data.material,
-                                                            description: data.description,
-                                                            price: data.price,
-                                                            images: data.images,
-                                                            inventory_id: data.inventory.id,
-                                                            quantity: data.inventory.quantity,
-                                                            package: data.inventory.package,
-                                                            position: data.inventory.position,
-                                                            store_id: data.stores[0].id,
-                                                        }}
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#editArticleModal"
                                                     >
                                                         <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
                                                         Редактирай
-                                                    </Link>
+                                                    </button>
 
                                                     <button
                                                         type="button"
@@ -383,6 +370,29 @@ const Articles = () => {
 
                                         </div>
                                     </div>
+
+                                    {/* MODAL */}
+                                    <div className="modal fade" id="editArticleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <EditArticle
+                                            articles = {{
+                                                id: data.id,
+                                                inventory_number: data.inventory_number,
+                                                catalog_number: data.catalog_number,
+                                                draft_number: data.draft_number,
+                                                material: data.material,
+                                                description: data.description,
+                                                price: data.price,
+                                                images: data.images,
+                                                inventory_id: data.inventory.id,
+                                                quantity: data.inventory.quantity,
+                                                package: data.inventory.package,
+                                                position: data.inventory.position,
+                                                store_id: data.stores[0].id,
+                                            }}
+                                            getArticles = {getArticles}
+                                        />
+                                    </div>
+
                                 </article>
                             ))}
                         </div>
