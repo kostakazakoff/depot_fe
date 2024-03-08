@@ -97,14 +97,14 @@ const Articles = () => {
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
 
                     <section
-                        className="overflow-y-auto pb-4 px-3 h-100"
+                        className="overflow-y-auto pb-3 px-3"
                     >
                         <form
-                            className="container-sm vertical-center p-4 rounded-2 shadow position-relative"
+                            className="container-sm vertical-center p-4 d-flex flex-column align-items-strech gap-3 rounded-2 shadow position-relative h-100"
                             onSubmit={getArticles}
                         >
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
                                 <input
                                     id='description'
@@ -117,7 +117,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
                                 <input
                                     id="inventory_number"
@@ -131,7 +131,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
                                 <input
                                     id="catalog_number"
@@ -145,7 +145,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
                                 <input
                                     id="draft_number"
@@ -159,7 +159,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
                                 <input
                                     id='material'
@@ -172,7 +172,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
                                 <input
                                     id='position'
@@ -185,7 +185,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3 dropdown">
+                            <div className="input-group dropdown">
                                 <span className="input-group-text">Склад:</span>
                                 <select
                                     id="storeSelect"
@@ -203,7 +203,7 @@ const Articles = () => {
                                 </select>
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="from_date">От дата:</label>
                                 <input
                                     id='from_date'
@@ -216,7 +216,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3">
+                            <div className="input-group">
                                 <label className="input-group-text" id="basic-addon2" htmlFor="to_date">До дата:</label>
                                 <input
                                     id='to_date'
@@ -229,7 +229,7 @@ const Articles = () => {
                                 />
                             </div>
 
-                            <div className="input-group mb-3 dropdown">
+                            <div className="input-group dropdown">
                                 <span className="input-group-text">Сортиране по:</span>
                                 <select
                                     id="order"
@@ -245,7 +245,7 @@ const Articles = () => {
                                 </select>
                             </div>
 
-                            <div className="input-group mb-3 dropdown">
+                            <div className="input-group mb-auto dropdown">
                                 <span className="input-group-text">Ред на сортиране:</span>
                                 <select
                                     id="sortby"
@@ -260,7 +260,7 @@ const Articles = () => {
                                 </select>
                             </div>
 
-                            <div className="btn-group border border-secondary mt-3">
+                            <div className="btn-group border border-secondary">
                                 <button
                                     type="submit"
                                     className="btn btn-light"
