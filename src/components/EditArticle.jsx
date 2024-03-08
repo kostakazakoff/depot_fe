@@ -20,8 +20,6 @@ const EditArticle = (props) => {
     const [files, setFiles] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
 
-    console.log(props);
-
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
             setFiles(state => [
@@ -146,7 +144,8 @@ const EditArticle = (props) => {
                             `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
-                        .then(navigate(Path.ARTICLES))
+                        .then(getArticles())
+                        .catch(() => navigate(Path.Error404));
                 }
             })
     }
@@ -326,7 +325,7 @@ const EditArticle = (props) => {
                         }
                     </section>
 
-                    <section className="w-100 rounded position-relative py-2 mt-2">
+                    <section className="w-100 rounded position-relative py-2 mt-2 overflow-y-auto">
                         <div
                             className="container d-flex flex-row justify-content-start align-items-bottom gap-3 position-relative overflow-x-auto"
                             style={{ maxHeight: "120px" }}>
@@ -352,7 +351,7 @@ const EditArticle = (props) => {
                                     </button>
                                 </div>
                             ))}
-                            <div className='overflow-y-auto d-flex justify-content-start align-items-center gap-4 position-relative'>
+                            <div className='d-flex justify-content-start align-items-center gap-4 position-relative'>
                                 {files.map(file => (
                                     <div
                                         key={file.name}
@@ -379,12 +378,18 @@ const EditArticle = (props) => {
                                 ))}
                             </div>
                         </div>
-
                     </section>
 
                 </div>
                 <div className="modal-footer">
-                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Затвори</button>
+                    <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                    onClick={() => setFiles([])}
+                    >
+                        Затвори
+                    </button>
                     <button
                         type="button"
                         className="btn btn-danger"
@@ -392,7 +397,9 @@ const EditArticle = (props) => {
                         name={article.description}
                         value={article.id}
                         onClick={handleDeleteArticle}
-                    >Изтрий</button>
+                    >
+                        Изтрий
+                    </button>
                     <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Запиши промените</button>
                 </div>
             </div>
