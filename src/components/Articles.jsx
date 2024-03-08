@@ -285,7 +285,7 @@ const Articles = () => {
                         className="position-relative overflow-y-auto w-lg-75 w-100"
                         style={{ height: '700px' }}
                     >
-                        <div className="accordion accordion-flush pe-3" id="articlesList">
+                        <div className="accordion accordion-flush px-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow mb-1" key={data.id}>
                                     <h2 className="accordion-header">
