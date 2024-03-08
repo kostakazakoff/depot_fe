@@ -94,7 +94,7 @@ const Articles = () => {
     return (
         <>
             <div className="container-fluid p-5 mt-4">
-                <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center position-relative">
+                <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
 
                     <section
                         className="overflow-y-auto pb-4 px-3 h-100"
