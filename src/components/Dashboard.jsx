@@ -305,7 +305,7 @@ const Dashboard = () => {
             </form>
 
             <form
-                className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3 d-flex flex-column align-items-center"
+                className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3 d-flex flex-column align-items-strech"
                 style={{ minWidth: '500px', height: '700px' }}
                 onSubmit={SubmitHandler}
             >
@@ -327,7 +327,7 @@ const Dashboard = () => {
                             className="px-3 pt-3 rounded rounded-2 bg-warning shadow"
                         >
                             <h5>{moment(logs[key].created_at).format('DD/MM/YYYY')}</h5>
-                            <p style={{fontSize: '0.85rem'}}>
+                            <p style={{ fontSize: '0.85rem' }}>
                                 {logs[key].created &&
                                     <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
                                 {logs[key].updated &&
@@ -339,79 +339,82 @@ const Dashboard = () => {
                     ))}
                 </ul>
 
-                <div className="d-flex flex-row px-4 gap-2 mb-2">
-                    <div className="input-group">
-                        <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
-                            <i className="fa-solid fa-right-from-bracket"></i>
-                        </label>
-                        <input
-                            id='from_date'
-                            type="date"
-                            className="form-control"
-                            aria-describedby="basic-addon2"
-                            name='from_date'
-                            value={filterOptions.from_date}
-                            onChange={handleFilterChange}
-                        />
+                <div className="d-flex flex-column gap-2 align-items-strech px-4">
+                    <div className="d-flex flex-row gap-2">
+                        <div className="input-group">
+                            <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
+                                <i className="fa-solid fa-right-from-bracket"></i>
+                            </label>
+                            <input
+                                id='from_date'
+                                type="date"
+                                className="form-control"
+                                aria-describedby="basic-addon2"
+                                name='from_date'
+                                value={filterOptions.from_date}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-group-text" id="basic-addon2" htmlFor="to_date">
+                                <i className="fa-solid fa-right-to-bracket"></i>
+                            </label>
+                            <input
+                                id='to_date'
+                                type="date"
+                                className="form-control"
+                                aria-describedby="basic-addon2"
+                                name='to_date'
+                                value={filterOptions.to_date}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
                     </div>
-                    <div className="input-group">
-                        <label className="input-group-text" id="basic-addon2" htmlFor="to_date">
-                            <i className="fa-solid fa-right-to-bracket"></i>
-                        </label>
-                        <input
-                            id='to_date'
-                            type="date"
-                            className="form-control"
-                            aria-describedby="basic-addon2"
-                            name='to_date'
-                            value={filterOptions.to_date}
-                            onChange={handleFilterChange}
-                        />
-                    </div>
-                </div>
 
-                <div className="input-group mb-2 px-4 dropdown">
-                    <label className="input-group-text" htmlFor="user">Персонал</label>
-                    <select
-                        id="user"
-                        name="user"
-                        className="form-select"
-                        onChange={handleFilterChange}
+                    <div className="input-group dropdown">
+                        <label className="input-group-text" htmlFor="user">Персонал</label>
+                        <select
+                            id="user"
+                            name="user"
+                            className="form-select"
+                            onChange={handleFilterChange}
+                        >
+                            <option value="">Избери потребител</option>
+                            <option value={user_id}>Аз</option>
+                            {users && Object.keys(users).map(key => (
+                                <option key={key} value={users[key].id}>
+                                    {users[key].profile.first_name
+                                        ? users[key].profile.first_name
+                                        : users[key].email
+                                    }
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="input-group">
+                        <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                        <input
+                            id='description'
+                            type="text"
+                            className="form-control"
+                            aria-describedby="basic-addon2"
+                            name='description'
+                            value={filterOptions.description}
+                            onChange={handleFilterChange}
+                        />
+                    </div>
+
+                    <button
+                        type="reset"
+                        className="btn btn-outline-dark"
+                        onClick={() => setFilterOptions([])}
                     >
-                        <option value="">Избери потребител</option>
-                        <option value={user_id}>Аз</option>
-                        {users && Object.keys(users).map(key => (
-                            <option key={key} value={users[key].id}>
-                                {users[key].profile.first_name
-                                    ? users[key].profile.first_name
-                                    : users[key].email
-                                }
-                            </option>
-                        ))}
-                    </select>
+                        <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
+                        Нулирай
+                    </button>
                 </div>
 
-                <div className="input-group mb-2 px-4">
-                    <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
-                    <input
-                        id='description'
-                        type="text"
-                        className="form-control"
-                        aria-describedby="basic-addon2"
-                        name='description'
-                        value={filterOptions.description}
-                        onChange={handleFilterChange}
-                    />
-                </div>
-
-                <button
-                    type="reset"
-                    className="btn btn-outline-dark w-50"
-                    onClick={() => setFilterOptions([])}
-                >
-                    <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
-                    Нулирай
-                </button>
             </form>
 
             <form
