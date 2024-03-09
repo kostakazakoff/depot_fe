@@ -98,7 +98,7 @@ const Articles = () => {
             <div className="container-fluid p-5 mt-4">
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
                     {/* Add Article MODAL button */}
-                    <button
+                    {/* <button
                         type="button"
                         className="btn btn-primary position-absolute z-3"
                         style={{ top: '-50px', right: '60px' }}
@@ -107,7 +107,7 @@ const Articles = () => {
                     >
                         <i className="fa-solid fa-square-plus pe-2"></i>
                         Добави артикул
-                    </button>
+                    </button> */}
 
                     <section
                         className="overflow-y-auto pb-3 px-3"
@@ -294,7 +294,7 @@ const Articles = () => {
                     </section>
 
                     <section
-                        className="position-relative overflow-y-auto w-lg-75 w-100"
+                        className="position-relative overflow-y-auto w-lg-75 w-100 px-3"
                         style={{ height: '700px' }}
                     >
                         {/* Add Article MODAL */}
@@ -302,9 +302,25 @@ const Articles = () => {
                             <AddArticle getArticles={getArticles} />
                         </div>
 
-                        <div className="accordion accordion-flush px-3" id="articlesList">
+                        <nav
+                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow"
+                            style={{backgroundColor: '#eeeeee'}}
+                        >
+                            {/* Add Article MODAL button */}
+                            <button
+                                type="button"
+                                className="btn btn-light text-primary shadow"
+                                data-bs-toggle="modal"
+                                data-bs-target='#add_article'
+                            >
+                                <i className="fa-solid fa-square-plus pe-2"></i>
+                                Добави артикул
+                            </button>
+                        </nav>
+
+                        <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
-                                <article className="accordion-item border-bottom border-secondary border-1 shadow mb-1" key={data.id}>
+                                <article className="accordion-item shadow mb-1" key={data.id}>
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
                                             <strong className='text-primary pe-1'>{data.description}</strong> | въведен на {convertDate(data.created_at)} | последна промяна на {convertDate(data.updated_at)}
