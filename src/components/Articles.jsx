@@ -276,7 +276,7 @@ const Articles = () => {
                             <div className="btn-group border border-secondary">
                                 <button
                                     type="submit"
-                                    className="btn btn-light"
+                                    className="btn btn-primary"
                                 >
                                     <i className="fa-solid fa-magnifying-glass pe-2"></i>
                                     Филтриране
@@ -304,12 +304,12 @@ const Articles = () => {
 
                         <nav
                             className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow"
-                            style={{backgroundColor: '#eeeeee'}}
+                            style={{ backgroundColor: '#bebebe' }}
                         >
                             {/* Add Article MODAL button */}
                             <button
                                 type="button"
-                                className="btn btn-light text-primary shadow"
+                                className="btn btn-primary shadow"
                                 data-bs-toggle="modal"
                                 data-bs-target='#add_article'
                             >

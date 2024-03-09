@@ -165,7 +165,7 @@ const Dashboard = () => {
                 onSubmit={SubmitHandler}
             >
                 <h4
-                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    className="py-1 px-4 text-dark position-absolute rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
                     ПОТРЕБИТЕЛИ
                 </h4>
@@ -266,7 +266,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-2 mt-4">
+                <div className="d-grid gap-3 mt-4">
                     <button
                         type="submit"
                         className="btn btn-outline-primary"
@@ -294,10 +294,10 @@ const Dashboard = () => {
                     </Link>
                     <button
                         type="reset"
-                        className="btn btn-outline-dark"
+                        className="btn btn-primary"
                         onClick={() => setUserToEdit({})}
                     >
-                        <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
+                        <i className="fa-solid fa-rotate-right pe-2"></i>
                         Нулирай
                     </button>
                 </div>
@@ -310,21 +310,21 @@ const Dashboard = () => {
                 onSubmit={SubmitHandler}
             >
                 <h4
-                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    className="py-1 px-4 text-dark position-absolute rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}
                 >
                     ИСТОРИЯ
                 </h4>
 
                 <ul
-                    className="overflow-y-auto p-4 d-flex flex-column gap-3 mb-auto"
-                    style={{ height: '66%', listStyleType: 'none' }}
+                    className="overflow-y-auto p-4 d-flex flex-column mb-auto"
+                    style={{ height: '64%', listStyleType: 'none' }}
                 >
                     {logs && Object.keys(logs).map(key => (
                         <li
                             key={key}
                             value={key}
-                            className="px-3 pt-3 rounded rounded-2 bg-warning shadow"
+                            className="px-3 pt-3 rounded rounded-2 shadow"
                         >
                             <h5>{moment(logs[key].created_at).format('DD/MM/YYYY - HH:MM')} ч.</h5>
                             <p style={{ fontSize: '0.85rem' }}>
@@ -339,7 +339,7 @@ const Dashboard = () => {
                     ))}
                 </ul>
 
-                <div className="d-flex flex-column gap-2 align-items-strech px-4">
+                <div className="d-flex flex-column gap-3 align-items-strech px-4">
                     <div className="d-flex flex-row gap-2">
                         <div className="input-group">
                             <label className="input-group-text" id="basic-addon2" htmlFor="from_date">
@@ -407,10 +407,10 @@ const Dashboard = () => {
 
                     <button
                         type="reset"
-                        className="btn btn-outline-dark"
+                        className="btn btn-primary"
                         onClick={() => setFilterOptions([])}
                     >
-                        <i className="fa-solid fa-rotate-right pe-2 text-primary"></i>
+                        <i className="fa-solid fa-rotate-right pe-2"></i>
                         Нулирай
                     </button>
                 </div>
@@ -423,7 +423,7 @@ const Dashboard = () => {
                 onSubmit={SubmitHandler}
             >
                 <h4
-                    className="py-1 px-4 text-primary position-absolute bg-light border border-1 border-dark rounded shadow"
+                    className="py-1 px-4 text-dark position-absolute rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
                     СКЛАДОВЕ
                 </h4>
