@@ -371,7 +371,7 @@ const Articles = () => {
                                         </div>
                                     </div>
 
-                                    {/* MODAL */}
+                                    {/* Article Edit MODAL */}
                                     <div className="modal fade" id={`_${data.id}`} tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
                                         <EditArticle
                                             article = {{
