@@ -385,16 +385,16 @@ const EditArticle = (props) => {
                 </div>
                 <div className="modal-footer">
                     <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                    onClick={() => setFiles([])}
+                        type="button"
+                        className="btn  btn-light border border-secondary"
+                        data-bs-dismiss="modal"
+                        onClick={() => setFiles([])}
                     >
                         Затвори
                     </button>
                     <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn btn-light border border-secondary text-danger"
                         data-bs-dismiss="modal"
                         name={article.description}
                         value={article.id}
@@ -402,7 +402,13 @@ const EditArticle = (props) => {
                     >
                         Изтрий
                     </button>
-                    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Запиши промените</button>
+                    <button
+                        type="submit"
+                        className="btn btn-light border border-secondary text-primary"
+                        data-bs-dismiss="modal"
+                    >
+                        Запиши промените
+                    </button>
                 </div>
             </div>
         </form>
