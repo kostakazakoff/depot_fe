@@ -400,7 +400,7 @@ const EditArticle = (props) => {
                         value={article.id}
                         onClick={handleDeleteArticle}
                     >
-                        Изтрий
+                        Изтрий артикул
                     </button>
                     <button
                         type="submit"
