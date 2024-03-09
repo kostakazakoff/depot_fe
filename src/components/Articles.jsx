@@ -11,6 +11,7 @@ import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 import AuthContext from "../contexts/authContext";
 import EditArticle from "./EditArticle";
+import AddArticle from "./AddArticle";
 
 
 const Articles = () => {
@@ -96,6 +97,17 @@ const Articles = () => {
         <>
             <div className="container-fluid p-5 mt-4">
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
+                    {/* Add Article MODAL button */}
+                    <button
+                        type="button"
+                        className="btn btn-primary position-absolute z-3"
+                        style={{ top: '-50px', right: '60px' }}
+                        data-bs-toggle="modal"
+                        data-bs-target='#add_article'
+                    >
+                        <i className="fa-solid fa-square-plus pe-2"></i>
+                        Добави артикул
+                    </button>
 
                     <section
                         className="overflow-y-auto pb-3 px-3"
@@ -285,6 +297,11 @@ const Articles = () => {
                         className="position-relative overflow-y-auto w-lg-75 w-100"
                         style={{ height: '700px' }}
                     >
+                        {/* Add Article MODAL */}
+                        <div className="modal fade" id='add_article' tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
+                            <AddArticle getArticles={getArticles} />
+                        </div>
+
                         <div className="accordion accordion-flush px-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item border-bottom border-secondary border-1 shadow mb-1" key={data.id}>
@@ -342,7 +359,7 @@ const Articles = () => {
                                                 </strong></div>
                                                 <div className="mb-auto">Склад: <strong>{data.stores[0].name}</strong></div>
 
-                                                {/* MODAL buttno */}
+                                                {/* MODAL button */}
                                                 <div className="btn-group shadow mt-4 border border-secondary w-75">
                                                     <button
                                                         type="button"
@@ -374,7 +391,7 @@ const Articles = () => {
                                     {/* Article Edit MODAL */}
                                     <div className="modal fade" id={`_${data.id}`} tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
                                         <EditArticle
-                                            article = {{
+                                            article={{
                                                 id: data.id,
                                                 inventory_number: data.inventory_number,
                                                 catalog_number: data.catalog_number,
@@ -389,7 +406,7 @@ const Articles = () => {
                                                 position: data.inventory.position,
                                                 store_id: data.stores[0].id,
                                             }}
-                                            getArticles = {getArticles}
+                                            getArticles={getArticles}
                                         />
                                     </div>
 

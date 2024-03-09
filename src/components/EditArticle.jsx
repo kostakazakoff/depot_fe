@@ -412,7 +412,6 @@ const EditArticle = (props) => {
                 </div>
             </div>
         </form>
-
     )
 }
 
