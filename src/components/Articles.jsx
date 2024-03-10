@@ -281,7 +281,7 @@ const Articles = () => {
                     </section>
 
                     <section
-                        className="position-relative overflow-y-auto w-lg-75 w-100 px-3"
+                        className="position-relative overflow-y-auto w-lg-75 w-100"
                         style={{ height: '700px' }}
                     >
                         {/* Add Article MODAL */}
@@ -295,7 +295,7 @@ const Articles = () => {
                         </div>
 
                         <nav
-                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow rounded-bottom"
+                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow"
                             style={{ backgroundColor: '#bebebe' }}
                         >
                             {/* Add Article MODAL button */}
@@ -310,7 +310,7 @@ const Articles = () => {
                             </button>
                         </nav>
 
-                        <div className="accordion accordion-flush" id="articlesList">
+                        <div className="accordion accordion-flush px-3" id="articlesList">
                             {articles && articles.map(data => (
                                 <article className="accordion-item shadow mb-1 rounded-bottom px-1" key={data.id}>
                                     <h2 className="accordion-header">
