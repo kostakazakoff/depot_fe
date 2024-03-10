@@ -77,7 +77,7 @@ const EditProfile = () => {
             >
 
                 <h4
-                    className="py-1 px-4 text-dark position-absolute rounded shadow"
+                    className="py-1 px-4 text-light position-absolute rounded shadow"
                     style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
                     {email}
                 </h4>

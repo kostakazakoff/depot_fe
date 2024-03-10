@@ -163,10 +163,10 @@ const EditArticle = (props) => {
                 className="modal-content px-3 py-2"
                 style={{ backgroundColor: '#bebebe' }}
             >
-                <div className="modal-header">
+                {/* <div className="modal-header">
                     <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+                </div> */}
                 <div
                     className="modal-body vertical-center rounded-2 position-relative"
                 >
@@ -337,7 +337,7 @@ const EditArticle = (props) => {
 
                     <section
                         {...getRootProps({
-                            className: 'w-100 border border-1 border-primary rounded p-4 position-relative',
+                            className: 'w-100 border border-1 border-light rounded p-4 position-relative',
                         })}
                     >
                         <h2 className='text-primary fs-3'>Качи нови файлове</h2>
@@ -347,8 +347,8 @@ const EditArticle = (props) => {
                         />
                         {
                             isDragActive ?
-                                <p>Пусни файла тук...</p> :
-                                <p>Провлачи и пусни файловете тук (локални файлове или от мрежата)...</p>
+                                <p className='text-secondary'>Пусни файла тук...</p> :
+                                <p className='text-secondary'>Провлачи и пусни файловете тук (локални файлове или от мрежата)...</p>
                         }
                     </section>
 
