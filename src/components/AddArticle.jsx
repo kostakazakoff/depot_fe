@@ -293,7 +293,6 @@ const AddArticle = (props) => {
                     <section className="w-100 rounded position-relative py-2 mt-2 overflow-y-auto">
                         <div
                             className="container d-flex flex-row justify-content-start align-items-bottom gap-3 position-relative overflow-x-auto"
-                        // style={{ maxHeight: "120px" }}
                         >
                             <div className='d-flex justify-content-start align-items-center gap-4 position-relative'>
                                 {files.map(file => (
