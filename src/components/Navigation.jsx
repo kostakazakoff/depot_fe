@@ -35,15 +35,6 @@ export default function Navigation() {
                         </li>
                     }
 
-                    {/* {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
-                        <li className="nav-item">
-                            <Link className="nav-link" to={Path.ADD_ARTICLE}>
-                                <i className="fa-solid fa-square-plus pe-2"></i>
-                                Добави артикул
-                            </Link>
-                        </li>
-                    } */}
-
                 </ul>
 
                 <ul className="navbar-nav me-4">

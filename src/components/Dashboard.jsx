@@ -147,16 +147,6 @@ const Dashboard = () => {
             })
     }
 
-    // useEffect(() => {
-    //     Object.values(users).forEach(user => {
-    //         console.log(user);
-    //     })
-    // }, [users]);
-
-    // useEffect(() => {
-    //     Object.keys(userToEdit).forEach(k => console.log(k, userToEdit[k]));
-    // }, [userToEdit]);
-
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
             <form
@@ -327,14 +317,14 @@ const Dashboard = () => {
                             className="px-3 pt-3 rounded rounded-2 shadow"
                         >
                             <h5>{moment(logs[key].created_at).format('DD/MM/YYYY - HH:MM')} ч.</h5>
-                            <p style={{ fontSize: '0.85rem' }}>
+                            <div style={{ fontSize: '0.85rem' }}>
                                 {logs[key].created &&
                                     <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
                                 {logs[key].updated &&
                                     <p><b>ПРОМЕНЕН: </b>{logs[key].updated}</p>}
                                 {logs[key].deleted &&
                                     <p><b>ИЗТРИТ: </b>{logs[key].deleted}</p>}
-                            </p>
+                            </div>
                         </li>
                     ))}
                 </ul>
@@ -371,25 +361,46 @@ const Dashboard = () => {
                         </div>
                     </div>
 
-                    <div className="input-group dropdown">
-                        <label className="input-group-text" htmlFor="user">Персонал</label>
-                        <select
-                            id="user"
-                            name="user"
-                            className="form-select"
-                            onChange={handleFilterChange}
-                        >
-                            <option value="">Избери потребител</option>
-                            <option value={user_id}>Аз</option>
-                            {users && Object.keys(users).map(key => (
-                                <option key={key} value={users[key].id}>
-                                    {users[key].profile.first_name
-                                        ? users[key].profile.first_name
-                                        : users[key].email
-                                    }
-                                </option>
-                            ))}
-                        </select>
+                    <div className="d-flex flex-row gap-2">
+                        <div className="input-group dropdown">
+                            <label className="input-group-text" htmlFor="user">
+                                <i className="fa-solid fa-user"></i>
+                            </label>
+                            <select
+                                id="user"
+                                name="user"
+                                className="form-select"
+                                onChange={handleFilterChange}
+                            >
+                                <option value="">Потребител</option>
+                                <option value={user_id}>Аз</option>
+                                {users && Object.keys(users).map(key => (
+                                    <option key={key} value={users[key].id}>
+                                        {users[key].profile.first_name
+                                            ? users[key].profile.first_name
+                                            : users[key].email
+                                        }
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="input-group dropdown">
+                            <label className="input-group-text" htmlFor="user">
+                                <i className="fa-solid fa-pen"></i>
+                            </label>
+                            <select
+                                id="user"
+                                name="operation"
+                                className="form-select"
+                                onChange={handleFilterChange}
+                            >
+                                <option value="">Промяна</option>
+                                <option value='created'>Създаден</option>
+                                <option value='updated'>Променен</option>
+                                <option value='deleted'>Изтрит</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className="input-group">

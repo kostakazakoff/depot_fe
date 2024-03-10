@@ -97,17 +97,6 @@ const Articles = () => {
         <>
             <div className="container-fluid p-5 mt-4">
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
-                    {/* Add Article MODAL button */}
-                    {/* <button
-                        type="button"
-                        className="btn btn-primary position-absolute z-3"
-                        style={{ top: '-50px', right: '60px' }}
-                        data-bs-toggle="modal"
-                        data-bs-target='#add_article'
-                    >
-                        <i className="fa-solid fa-square-plus pe-2"></i>
-                        Добави артикул
-                    </button> */}
 
                     <section
                         className="overflow-y-auto pb-3 px-3"
@@ -334,15 +323,15 @@ const Articles = () => {
                                                 <Link
                                                     to={Path.IMAGES_PREVIEW}
                                                     state={{ images: data.images, path: window.location.pathname }}
-                                                    className="me-1 w-50"
-                                                    style={{ height: "350px", overflow: 'hidden', position: 'relative', minWidth: '400px' }}
+                                                    className="me-1 w-50 position-relative overflow-hidden"
+                                                    style={{ height: "350px", minWidth: '400px' }}
                                                     type="button"
                                                     id={data.id}
                                                 >
                                                     <img
                                                         src={data.images[0] && data.images[0].url}
                                                         alt={data.images[0] && data.images[0].path}
-                                                        className="object-fit-cover w-lg-100 mh-100"
+                                                        className="object-fit-cover mw-100"
                                                     />
                                                 </Link>
                                                 :
