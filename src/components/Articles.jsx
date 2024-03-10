@@ -282,7 +282,7 @@ const Articles = () => {
 
                     <section
                         className="position-relative overflow-y-auto w-lg-75 w-100"
-                        style={{ height: '700px' }}
+                        style={{ height: '680px' }}
                     >
                         {/* Add Article MODAL */}
                         <div
@@ -295,7 +295,7 @@ const Articles = () => {
                         </div>
 
                         <nav
-                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow"
+                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow border-bottom border-secondary"
                             style={{ backgroundColor: '#bebebe' }}
                         >
                             {/* Add Article MODAL button */}
