@@ -40,7 +40,7 @@ const Articles = () => {
                 setArticles(result.articles);
                 totalCost.current = result.totalCost;
             })
-            .catch(err => console.log(err));
+            .catch(() => navigate(Path.Error404));
     }
 
     const handleFilterChange = (e) => {
