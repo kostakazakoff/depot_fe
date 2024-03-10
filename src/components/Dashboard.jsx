@@ -395,7 +395,7 @@ const Dashboard = () => {
                                 className="form-select"
                                 onChange={handleFilterChange}
                             >
-                                <option value="">Промяна</option>
+                                <option value="">Събитие</option>
                                 <option value='created'>Създаден</option>
                                 <option value='updated'>Променен</option>
                                 <option value='deleted'>Изтрит</option>
