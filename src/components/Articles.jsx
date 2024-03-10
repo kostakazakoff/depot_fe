@@ -12,6 +12,7 @@ import convertDate from "./ConvertDate";
 import AuthContext from "../contexts/authContext";
 import EditArticle from "./EditArticle";
 import AddArticle from "./AddArticle";
+import ImagesPreview from "./ImagesPreview";
 
 
 const Articles = () => {
@@ -286,10 +287,10 @@ const Articles = () => {
                     >
                         {/* Add Article MODAL */}
                         <div
-                        className="modal fade"
-                        id='add_article' tabIndex="-1"
-                        aria-labelledby="articleleModalLabel"
-                        aria-hidden="true"
+                            className="modal fade"
+                            id='add_article' tabIndex="-1"
+                            aria-labelledby="articleleModalLabel"
+                            aria-hidden="true"
                         >
                             <AddArticle getArticles={getArticles} />
                         </div>
@@ -318,30 +319,48 @@ const Articles = () => {
                                             <strong className='text-primary pe-1'>{data.description}</strong> | въведен на {convertDate(data.created_at)} | последна промяна на {convertDate(data.updated_at)}
                                         </button>
                                     </h2>
-                                    <div id={`collapse${data.id}`} className="accordion-collapse collapse" data-bs-parent="#articlesList">
+                                    <div id={`collapse${data.id}`} className="accordion-collapse collapse px-2" data-bs-parent="#articlesList">
 
-                                        <div className="accordion-body row bg-white">
+                                        <div className="accordion-body row bg-white position-relative pb-4">
+                                            {/* Image preview MODAL button */}
                                             {data.images.length
                                                 ?
-                                                <Link
-                                                    to={Path.IMAGES_PREVIEW}
-                                                    state={{ images: data.images, path: window.location.pathname }}
-                                                    className="me-1 w-50 position-relative overflow-hidden"
-                                                    style={{ height: "350px", minWidth: '400px' }}
+                                                <button
                                                     type="button"
-                                                    id={data.id}
+                                                    className="me-1 w-50 position-relative overflow-hidden px-0"
+                                                    style={{ height: "350px", minWidth: '400px', border: 'none' }}
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target={`#image_${data.id}`}
+                                                    id={`preview_${data.id}`}
                                                 >
                                                     <img
                                                         src={data.images[0] && data.images[0].url}
                                                         alt={data.images[0] && data.images[0].path}
                                                         className="object-fit-cover mw-100"
                                                     />
-                                                </Link>
+                                                </button>
                                                 :
                                                 <div className="w-50 d-flex justify-content-center align-items-center">
                                                     <i className="fa-regular fa-images fa-10x text-primary"></i>
                                                 </div>
                                             }
+
+                                            {/* Image preview MODAL */}
+                                            <div
+                                                className="modal fade"
+                                                id={`image_${data.id}`}
+                                                tabIndex="-1"
+                                                aria-labelledby="articleleModalLabel"
+                                                aria-hidden="true"
+                                            >
+                                                <div
+                                                className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen position-relative"
+                                                >
+                                                    <ImagesPreview
+                                                        images={data.images}
+                                                    />
+                                                </div>
+                                            </div>
 
                                             <div className="col lh-lg d-flex flex-column pe-5" style={{ minWidth: '350px' }}>
                                                 <div>Каталожен номер: <strong>
@@ -367,8 +386,8 @@ const Articles = () => {
                                                 </strong></div>
                                                 <div className="mb-auto">Склад: <strong>{data.stores[0].name}</strong></div>
 
-                                                {/* MODAL button */}
                                                 <div className="btn-group shadow mt-4 border border-secondary w-75">
+                                                    {/* MODAL button */}
                                                     <button
                                                         type="button"
                                                         className="btn btn-light"
@@ -397,7 +416,13 @@ const Articles = () => {
                                     </div>
 
                                     {/* Article Edit MODAL */}
-                                    <div className="modal fade" id={`_${data.id}`} tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
+                                    <div
+                                        className="modal fade"
+                                        id={`_${data.id}`}
+                                        tabIndex="-1"
+                                        aria-labelledby="articleleModalLabel"
+                                        aria-hidden="true"
+                                    >
                                         <EditArticle
                                             article={{
                                                 id: data.id,

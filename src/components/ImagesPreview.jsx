@@ -1,35 +1,34 @@
-import { useRef, useState } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useRef } from "react";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 
-const ImagesPreview = () => {
-    const location = useLocation();
-    const { state } = location;
-    const data = { ...state };
+const ImagesPreview = (props) => {
+    const data = { ...props };
     const images = data.images;
 
     const imagePreviewRef = useRef(images[0]);
 
-    const [img, setImg] = useState(images[0]);
-
     const setImagePreview = (image) => {
-        imagePreviewRef.current = image;
-        setImg(imagePreviewRef.current);
+        console.log(image);
+        imagePreviewRef.current.src = image.url;
+        imagePreviewRef.current.alt = image.url;
     }
 
     return (
-        <section
-            className="container-fluid d-flex flex-column align-items-center justify-content-center bg-light"
+        <div
+            className="modal-content"
+            style={{ height: '90vh' }}
         >
-            <div
-                className="p-5 mt-5 d-flex gap-4 align-items-center justify-content-center"
-                style={{ width: '100%', height: '80vh' }}
-            >
+            <div className="modal-header">
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
+            <section
+                className="modal-body overflow-hidden d-flex flex-row justify-content-between gap-4"
+            >
                 <div
-                    className="overflow-hidden d-flex justify-content-center rounded align-items-center"
-                    style={{ width: '100%', height: '100%' }}
+                    className="d-flex justify-content-center align-items-center h-100 bg-light overflow-hidden"
+                    style={{width: '90%'}}
                 >
                     <TransformWrapper
                         initialScale={1}
@@ -39,27 +38,21 @@ const ImagesPreview = () => {
                         limitToBounds={true}
                         minScale={0.5}
                         centerZoomedOut={true}
-                        // className="object-fit-cover mw-100 mh-100"
                     >
                         <TransformComponent>
-                    <img
-                        ref={imagePreviewRef}
-                        src={imagePreviewRef.current.url}
-                        alt=""
-                        className="object-fit-contain h-100 mh-100"
-                    />
-                    </TransformComponent>
+                            <img
+                                ref={imagePreviewRef}
+                            />
+                        </TransformComponent>
                     </TransformWrapper>
-
                 </div>
-
                 <div
-                    className="overflow-y-auto overflow-x-hidden h-75"
+                    className="d-flex flex-column overflow-y-auto overflow-x-hidden gap-2 p-4"
                 >
                     {images.map(image => (
                         <div
-                            className="m-4 shadow rounded"
-                            style={{ width: "100px", height: "100px", overflow: 'hidden' }}
+                            className="shadow rounded"
+                            style={{ width: "100px", height: "100px", minHeight: '100px', overflow: 'hidden' }}
                             key={image.id}
                             type="button"
                             onClick={() => setImagePreview(image)}
@@ -67,21 +60,21 @@ const ImagesPreview = () => {
                             <img
                                 className="object-fit-cover w-100 h-100"
                                 src={image.url}
-                                alt=""
+                                alt={image.url}
                             />
                         </div>
                     ))}
                 </div>
-            </div>
-            <Link
-                to={data.path}
-                className="btn btn-lg btn-secondary align-self-end me-5"
-            >
-                <i className="fa-solid fa-angle-left pe-2"></i>
-                Назад
-            </Link>
-        </section>
+            </section>
 
+            {/* <div
+                className="modal-footer"
+                style={{width: '100%'}}
+            >
+                
+            </div> */}
+
+        </div>
     )
 }
 
