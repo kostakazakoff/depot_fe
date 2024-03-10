@@ -209,8 +209,8 @@ const EditProfile = () => {
 
                 <div className="d-grid gap-2 mb-2">
                     <button type="submit" className="btn btn-outline-primary">
-                        <i className="fa-solid fa-pen-to-square pe-2"></i>
-                        Редактирай
+                        <i className="fa-solid fa-floppy-disk pe-2"></i>
+                        Запиши
                     </button>
                 </div>
 
