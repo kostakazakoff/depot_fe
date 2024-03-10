@@ -262,8 +262,8 @@ const Dashboard = () => {
                         className="btn btn-outline-primary"
                         disabled={!userToEdit.id}
                     >
-                        <i className="fa-solid fa-pen-to-square pe-2 text-primary"></i>
-                        Редактирай
+                        <i className="fa-solid fa-floppy-disk pe-2"></i>
+                        Запиши
                     </button>
                     <button
                         type="button"
@@ -271,7 +271,7 @@ const Dashboard = () => {
                         onClick={HandleUserDeletion}
                         disabled={!userToEdit.id}
                     >
-                        <i className="fa-solid fa-trash pe-2 text-danger"></i>
+                        <i className="fa-solid fa-trash pe-2"></i>
                         Изтрий
                     </button>
                     <Link
