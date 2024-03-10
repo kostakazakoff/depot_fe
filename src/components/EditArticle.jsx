@@ -159,7 +159,10 @@ const EditArticle = (props) => {
             className="modal-dialog modal-dialog-centered modal-xl"
             onSubmit={handleSubmit}
         >
-            <div className="modal-content px-3 py-2">
+            <div
+                className="modal-content px-3 py-2"
+                style={{ backgroundColor: '#bebebe' }}
+            >
                 <div className="modal-header">
                     <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -171,7 +174,9 @@ const EditArticle = (props) => {
 
                         <div className="col">
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="description">Описание:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="description">
+                                    Описание:
+                                </label>
                                 <input
                                     id='description'
                                     type="text"
@@ -184,7 +189,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">Инвентарен номер:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="inventory_number">
+                                    Инвентарен номер:
+                                </label>
                                 <input
                                     id="inventory_number"
                                     type="text"
@@ -198,7 +205,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">Каталожен номер:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="catalog_number">
+                                    Каталожен номер:
+                                </label>
                                 <input
                                     id="catalog_number"
                                     type="text"
@@ -212,7 +221,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">Чертежен номер:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="draft_number">
+                                    Чертежен номер:
+                                </label>
                                 <input
                                     id="draft_number"
                                     type="text"
@@ -226,7 +237,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="material">Материал:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="material">
+                                    Материал:
+                                </label>
                                 <input
                                     id='material'
                                     type="text"
@@ -241,7 +254,9 @@ const EditArticle = (props) => {
 
                         <div className="col">
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="price">Цена (лв.):</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="price">
+                                    Цена (лв.):
+                                </label>
                                 <input
                                     id='price'
                                     type="text"
@@ -254,7 +269,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="quantity">Количество (бр.):</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="quantity">
+                                    Количество (бр.):
+                                </label>
                                 <input
                                     id='quantity'
                                     type="text"
@@ -267,7 +284,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="package">Опаковка:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="package">
+                                    Опаковка:
+                                </label>
                                 <input
                                     id='package'
                                     type="text"
@@ -280,7 +299,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3">
-                                <label className="input-group-text" id="basic-addon2" htmlFor="position">Позиция:</label>
+                                <label className="input-group-text" id="basic-addon2" htmlFor="position">
+                                    Позиция:
+                                </label>
                                 <input
                                     id='position'
                                     type="text"
@@ -293,7 +314,9 @@ const EditArticle = (props) => {
                             </div>
 
                             <div className="input-group mb-3 dropdown">
-                                <span className="input-group-text">Склад:</span>
+                                <span className="input-group-text">
+                                    Склад:
+                                </span>
                                 <select
                                     id="storeSelect"
                                     className="form-select"
@@ -388,15 +411,15 @@ const EditArticle = (props) => {
                 <div className="modal-footer">
                     <button
                         type="button"
-                        className="btn  btn-light border border-secondary"
+                        className="btn btn-light"
                         data-bs-dismiss="modal"
                         onClick={() => setFiles([])}
                     >
-                        Затвори
+                        Отказ
                     </button>
                     <button
                         type="button"
-                        className="btn btn-light border border-secondary text-danger"
+                        className="btn btn-danger"
                         data-bs-dismiss="modal"
                         name={article.description}
                         value={article.id}
@@ -406,7 +429,7 @@ const EditArticle = (props) => {
                     </button>
                     <button
                         type="submit"
-                        className="btn btn-light border border-secondary text-primary"
+                        className="btn btn-primary"
                         data-bs-dismiss="modal"
                     >
                         Запиши промените

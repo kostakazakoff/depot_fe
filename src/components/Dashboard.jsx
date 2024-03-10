@@ -314,7 +314,7 @@ const Dashboard = () => {
                         <li
                             key={key}
                             value={key}
-                            className="px-3 pt-3 rounded rounded-2 shadow"
+                            className="px-3 pt-3 rounded rounded-2 shadow border-bottom border-bottom-light"
                         >
                             <h5>{moment(logs[key].created_at).format('DD/MM/YYYY - HH:MM')} ч.</h5>
                             <div style={{ fontSize: '0.85rem' }}>

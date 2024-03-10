@@ -19,7 +19,6 @@ const Articles = () => {
     const [articles, setArticles] = useState([]);
     const totalCost = useRef(0);
     const [filterOptions, setFilterOptions] = useState({});
-    const resetBtn = useRef(null);
     const iconRef = useRef(null);
     const { authorized } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -274,7 +273,6 @@ const Articles = () => {
                                     type="reset"
                                     className="btn bg-light"
                                     onClick={() => { setFilterOptions({}); getArticles() }}
-                                    ref={resetBtn}
                                 >
                                     <i ref={iconRef}></i>
                                 </button>
@@ -287,12 +285,17 @@ const Articles = () => {
                         style={{ height: '700px' }}
                     >
                         {/* Add Article MODAL */}
-                        <div className="modal fade" id='add_article' tabIndex="-1" aria-labelledby="articleleModalLabel" aria-hidden="true">
+                        <div
+                        className="modal fade"
+                        id='add_article' tabIndex="-1"
+                        aria-labelledby="articleleModalLabel"
+                        aria-hidden="true"
+                        >
                             <AddArticle getArticles={getArticles} />
                         </div>
 
                         <nav
-                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow"
+                            className="navbar navbar-expand sticky-top z-index-3 d-flex flex-row justify-content-end p-3 shadow rounded-bottom"
                             style={{ backgroundColor: '#bebebe' }}
                         >
                             {/* Add Article MODAL button */}
@@ -309,7 +312,7 @@ const Articles = () => {
 
                         <div className="accordion accordion-flush" id="articlesList">
                             {articles && articles.map(data => (
-                                <article className="accordion-item shadow mb-1" key={data.id}>
+                                <article className="accordion-item shadow mb-1 rounded-bottom px-1" key={data.id}>
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">
                                             <strong className='text-primary pe-1'>{data.description}</strong> | въведен на {convertDate(data.created_at)} | последна промяна на {convertDate(data.updated_at)}

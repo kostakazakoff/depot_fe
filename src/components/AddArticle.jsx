@@ -117,7 +117,10 @@ const AddArticle = (props) => {
             className="modal-dialog modal-dialog-centered modal-xl"
             onSubmit={handleSubmit}
         >
-            <div className="modal-content px-3 py-2">
+            <div
+                className="modal-content px-3 py-2"
+                style={{ backgroundColor: '#bebebe' }}
+            >
                 <div className="modal-header">
                     <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -325,18 +328,18 @@ const AddArticle = (props) => {
                 <div className="modal-footer">
                     <button
                         type="button"
-                        className="btn  btn-light border border-secondary"
+                        className="btn btn-light"
                         data-bs-dismiss="modal"
                         onClick={() => setFiles([])}
                     >
-                        Затвори
+                        Отказ
                     </button>
                     <button
                         type="submit"
-                        className="btn btn-light border border-secondary text-primary"
+                        className="btn btn-primary"
                         data-bs-dismiss="modal"
                     >
-                        Запиши промените
+                        Запиши
                     </button>
                 </div>
             </div>
