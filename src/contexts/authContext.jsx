@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { createContext } from "react";
 import usePersistedState from "../hooks/usePersistedState";
+import Role from "../roles";
 
 
 const AuthContext = createContext();
@@ -14,14 +15,13 @@ export const AuthProvider = ({ children }) => {
         user_id: credentials.id,
         email: credentials.email,
         name: credentials.first_name,
-        // name: credentials.first_name? credentials.first_name : credentials.email,
         last_name: credentials.last_name,
         phone: credentials.phone,
         role: credentials.role,
         // jwt: credentials.jwt,
         isAuthenticated: !!credentials.jwt,
-        authorized: ['superuser', 'admin', 'staff'].includes(credentials.role),
-        admin: ['superuser', 'admin'].includes(credentials.role),
+        authorized: [Role.SUPERUSER, Role.ADMIN, Role.STAFF].includes(credentials.role),
+        admin: [Role.SUPERUSER, Role.ADMIN].includes(credentials.role),
         setCredentials: setCredentials,
     }
 

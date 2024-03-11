@@ -49,7 +49,7 @@ const Login = () => {
     }
 
     useEffect(() => {
-        api.get('stores')
+        api.get('stores/list')
             .then(response => response.data)
             .then(data => setStores(data))
             .catch(() => navigate(Path.Error404));

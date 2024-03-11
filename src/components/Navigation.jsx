@@ -3,6 +3,7 @@ import { useContext } from 'react';
 
 import AuthContext from "../contexts/authContext";
 import Path from '../paths';
+import Role from '../roles';
 
 
 export default function Navigation() {
@@ -26,7 +27,7 @@ export default function Navigation() {
                         </Link>
                     </li>
 
-                    {isAuthenticated && (role === 'superuser' || role === 'admin' || role === 'staff') &&
+                    {isAuthenticated && (role === Role.SUPERUSER || role === Role.ADMIN || role === Role.STAFF) &&
                         <li className="nav-item me-3">
                             <Link className="nav-link" to={Path.ARTICLES}>
                                 <i className="fa-solid fa-boxes-stacked pe-2"></i>
@@ -75,7 +76,7 @@ export default function Navigation() {
                                     </Link>
                                 </li>
                             }
-                            {isAuthenticated && (role === 'admin' || role === 'superuser') &&
+                            {isAuthenticated && (role === Role.ADMIN || role === Role.SUPERUSER) &&
                                 <li>
                                     <Link className="dropdown-item" to={Path.DASHBOARD}>
                                         <i className="fa-solid fa-screwdriver-wrench pe-2"></i>

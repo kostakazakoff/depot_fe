@@ -193,7 +193,6 @@ const Articles = () => {
                                     id="storeSelect"
                                     className="form-select"
                                     name="store"
-                                    value={filterOptions.store}
                                     onChange={handleFilterChange}
                                 >
                                     <option value="">Всички складове</option>
@@ -237,7 +236,6 @@ const Articles = () => {
                                     id="order"
                                     className="form-select"
                                     name="by"
-                                    value={filterOptions.by}
                                     onChange={handleFilterChange}
                                 >
                                     <option value=""></option>
@@ -253,7 +251,6 @@ const Articles = () => {
                                     id="sortby"
                                     className="form-select"
                                     name="order"
-                                    value={filterOptions.order}
                                     onChange={handleFilterChange}
                                 >
                                     <option value=""></option>

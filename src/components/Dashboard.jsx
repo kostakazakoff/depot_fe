@@ -1,19 +1,41 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import authContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
 import api from "../helpers/Api";
 import Swal from "sweetalert2";
 import moment from "moment";
+import StoresContext from "../contexts/storesContext";
+import Role from "../roles";
 
 
 const Dashboard = () => {
-    const { admin, user_id } = useContext(authContext);
+    const { admin, user_id, role } = useContext(authContext);
+    const { stores, setStores } = useContext(StoresContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState({});
     const [userToEdit, setUserToEdit] = useState({});
     const [logs, setLogs] = useState({});
     const [filterOptions, setFilterOptions] = useState({});
+    const [store, setStore] = useState({});
+    const [newStoreName, setNewStoreName] = useState(store.name);
+
+    const handleStoreChange = (e) => {
+        setStore(e.target.value);
+    }
+
+    useEffect(() => {
+        console.log(newStoreName);
+    }, [newStoreName]);
+
+    const handleNewStoreNameInput = (e) => {
+        setNewStoreName(e.target.value);
+    };
+
+    const handleStoreDeletion = () => {
+        // TODO: Delete the store
+        console.log(`Store ${store} deleted`);
+    }
 
     const getUsersList = () => {
         api.get('dashboard/users_list')
@@ -83,6 +105,12 @@ const Dashboard = () => {
                     "Данните на потребителя бяха променени.",
                     "success"
                 )));
+    }
+
+    const StoreSubmitHandler = (e) => {
+        e.preventDefault();
+        // TODO: update Store
+        console.log(`Submit ${newStoreName}`);
     }
 
     const deleteUser = () => {
@@ -188,16 +216,16 @@ const Dashboard = () => {
                         value={userToEdit.role}
                         onChange={handleChange}
                     >
-                        <option value='member'>
+                        <option value={Role.MEMBER}>
                             Без достъп
                         </option>
-                        <option value='superuser' hidden={userToEdit && userToEdit.role == 'superuser'}>
+                        <option value={Role.SUPERUSER} hidden={userToEdit && userToEdit.role == Role.SUPERUSER}>
                             Superuser
                         </option>
-                        <option value='admin' hidden={userToEdit && userToEdit.role == 'admin'}>
+                        <option value={Role.ADMIN} hidden={userToEdit && userToEdit.role == Role.ADMIN}>
                             Администратор
                         </option>
-                        <option value='staff' hidden={userToEdit && userToEdit.role == 'staff'}>
+                        <option value={Role.STAFF} hidden={userToEdit && userToEdit.role == Role.STAFF}>
                             Персонал
                         </option>
                     </select>
@@ -427,17 +455,76 @@ const Dashboard = () => {
 
             </form>
 
-            <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column"
-                style={{ minWidth: '500px', height: '700px' }}
-                onSubmit={SubmitHandler}
-            >
-                <h4
-                    className="py-1 px-4 text-light position-absolute rounded shadow"
-                    style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
-                    СКЛАДОВЕ
-                </h4>
-            </form>
+            {role === Role.SUPERUSER &&
+                <form
+                    className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column gap-3"
+                    style={{ minWidth: '500px', height: '700px' }}
+                    onSubmit={StoreSubmitHandler}
+                >
+                    <h4
+                        className="py-1 px-4 text-light position-absolute rounded shadow"
+                        style={{ top: '-24px', left: '50%', transform: 'translate(-50%, 0)' }}>
+                        СКЛАДОВЕ
+                    </h4>
+
+                    {/* TODO: */}
+                    <div className="input-group dropdown">
+                        <span className="input-group-text">Склад:</span>
+                        <select
+                            id="storeSelect"
+                            className="form-select"
+                            name="store"
+                            onChange={handleStoreChange}
+                        >
+                            {stores.map((store) => (
+                                <option key={store.id} value={store.id}>
+                                    {store.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="input-group mb-3 d-flex text-secondary">
+                        <label className="input-group-text" htmlFor="store_name">Ново име на склада</label>
+                        <input type="text"
+                            id="store_name"
+                            autoComplete="true"
+                            className="form-control"
+                            aria-describedby="basic-addon1"
+                            name="store_name"
+                            value={newStoreName}
+                            onChange={handleNewStoreNameInput}
+                        />
+                    </div>
+
+                    <div className="d-grid gap-3">
+                        <button
+                            type="submit"
+                            className="btn btn-outline-primary"
+                            disabled={!newStoreName}
+                        >
+                            <i className="fa-solid fa-floppy-disk pe-2"></i>
+                            Запиши
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-outline-danger"
+                            onClick={handleStoreDeletion}
+                        >
+                            <i className="fa-solid fa-trash pe-2"></i>
+                            Изтрий
+                        </button>
+                        <button
+                            type="reset"
+                            className="btn btn-primary"
+                            onClick={() => setNewStoreName('')}
+                        >
+                            <i className="fa-solid fa-rotate-right pe-2"></i>
+                            Нулирай
+                        </button>
+                    </div>
+                </form>
+            }
 
         </div>
     )
