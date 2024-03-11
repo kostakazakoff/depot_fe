@@ -363,6 +363,9 @@ const Articles = () => {
                                             </div>
 
                                             <div className="col lh-lg d-flex flex-column pe-5" style={{ minWidth: '350px' }}>
+                                                <div>Инвентарен номер: <strong>
+                                                    {data.inventory_number ? data.inventory_number : ''}
+                                                </strong></div>
                                                 <div>Каталожен номер: <strong>
                                                     {data.catalog_number ? data.catalog_number : ''}
                                                 </strong></div>
