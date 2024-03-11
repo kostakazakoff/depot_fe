@@ -34,7 +34,6 @@ const Dashboard = () => {
     useEffect(() => {
         !admin && navigate(Path.HOME);
         getUsersList();
-        getLogsList();
     }, []);
 
     useEffect(() => {
