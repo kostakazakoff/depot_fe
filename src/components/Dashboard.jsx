@@ -19,6 +19,47 @@ const Dashboard = () => {
     const [filterOptions, setFilterOptions] = useState({});
     const [store, setStore] = useState(stores[0].id);
     const [newStoreName, setNewStoreName] = useState(store.name);
+    const [responsibilities, setResponsibilities] = useState([]);
+    const [responsibilitiesToDetach, setResponsibilitiesToDetach] = useState([]);
+
+
+    const handleResponsibilitiesSelection = (e) => {
+        if (e.target.checked) {
+            setResponsibilities(state => [
+                ...state,
+                e.target.value
+            ]);
+            setResponsibilitiesToDetach(state => state.filter(
+                value => value !== e.target.value
+            ));
+        } else {
+            setResponsibilities(state => state.filter(
+                value => value !== e.target.value
+            ));
+            setResponsibilitiesToDetach(state => [
+                ...state,
+                e.target.value
+            ]);
+        }
+    }
+
+    const handleResponsibilitiesSubmit = (e) => {
+        e.preventDefault();
+        if (responsibilities.length > 0) {
+            api.post(`${Path.ATTACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilities)
+            .then(response => console.log(response))
+            .catch(() => navigate(Path.Error404));
+        }
+        if (responsibilitiesToDetach.length > 0) {
+            api.post(`${Path.DETACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilitiesToDetach)
+            .then(response => console.log(response))
+            .catch(() => navigate(Path.Error404));
+        }
+    }
+
+    // useEffect(() => { console.log(`User to edit ${userToEdit.email}`) }, [userToEdit]);
+    useEffect(() => { console.log(`Attach responsibilities ${responsibilities} to ${userToEdit.email}`) }, [responsibilities]);
+    useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${userToEdit.email}`) }, [responsibilities]);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -87,8 +128,7 @@ const Dashboard = () => {
         }))
     }
 
-    const SubmitHandler = (e) => {
-        e.preventDefault();
+    const EditUser = () => {
         api.post(`dashboard/edit_user/${userToEdit.id}`, {
             'id': userToEdit.id,
             'email': userToEdit.email,
@@ -176,10 +216,9 @@ const Dashboard = () => {
 
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
-            <form
-                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column"
+            <div
+                className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column gap-3"
                 style={{ minWidth: '500px', height: '700px' }}
-                onSubmit={SubmitHandler}
             >
                 <h4
                     className="py-1 px-4 text-light position-absolute rounded shadow"
@@ -187,7 +226,7 @@ const Dashboard = () => {
                     ПОТРЕБИТЕЛИ
                 </h4>
 
-                <div className="input-group mb-3 dropdown">
+                <div className="input-group dropdown">
                     <label className="input-group-text" htmlFor="user">Персонал</label>
                     <select
                         id="user"
@@ -207,7 +246,7 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group mb-3 dropdown">
+                <div className="input-group dropdown">
                     <label className="input-group-text" htmlFor="role">Роля</label>
                     <select
                         id="role"
@@ -231,7 +270,54 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group mb-3 d-flex text-secondary">
+                <form
+                    className="input-group dropdown"
+                    onSubmit={handleResponsibilitiesSubmit}
+                >
+                    <button
+                        type="button"
+                        className="btn btn-outline-light bg-light text-dark dropdown-toggle w-100"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        disabled={!Object.keys(userToEdit).length || userToEdit.role === Role.MEMBER}
+                        data-bs-auto-close="outside"
+                    >
+                        Отговорен за склад
+                    </button>
+                    <div
+                        className="dropdown-menu p-4 w-100"
+                    >
+                        {stores.map((store) => (
+                            <div
+                                className="form-check p-0 mb-2"
+                                key={`responsibility_${store.id}`}
+                            >
+                                <input
+                                    type="checkbox"
+                                    className="btn-check"
+                                    id={`responsibility_${store.id}`}
+                                    autoComplete="off"
+                                    value={store.id}
+                                    // checked={handleResponsibilitiesSelection}
+                                    onChange={handleResponsibilitiesSelection}
+                                />
+                                <label
+                                    className="btn btn-outline-dark w-100 text-primary"
+                                    htmlFor={`responsibility_${store.id}`}
+                                >
+                                    {store.name}
+                                </label>
+                            </div>
+                        ))}
+                        <button
+                            type="submit"
+                            className="btn btn-primary mt-3 w-100"
+                        >Запази
+                        </button>
+                    </div>
+                </form>
+
+                <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="email">Email</label>
                     <input type="email"
                         id="email"
@@ -244,7 +330,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex text-secondary">
+                <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="first_name">Име</label>
                     <input type="text"
                         id="first_name"
@@ -257,7 +343,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-3 d-flex text-secondary">
+                <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="last_name">Фамилия</label>
                     <input type="text"
                         id="last_name"
@@ -285,9 +371,10 @@ const Dashboard = () => {
 
                 <div className="d-grid gap-3 mt-4 mb-auto">
                     <button
-                        type="submit"
+                        type="button"
                         className="btn btn-outline-primary"
                         disabled={!userToEdit.id}
+                        onClick={EditUser}
                     >
                         <i className="fa-solid fa-floppy-disk pe-2"></i>
                         Запиши
@@ -310,21 +397,20 @@ const Dashboard = () => {
                         Добави потребител
                     </Link>
                 </div>
-                    <button
-                        type="reset"
-                        className="btn btn-primary"
-                        onClick={() => setUserToEdit({})}
-                    >
-                        <i className="fa-solid fa-rotate-right pe-2"></i>
-                        Нулирай
-                    </button>
+                <button
+                    type="reset"
+                    className="btn btn-primary"
+                    onClick={() => setUserToEdit({})}
+                >
+                    <i className="fa-solid fa-rotate-right pe-2"></i>
+                    Нулирай
+                </button>
 
-            </form>
+            </div>
 
-            <form
+            <div
                 className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3 d-flex flex-column align-items-strech"
                 style={{ minWidth: '500px', height: '700px' }}
-                onSubmit={SubmitHandler}
             >
                 <h4
                     className="py-1 px-4 text-light position-absolute rounded shadow"
@@ -453,7 +539,7 @@ const Dashboard = () => {
                     </button>
                 </div>
 
-            </form>
+            </div>
 
             {role === Role.SUPERUSER &&
                 <section
@@ -503,7 +589,7 @@ const Dashboard = () => {
                             disabled={!newStoreName}
                             onClick={editStore}
                         >
-                        <i className="fa-solid fa-pen-to-square pe-2"></i>
+                            <i className="fa-solid fa-pen-to-square pe-2"></i>
                             Промени името на склада
                         </button>
                         <button
@@ -520,7 +606,7 @@ const Dashboard = () => {
                             disabled={!newStoreName}
                             onClick={createNewStore}
                         >
-                        <i className="fa-solid fa-square-plus pe-2 text-primary"></i>
+                            <i className="fa-solid fa-square-plus pe-2 text-primary"></i>
                             Създай нов склад
                         </button>
                     </div>
