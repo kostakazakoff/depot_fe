@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import authContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
@@ -17,24 +17,24 @@ const Dashboard = () => {
     const [userToEdit, setUserToEdit] = useState({});
     const [logs, setLogs] = useState({});
     const [filterOptions, setFilterOptions] = useState({});
-    const [store, setStore] = useState({});
+    const [store, setStore] = useState(stores[0].id);
     const [newStoreName, setNewStoreName] = useState(store.name);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
     }
 
-    useEffect(() => {
-        console.log(newStoreName);
-    }, [newStoreName]);
-
     const handleNewStoreNameInput = (e) => {
         setNewStoreName(e.target.value);
     };
 
-    const handleStoreDeletion = () => {
+    const deleteStore = () => {
         // TODO: Delete the store
         console.log(`Store ${store} deleted`);
+    }
+
+    const createNewStore = () => {
+        console.log(`Creating ${newStoreName}`);
     }
 
     const getUsersList = () => {
@@ -107,10 +107,10 @@ const Dashboard = () => {
                 )));
     }
 
-    const StoreSubmitHandler = (e) => {
+    const editStore = (e) => {
         e.preventDefault();
         // TODO: update Store
-        console.log(`Submit ${newStoreName}`);
+        console.log(`Edit ${newStoreName}, id: ${store}`);
     }
 
     const deleteUser = () => {
@@ -270,7 +270,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="input-group mb-auto d-flex text-secondary">
+                <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="phone">Телефон</label>
                     <input type="text"
                         id="phone"
@@ -283,7 +283,7 @@ const Dashboard = () => {
                     />
                 </div>
 
-                <div className="d-grid gap-3 mt-4">
+                <div className="d-grid gap-3 mt-4 mb-auto">
                     <button
                         type="submit"
                         className="btn btn-outline-primary"
@@ -309,6 +309,7 @@ const Dashboard = () => {
                         <i className="fa-solid fa-user-plus pe-2 text-primary"></i>
                         Добави потребител
                     </Link>
+                </div>
                     <button
                         type="reset"
                         className="btn btn-primary"
@@ -317,7 +318,6 @@ const Dashboard = () => {
                         <i className="fa-solid fa-rotate-right pe-2"></i>
                         Нулирай
                     </button>
-                </div>
 
             </form>
 
@@ -456,10 +456,9 @@ const Dashboard = () => {
             </form>
 
             {role === Role.SUPERUSER &&
-                <form
+                <section
                     className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column gap-3"
                     style={{ minWidth: '500px', height: '700px' }}
-                    onSubmit={StoreSubmitHandler}
                 >
                     <h4
                         className="py-1 px-4 text-light position-absolute rounded shadow"
@@ -497,33 +496,43 @@ const Dashboard = () => {
                         />
                     </div>
 
-                    <div className="d-grid gap-3">
+                    <div className="d-grid gap-3 mb-auto">
                         <button
-                            type="submit"
+                            type="button"
                             className="btn btn-outline-primary"
                             disabled={!newStoreName}
+                            onClick={editStore}
                         >
-                            <i className="fa-solid fa-floppy-disk pe-2"></i>
-                            Запиши
+                        <i className="fa-solid fa-pen-to-square pe-2"></i>
+                            Промени името на склада
                         </button>
                         <button
                             type="button"
                             className="btn btn-outline-danger"
-                            onClick={handleStoreDeletion}
+                            onClick={deleteStore}
                         >
                             <i className="fa-solid fa-trash pe-2"></i>
-                            Изтрий
+                            Изтрий този склад
                         </button>
                         <button
-                            type="reset"
-                            className="btn btn-primary"
-                            onClick={() => setNewStoreName('')}
+                            type="button"
+                            className="btn btn-outline-dark"
+                            disabled={!newStoreName}
+                            onClick={createNewStore}
                         >
-                            <i className="fa-solid fa-rotate-right pe-2"></i>
-                            Нулирай
+                        <i className="fa-solid fa-square-plus pe-2 text-primary"></i>
+                            Създай нов склад
                         </button>
                     </div>
-                </form>
+                    <button
+                        type="reset"
+                        className="btn btn-primary"
+                        onClick={() => setNewStoreName('')}
+                    >
+                        <i className="fa-solid fa-rotate-right pe-2"></i>
+                        Нулирай
+                    </button>
+                </section>
             }
 
         </div>
