@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import authContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
@@ -56,7 +56,7 @@ const Dashboard = () => {
         });
 
         api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
-            .then(response => console.log(response))
+            // .then(response => console.log(response))
             .then(() => getUsersList())
             .catch(() => navigate(Path.Error404));
 
@@ -308,6 +308,7 @@ const Dashboard = () => {
                             targetUser.role == '' 
                         }
                         data-bs-auto-close="outside"
+
                     >
                         Отговорен за склад
                     </button>
@@ -336,7 +337,7 @@ const Dashboard = () => {
                             </div>
                         ))}
                         <button
-                            type="button"
+                            type="reset"
                             className="btn btn-primary mt-3 w-100"
                             onClick={() => handleResponsibilitiesSubmit()}
                         >Запази
