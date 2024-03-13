@@ -20,7 +20,6 @@ const Dashboard = () => {
     const [store, setStore] = useState(stores[0].id);
     const [newStoreName, setNewStoreName] = useState(store.name);
     const [responsibilities, setResponsibilities] = useState([]);
-    const [responsibilitiesToDetach, setResponsibilitiesToDetach] = useState([]);
 
 
     const handleResponsibilitiesSelection = (e) => {
@@ -33,9 +32,9 @@ const Dashboard = () => {
                     e.target.value,
                 ]);
 
-            setResponsibilitiesToDetach(state => state.filter(
-                value => value != e.target.value
-            ));
+            // setResponsibilitiesToDetach(state => state.filter(
+            //     value => value != e.target.value
+            // ));
 
         } else {
 
@@ -43,14 +42,24 @@ const Dashboard = () => {
                 value => value != e.target.value
             ));
 
-            setResponsibilitiesToDetach(state => [
-                ...state,
-                e.target.value
-            ]);
+            // setResponsibilitiesToDetach(state => [
+            //     ...state,
+            //     e.target.value
+            // ]);
         }
     }
 
     const handleResponsibilitiesSubmit = () => {
+        let responsibilitiesToDetach = [];
+        Object.values(stores).forEach(store => {
+            responsibilitiesToDetach.push(store.id);
+        });
+
+        api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
+            .then(response => console.log(response))
+            .then(() => getUsersList())
+            .catch(() => navigate(Path.Error404));
+
         if (responsibilities.length > 0) {
             api.post(`${Path.ATTACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilities)
                 .then(response => response.data.user)
@@ -58,19 +67,12 @@ const Dashboard = () => {
                 .then(() => setResponsibilities([]))
                 .catch(() => navigate(Path.Error404));
         }
-        if (responsibilitiesToDetach.length > 0) {
-            api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
-                .then(response => console.log(response))
-                .then(() => getUsersList())
-                .then(() => setResponsibilitiesToDetach([]))
-                .catch(() => navigate(Path.Error404));
-        }
     }
 
     useEffect(() => {
         console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
     }, [responsibilities]);
-    useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
+    // useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -122,14 +124,14 @@ const Dashboard = () => {
     }
 
     const handleUserToEditSelect = (e) => {
-        const userStores = users[e.target.value]?.stores;
+        // const userStores = users[e.target.value]?.stores;
 
-        userStores?.forEach(store => {
-            setResponsibilities(state => ([
-                ...state,
-                store.responsibilities.store_id
-            ]));
-        })
+        // userStores?.forEach(store => {
+        //     setResponsibilities(state => ([
+        //         ...state,
+        //         store.responsibilities.store_id
+        //     ]));
+        // })
 
         setTargetUser({
             'id': users[e.target.value] ? users[e.target.value].id : '',
@@ -422,9 +424,9 @@ const Dashboard = () => {
                     type="reset"
                     className="btn btn-primary"
                     onClick={() => {
-                        // setTargetUser({});
+                        setTargetUser({});
                         setResponsibilities([]);
-                        setResponsibilitiesToDetach([]);
+                        // setResponsibilitiesToDetach([]);
                     }}
                 >
                     <i className="fa-solid fa-rotate-right pe-2"></i>
