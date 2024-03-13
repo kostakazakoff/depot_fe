@@ -14,7 +14,7 @@ const Dashboard = () => {
     const { stores, setStores } = useContext(StoresContext);
     const navigate = useNavigate();
     const [users, setUsers] = useState({});
-    const [userToEdit, setUserToEdit] = useState({});
+    const [targetUser, setTargetUser] = useState({});
     const [logs, setLogs] = useState({});
     const [filterOptions, setFilterOptions] = useState({});
     const [store, setStore] = useState(stores[0].id);
@@ -24,6 +24,7 @@ const Dashboard = () => {
 
 
     const handleResponsibilitiesSelection = (e) => {
+
         if (e.target.checked) {
 
             !responsibilities.includes(parseInt(e.target.value)) &&
@@ -35,6 +36,7 @@ const Dashboard = () => {
             setResponsibilitiesToDetach(state => state.filter(
                 value => value != e.target.value
             ));
+
         } else {
 
             setResponsibilities(state => state.filter(
@@ -50,14 +52,14 @@ const Dashboard = () => {
 
     const handleResponsibilitiesSubmit = () => {
         if (responsibilities.length > 0) {
-            api.post(`${Path.ATTACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilities)
+            api.post(`${Path.ATTACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilities)
                 .then(response => response.data.user)
                 .then(() => getUsersList())
                 .then(() => setResponsibilities([]))
                 .catch(() => navigate(Path.Error404));
         }
         if (responsibilitiesToDetach.length > 0) {
-            api.post(`${Path.DETACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilitiesToDetach)
+            api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
                 .then(response => console.log(response))
                 .then(() => getUsersList())
                 .then(() => setResponsibilitiesToDetach([]))
@@ -66,9 +68,9 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        console.log(`Attach responsibilities ${responsibilities} to ${userToEdit.email}`)
+        console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
     }, [responsibilities]);
-    useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${userToEdit.email}`) }, [responsibilities]);
+    useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -129,7 +131,7 @@ const Dashboard = () => {
             ]));
         })
 
-        setUserToEdit({
+        setTargetUser({
             'id': users[e.target.value] ? users[e.target.value].id : '',
             'email': users[e.target.value] ? users[e.target.value].email : '',
             'role': users[e.target.value] ? users[e.target.value].role : '',
@@ -141,20 +143,20 @@ const Dashboard = () => {
     }
 
     const handleChange = (e) => {
-        setUserToEdit(state => ({
+        setTargetUser(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
     }
 
     const EditUser = () => {
-        api.post(`dashboard/edit_user/${userToEdit.id}`, {
-            'id': userToEdit.id,
-            'email': userToEdit.email,
-            'role': userToEdit.role,
-            'first_name': userToEdit.first_name,
-            'last_name': userToEdit.last_name,
-            'phone': userToEdit.phone
+        api.post(`dashboard/edit_user/${targetUser.id}`, {
+            'id': targetUser.id,
+            'email': targetUser.email,
+            'role': targetUser.role,
+            'first_name': targetUser.first_name,
+            'last_name': targetUser.last_name,
+            'phone': targetUser.phone
         })
             .then(response => handleEditUserResponse(response.data)
                 .then(getUsersList())
@@ -173,7 +175,7 @@ const Dashboard = () => {
     }
 
     const deleteUser = () => {
-        const id = userToEdit.id;
+        const id = targetUser.id;
         api.post(`dashboard/delete_user/${id}`)
             .then(response => handleUserDeletionResponse(response.data))
             .catch(() => navigate(Path.Error404));
@@ -204,7 +206,7 @@ const Dashboard = () => {
                 "error"
             )
         } else {
-            setUserToEdit({});
+            setTargetUser({});
             getUsersList()
                 .then(Swal.fire(
                     "Готово!",
@@ -271,19 +273,19 @@ const Dashboard = () => {
                         id="role"
                         name='role'
                         className="form-select"
-                        value={userToEdit.role}
+                        value={targetUser.role}
                         onChange={handleChange}
                     >
                         <option value={Role.MEMBER}>
                             Без достъп
                         </option>
-                        <option value={Role.SUPERUSER} hidden={userToEdit && userToEdit.role == Role.SUPERUSER}>
+                        <option value={Role.SUPERUSER} hidden={targetUser && targetUser.role == Role.SUPERUSER}>
                             Главен администратор
                         </option>
-                        <option value={Role.ADMIN} hidden={userToEdit && userToEdit.role == Role.ADMIN}>
+                        <option value={Role.ADMIN} hidden={targetUser && targetUser.role == Role.ADMIN}>
                             Администратор
                         </option>
-                        <option value={Role.STAFF} hidden={userToEdit && userToEdit.role == Role.STAFF}>
+                        <option value={Role.STAFF} hidden={targetUser && targetUser.role == Role.STAFF}>
                             Служител
                         </option>
                     </select>
@@ -297,7 +299,7 @@ const Dashboard = () => {
                         className="btn btn-outline-light bg-light text-dark dropdown-toggle w-100"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
-                        disabled={!Object.keys(userToEdit).length || userToEdit.role === Role.MEMBER}
+                        disabled={!Object.keys(targetUser).length || targetUser.role === Role.MEMBER}
                         data-bs-auto-close="outside"
                     >
                         Отговорен за склад
@@ -316,7 +318,7 @@ const Dashboard = () => {
                                     id={`responsibility_${store.id}`}
                                     autoComplete="off"
                                     value={store.id}
-                                    // checked={responsibilities.includes(store.id)}
+                                    // checked={responsibilities.includes(parseInt(store.id))}
                                     onChange={handleResponsibilitiesSelection}
                                 />
                                 <label
@@ -344,7 +346,7 @@ const Dashboard = () => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="email"
-                        value={userToEdit && userToEdit.email || ''}
+                        value={targetUser && targetUser.email || ''}
                         onChange={handleChange}
                     />
                 </div>
@@ -357,7 +359,7 @@ const Dashboard = () => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="first_name"
-                        value={userToEdit && userToEdit.first_name || ''}
+                        value={targetUser && targetUser.first_name || ''}
                         onChange={handleChange}
                     />
                 </div>
@@ -370,7 +372,7 @@ const Dashboard = () => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="last_name"
-                        value={userToEdit && userToEdit.last_name || ''}
+                        value={targetUser && targetUser.last_name || ''}
                         onChange={handleChange}
                     />
                 </div>
@@ -383,7 +385,7 @@ const Dashboard = () => {
                         className="form-control"
                         aria-describedby="basic-addon1"
                         name="phone"
-                        value={userToEdit && userToEdit.phone || ''}
+                        value={targetUser && targetUser.phone || ''}
                         onChange={handleChange}
                     />
                 </div>
@@ -392,7 +394,7 @@ const Dashboard = () => {
                     <button
                         type="button"
                         className="btn btn-outline-primary"
-                        disabled={!userToEdit.id}
+                        disabled={!targetUser.id}
                         onClick={EditUser}
                     >
                         <i className="fa-solid fa-floppy-disk pe-2"></i>
@@ -402,7 +404,7 @@ const Dashboard = () => {
                         type="button"
                         className="btn btn-outline-danger"
                         onClick={HandleUserDeletion}
-                        disabled={!userToEdit.id}
+                        disabled={!targetUser.id}
                     >
                         <i className="fa-solid fa-trash pe-2"></i>
                         Изтрий
@@ -420,7 +422,7 @@ const Dashboard = () => {
                     type="reset"
                     className="btn btn-primary"
                     onClick={() => {
-                        // setUserToEdit({});
+                        // setTargetUser({});
                         setResponsibilities([]);
                         setResponsibilitiesToDetach([]);
                     }}
