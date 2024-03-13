@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import authContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
@@ -25,17 +25,22 @@ const Dashboard = () => {
 
     const handleResponsibilitiesSelection = (e) => {
         if (e.target.checked) {
-            setResponsibilities(state => [
-                ...state,
-                e.target.value
-            ]);
+
+            !responsibilities.includes(parseInt(e.target.value)) &&
+                setResponsibilities(state => [
+                    ...state,
+                    e.target.value,
+                ]);
+
             setResponsibilitiesToDetach(state => state.filter(
-                value => value !== e.target.value
+                value => value != e.target.value
             ));
         } else {
+
             setResponsibilities(state => state.filter(
-                value => value !== e.target.value
+                value => value != e.target.value
             ));
+
             setResponsibilitiesToDetach(state => [
                 ...state,
                 e.target.value
@@ -43,22 +48,26 @@ const Dashboard = () => {
         }
     }
 
-    const handleResponsibilitiesSubmit = (e) => {
-        e.preventDefault();
+    const handleResponsibilitiesSubmit = () => {
         if (responsibilities.length > 0) {
             api.post(`${Path.ATTACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilities)
-            .then(response => console.log(response))
-            .catch(() => navigate(Path.Error404));
+                .then(response => response.data.user)
+                .then(() => getUsersList())
+                .then(() => setResponsibilities([]))
+                .catch(() => navigate(Path.Error404));
         }
         if (responsibilitiesToDetach.length > 0) {
             api.post(`${Path.DETACH_RESPONSIBILITIES}/${userToEdit.id}`, responsibilitiesToDetach)
-            .then(response => console.log(response))
-            .catch(() => navigate(Path.Error404));
+                .then(response => console.log(response))
+                .then(() => getUsersList())
+                .then(() => setResponsibilitiesToDetach([]))
+                .catch(() => navigate(Path.Error404));
         }
     }
 
-    // useEffect(() => { console.log(`User to edit ${userToEdit.email}`) }, [userToEdit]);
-    useEffect(() => { console.log(`Attach responsibilities ${responsibilities} to ${userToEdit.email}`) }, [responsibilities]);
+    useEffect(() => {
+        console.log(`Attach responsibilities ${responsibilities} to ${userToEdit.email}`)
+    }, [responsibilities]);
     useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${userToEdit.email}`) }, [responsibilities]);
 
     const handleStoreChange = (e) => {
@@ -111,13 +120,23 @@ const Dashboard = () => {
     }
 
     const handleUserToEditSelect = (e) => {
+        const userStores = users[e.target.value]?.stores;
+
+        userStores?.forEach(store => {
+            setResponsibilities(state => ([
+                ...state,
+                store.responsibilities.store_id
+            ]));
+        })
+
         setUserToEdit({
             'id': users[e.target.value] ? users[e.target.value].id : '',
             'email': users[e.target.value] ? users[e.target.value].email : '',
             'role': users[e.target.value] ? users[e.target.value].role : '',
             'first_name': users[e.target.value] ? users[e.target.value].profile.first_name : '',
             'last_name': users[e.target.value] ? users[e.target.value].profile.last_name : '',
-            'phone': users[e.target.value] ? users[e.target.value].profile.phone : ''
+            'phone': users[e.target.value] ? users[e.target.value].profile.phone : '',
+            'responsibilities': users[e.target.value] ? responsibilities : '',
         });
     }
 
@@ -216,7 +235,7 @@ const Dashboard = () => {
 
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
-            <div
+            <form
                 className="position-relative mx-auto p-5 rounded-2 shadow-lg w-25 mh-75 d-flex flex-column gap-3"
                 style={{ minWidth: '500px', height: '700px' }}
             >
@@ -227,7 +246,7 @@ const Dashboard = () => {
                 </h4>
 
                 <div className="input-group dropdown">
-                    <label className="input-group-text" htmlFor="user">Персонал</label>
+                    <label className="input-group-text" htmlFor="user">Служител</label>
                     <select
                         id="user"
                         name="user"
@@ -259,20 +278,19 @@ const Dashboard = () => {
                             Без достъп
                         </option>
                         <option value={Role.SUPERUSER} hidden={userToEdit && userToEdit.role == Role.SUPERUSER}>
-                            Superuser
+                            Главен администратор
                         </option>
                         <option value={Role.ADMIN} hidden={userToEdit && userToEdit.role == Role.ADMIN}>
                             Администратор
                         </option>
                         <option value={Role.STAFF} hidden={userToEdit && userToEdit.role == Role.STAFF}>
-                            Персонал
+                            Служител
                         </option>
                     </select>
                 </div>
 
-                <form
+                <div
                     className="input-group dropdown"
-                    onSubmit={handleResponsibilitiesSubmit}
                 >
                     <button
                         type="button"
@@ -298,7 +316,7 @@ const Dashboard = () => {
                                     id={`responsibility_${store.id}`}
                                     autoComplete="off"
                                     value={store.id}
-                                    // checked={handleResponsibilitiesSelection}
+                                    // checked={responsibilities.includes(store.id)}
                                     onChange={handleResponsibilitiesSelection}
                                 />
                                 <label
@@ -310,12 +328,13 @@ const Dashboard = () => {
                             </div>
                         ))}
                         <button
-                            type="submit"
+                            type="button"
                             className="btn btn-primary mt-3 w-100"
+                            onClick={() => handleResponsibilitiesSubmit()}
                         >Запази
                         </button>
                     </div>
-                </form>
+                </div>
 
                 <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="email">Email</label>
@@ -400,13 +419,17 @@ const Dashboard = () => {
                 <button
                     type="reset"
                     className="btn btn-primary"
-                    onClick={() => setUserToEdit({})}
+                    onClick={() => {
+                        // setUserToEdit({});
+                        setResponsibilities([]);
+                        setResponsibilitiesToDetach([]);
+                    }}
                 >
                     <i className="fa-solid fa-rotate-right pe-2"></i>
                     Нулирай
                 </button>
 
-            </div>
+            </form>
 
             <div
                 className="position-relative mx-auto px-4 py-5 rounded-2 shadow-lg w-25 mh-75 p-3 d-flex flex-column align-items-strech"
