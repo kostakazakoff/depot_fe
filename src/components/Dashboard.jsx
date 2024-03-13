@@ -69,9 +69,9 @@ const Dashboard = () => {
         }
     }
 
-    useEffect(() => {
-        console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
-    }, [responsibilities]);
+    // useEffect(() => {
+    //     console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
+    // }, [responsibilities]);
     // useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
 
     const handleStoreChange = (e) => {
@@ -123,7 +123,7 @@ const Dashboard = () => {
         }));
     }
 
-    const handleUserToEditSelect = (e) => {
+    const handleTargetUserSelect = (e) => {
         // const userStores = users[e.target.value]?.stores;
 
         // userStores?.forEach(store => {
@@ -134,7 +134,7 @@ const Dashboard = () => {
         // })
 
         setTargetUser({
-            'id': users[e.target.value] ? users[e.target.value].id : '',
+            'id': users[e.target.value] ? users[e.target.value].id : null,
             'email': users[e.target.value] ? users[e.target.value].email : '',
             'role': users[e.target.value] ? users[e.target.value].role : '',
             'first_name': users[e.target.value] ? users[e.target.value].profile.first_name : '',
@@ -255,7 +255,7 @@ const Dashboard = () => {
                         id="user"
                         name="user"
                         className="form-select"
-                        onChange={handleUserToEditSelect}
+                        onChange={handleTargetUserSelect}
                     >
                         <option value="">Избери потребител</option>
                         {users && Object.keys(users).map(key => (
@@ -277,6 +277,7 @@ const Dashboard = () => {
                         className="form-select"
                         value={targetUser.role}
                         onChange={handleChange}
+                        disabled={!targetUser.id}
                     >
                         <option value={Role.MEMBER}>
                             Без достъп
@@ -301,7 +302,11 @@ const Dashboard = () => {
                         className="btn btn-outline-light bg-light text-dark dropdown-toggle w-100"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
-                        disabled={!Object.keys(targetUser).length || targetUser.role === Role.MEMBER}
+                        disabled={
+                            !targetUser.id ||
+                            targetUser.role == Role.MEMBER || 
+                            targetUser.role == '' 
+                        }
                         data-bs-auto-close="outside"
                     >
                         Отговорен за склад
@@ -320,7 +325,6 @@ const Dashboard = () => {
                                     id={`responsibility_${store.id}`}
                                     autoComplete="off"
                                     value={store.id}
-                                    // checked={responsibilities.includes(parseInt(store.id))}
                                     onChange={handleResponsibilitiesSelection}
                                 />
                                 <label
@@ -350,6 +354,7 @@ const Dashboard = () => {
                         name="email"
                         value={targetUser && targetUser.email || ''}
                         onChange={handleChange}
+                        disabled={!targetUser.id}
                     />
                 </div>
 
@@ -363,6 +368,7 @@ const Dashboard = () => {
                         name="first_name"
                         value={targetUser && targetUser.first_name || ''}
                         onChange={handleChange}
+                        disabled={!targetUser.id}
                     />
                 </div>
 
@@ -376,6 +382,7 @@ const Dashboard = () => {
                         name="last_name"
                         value={targetUser && targetUser.last_name || ''}
                         onChange={handleChange}
+                        disabled={!targetUser.id}
                     />
                 </div>
 
@@ -389,6 +396,7 @@ const Dashboard = () => {
                         name="phone"
                         value={targetUser && targetUser.phone || ''}
                         onChange={handleChange}
+                        disabled={!targetUser.id}
                     />
                 </div>
 
