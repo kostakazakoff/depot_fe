@@ -108,7 +108,7 @@ const AddArticle = (props) => {
             );
             getArticles();
             setFiles([]);
-            setArticle({ 'store_id': '1' });
+            setArticle({ 'store_id': stores[0]?.id });
         }
     }
 
