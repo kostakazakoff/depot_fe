@@ -21,7 +21,7 @@ const EditArticle = (props) => {
     const [imagesToDelete, setImagesToDelete] = useState([]);
 
 
-    useEffect(() => {console.log(imagesToDelete)}, [imagesToDelete]);
+    useEffect(() => {console.log(files)}, [files]);
     
 
     const onDrop = useCallback((acceptedFiles) => {
