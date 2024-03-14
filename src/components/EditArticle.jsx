@@ -76,6 +76,8 @@ const EditArticle = (props) => {
                 formData.append('images[]', file)
             })
         }
+        
+        setFiles([]);
 
         const body = {
             'inventory_number': article.inventory_number || '',
@@ -114,21 +116,20 @@ const EditArticle = (props) => {
             let message = [];
             Object.values(errors).forEach(e => message.push(e));
             message = message.join(' ').toString();
-            setArticle(state => ({
-                ...state, ...body
-            }));
             Swal.fire(
                 "Грешка!",
                 message,
                 "error"
             );
         } else {
+            setArticle(state => ({
+                ...state, ...body
+            }));
             Swal.fire(
                 "Готово!",
                 "Артикулът беше редактиран.",
                 "success"
             );
-            setFiles([]);
             getArticles();
         }
     }
