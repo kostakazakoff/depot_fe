@@ -7,6 +7,8 @@ import Swal from "sweetalert2";
 import moment from "moment";
 import StoresContext from "../contexts/storesContext";
 import Role from "../roles";
+import Formats from "../Formats";
+import Messages from "../Messages";
 
 
 const Dashboard = () => {
@@ -17,7 +19,7 @@ const Dashboard = () => {
     const [targetUser, setTargetUser] = useState({});
     const [logs, setLogs] = useState({});
     const [filterOptions, setFilterOptions] = useState({});
-    const [store, setStore] = useState(stores[0].id);
+    const [store, setStore] = useState(stores[0]?.id);
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
 
@@ -90,11 +92,11 @@ const Dashboard = () => {
     }
 
     const createNewStore = () => {
-        api.post(Path.CREATE_STORE, {'name': newStoreName})
+        api.post(Path.CREATE_STORE, { 'name': newStoreName })
             .then(response => response.data)
             .then(data => handleCreateStoreResponse(data))
             .catch(() => navigate(Path.Error404));
-        console.log(`Creating ${newStoreName}`);
+        // console.log(`Creating ${newStoreName}`);
     }
 
     const getUsersList = () => {
@@ -157,14 +159,15 @@ const Dashboard = () => {
             'last_name': targetUser.last_name,
             'phone': targetUser.phone
         })
-            .then(response => handleEditUserResponse(response.data)
-                .then(getUsersList())
-                .catch(() => navigate(Path.Error404))
-                .then(Swal.fire(
-                    "Готово!",
-                    "Данните на потребителя бяха променени.",
-                    "success"
-                )));
+            .then(response => response.data)
+            .then(response => handleEditUserResponse(response))
+            .then(getUsersList())
+            .catch(() => navigate(Path.Error404))
+            .then(Swal.fire(
+                Messages.DONE,
+                "Данните на потребителя бяха променени.",
+                Messages.SUCCESS
+            ));
     }
 
     const editStore = () => {
@@ -187,22 +190,22 @@ const Dashboard = () => {
                 message.push(value);
             });
             Swal.fire(
-                "Неуспешна операция!",
+                Messages.UNSUCCESSFUL_OPERATION,
                 message.join(', '),
-                "error"
+                Messages.ERROR
             )
         } else {
             api.get(Path.STORES)
                 .then(response => response.data)
                 .then(data => setStores(data))
                 .then(Swal.fire(
-                    "Готово!",
+                    Messages.DONE,
                     "Наименованието на склада беше променено.",
-                    "success"
+                    Messages.SUCCESS
                 ));
         }
     }
-    
+
     const handleCreateStoreResponse = (response) => {
         if (response.message !== 'success') {
             let message = [];
@@ -210,9 +213,9 @@ const Dashboard = () => {
                 message.push(value);
             });
             Swal.fire(
-                "Неуспешна операция!",
+                Messages.UNSUCCESSFUL_OPERATION,
                 message.join(', '),
-                "error"
+                Messages.ERROR
             )
         } else {
             api.get(Path.STORES)
@@ -220,9 +223,9 @@ const Dashboard = () => {
                 .then(data => setStores(data))
                 .then(
                     Swal.fire(
-                        "Готово!",
+                        Messages.DONE,
                         "Създадохте нов склад.",
-                        "success"
+                        Messages.SUCCESS
                     ));
         }
     }
@@ -230,16 +233,16 @@ const Dashboard = () => {
     const handleEditUserResponse = (response) => {
         if (response.message !== 'success') {
             Swal.fire(
-                "Неуспешна операция!",
+                Messages.UNSUCCESSFUL_OPERATION,
                 response.message,
-                "error"
+                Messages.ERROR
             )
         } else {
             getUsersList();
             Swal.fire(
-                "Готово!",
+                Messages.DONE,
                 "Данните на потребителя бяха променени.",
-                "success"
+                Messages.SUCCESS
             );
         }
     }
@@ -247,17 +250,17 @@ const Dashboard = () => {
     const handleUserDeletionResponse = (response) => {
         if (response.message !== 'success') {
             Swal.fire(
-                "Неуспешна операция!",
+                Messages.UNSUCCESSFUL_OPERATION,
                 response.message,
-                "error"
+                Messages.ERROR
             )
         } else {
             setTargetUser({});
             getUsersList()
                 .then(Swal.fire(
-                    "Готово!",
+                    Messages.DONE,
                     "Потребителят беше изтрит.",
-                    "success"
+                    Messages.SUCCESS
                 ))
         }
 
@@ -509,7 +512,7 @@ const Dashboard = () => {
                             value={key}
                             className="px-3 pt-3 rounded rounded-2 shadow border-bottom border-bottom-light"
                         >
-                            <h5>{moment(logs[key].created_at).format('DD/MM/YYYY - HH:MM')} ч.</h5>
+                            <h5>{moment(logs[key].created_at).format(Formats.DATE_TIME)} ч.</h5>
                             <div style={{ fontSize: '0.85rem' }}>
                                 {logs[key].created &&
                                     <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
@@ -650,7 +653,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className="input-group mb-3 d-flex text-secondary">
-                        <label className="input-group-text" htmlFor="store_name">Ново име на склада</label>
+                        <label className="input-group-text" htmlFor="store_name">Име на склада</label>
                         <input type="text"
                             id="store_name"
                             autoComplete="true"
@@ -674,20 +677,20 @@ const Dashboard = () => {
                         </button>
                         <button
                             type="button"
-                            className="btn btn-outline-danger"
-                            onClick={deleteStore}
-                        >
-                            <i className="fa-solid fa-trash pe-2"></i>
-                            Изтрий този склад
-                        </button>
-                        <button
-                            type="button"
                             className="btn btn-outline-dark"
                             disabled={!newStoreName}
                             onClick={createNewStore}
                         >
                             <i className="fa-solid fa-square-plus pe-2 text-primary"></i>
-                            Създай нов склад
+                            Създай нов склад с това име
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-outline-danger"
+                            onClick={deleteStore}
+                        >
+                            <i className="fa-solid fa-trash pe-2"></i>
+                            Изтрий този склад
                         </button>
                     </div>
                     <button
