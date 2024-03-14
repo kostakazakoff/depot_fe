@@ -10,15 +10,15 @@ import Role from "../roles";
 
 
 const Dashboard = () => {
-    const { admin, user_id, role } = useContext(authContext);
-    const { stores, setStores } = useContext(StoresContext);
     const navigate = useNavigate();
+    const { stores, setStores } = useContext(StoresContext);
+    const { admin, user_id, role } = useContext(authContext);
     const [users, setUsers] = useState({});
     const [targetUser, setTargetUser] = useState({});
     const [logs, setLogs] = useState({});
     const [filterOptions, setFilterOptions] = useState({});
     const [store, setStore] = useState(stores[0].id);
-    const [newStoreName, setNewStoreName] = useState(store.name);
+    const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
 
 
@@ -56,7 +56,6 @@ const Dashboard = () => {
         });
 
         api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
-            // .then(response => console.log(response))
             .then(() => getUsersList())
             .catch(() => navigate(Path.Error404));
 
@@ -73,6 +72,9 @@ const Dashboard = () => {
     //     console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
     // }, [responsibilities]);
     // useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
+    // useEffect(() => {
+    //     console.log(newStoreName);
+    // }, [newStoreName]);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -88,17 +90,21 @@ const Dashboard = () => {
     }
 
     const createNewStore = () => {
+        api.post(Path.CREATE_STORE, {'name': newStoreName})
+            .then(response => response.data)
+            .then(data => handleCreateStoreResponse(data))
+            .catch(() => navigate(Path.Error404));
         console.log(`Creating ${newStoreName}`);
     }
 
     const getUsersList = () => {
-        api.get('dashboard/users_list')
+        api.get(Path.USERS)
             .then(response => setUsers(response.data.users))
             .catch(() => navigate(Path.Error404));
     }
 
     const getLogsList = () => {
-        api.get('logs/list', { params: filterOptions ? filterOptions : '' })
+        api.get(Path.LOGS, { params: filterOptions ? filterOptions : '' })
             .then(response => {
                 response.data.message === 'success'
                     ? setLogs(response.data.logs)
@@ -124,15 +130,6 @@ const Dashboard = () => {
     }
 
     const handleTargetUserSelect = (e) => {
-        // const userStores = users[e.target.value]?.stores;
-
-        // userStores?.forEach(store => {
-        //     setResponsibilities(state => ([
-        //         ...state,
-        //         store.responsibilities.store_id
-        //     ]));
-        // })
-
         setTargetUser({
             'id': users[e.target.value] ? users[e.target.value].id : null,
             'email': users[e.target.value] ? users[e.target.value].email : '',
@@ -170,17 +167,64 @@ const Dashboard = () => {
                 )));
     }
 
-    const editStore = (e) => {
-        e.preventDefault();
-        // TODO: update Store
-        console.log(`Edit ${newStoreName}, id: ${store}`);
+    const editStore = () => {
+        api.post(`${Path.EDIT_STORE}/${store}`, { 'name': newStoreName })
+            .then(response => handleChangeStoreNameResponse(response.data))
+            .catch(() => navigate(Path.Error404));
     }
 
     const deleteUser = () => {
         const id = targetUser.id;
-        api.post(`dashboard/delete_user/${id}`)
+        api.post(`${Path.DELETE_USER}/${id}`)
             .then(response => handleUserDeletionResponse(response.data))
             .catch(() => navigate(Path.Error404));
+    }
+
+    const handleChangeStoreNameResponse = (response) => {
+        if (response.message !== 'success') {
+            let message = [];
+            Object.values(response.data).forEach(value => {
+                message.push(value);
+            });
+            Swal.fire(
+                "Неуспешна операция!",
+                message.join(', '),
+                "error"
+            )
+        } else {
+            api.get(Path.STORES)
+                .then(response => response.data)
+                .then(data => setStores(data))
+                .then(Swal.fire(
+                    "Готово!",
+                    "Наименованието на склада беше променено.",
+                    "success"
+                ));
+        }
+    }
+    
+    const handleCreateStoreResponse = (response) => {
+        if (response.message !== 'success') {
+            let message = [];
+            Object.values(response.data).forEach(value => {
+                message.push(value);
+            });
+            Swal.fire(
+                "Неуспешна операция!",
+                message.join(', '),
+                "error"
+            )
+        } else {
+            api.get(Path.STORES)
+                .then(response => response.data)
+                .then(data => setStores(data))
+                .then(
+                    Swal.fire(
+                        "Готово!",
+                        "Създадохте нов склад.",
+                        "success"
+                    ));
+        }
     }
 
     const handleEditUserResponse = (response) => {
@@ -304,8 +348,8 @@ const Dashboard = () => {
                         aria-expanded="false"
                         disabled={
                             !targetUser.id ||
-                            targetUser.role == Role.MEMBER || 
-                            targetUser.role == '' 
+                            targetUser.role == Role.MEMBER ||
+                            targetUser.role == ''
                         }
                         data-bs-auto-close="outside"
 
