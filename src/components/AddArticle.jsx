@@ -22,6 +22,10 @@ const AddArticle = (props) => {
     const getArticles = props.getArticles;
 
     useEffect(() => {
+        console.log(files);
+    }, [files]);
+    
+    useEffect(() => {
         !authorized && navigate(Path.HOME);
     }, [authorized])
 

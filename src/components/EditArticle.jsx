@@ -21,7 +21,9 @@ const EditArticle = (props) => {
     const [imagesToDelete, setImagesToDelete] = useState([]);
 
 
-    useEffect(() => {console.log(files)}, [files]);
+    useEffect(() => {
+        console.log(files);
+    }, [files]);
     
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -126,6 +128,7 @@ const EditArticle = (props) => {
                 "Артикулът беше редактиран.",
                 "success"
             );
+            setFiles([]);
             getArticles();
         }
     }
