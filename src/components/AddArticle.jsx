@@ -15,8 +15,8 @@ import AuthContext from "../contexts/authContext";
 
 const AddArticle = (props) => {
     const navigate = useNavigate();
-    const [article, setArticle] = useState({ 'store_id': '1' });
     const { stores } = useContext(StoresContext);
+    const [article, setArticle] = useState({ 'store_id': stores[0]?.id });
     const { authorized } = useContext(AuthContext);
     const [files, setFiles] = useState([]);
     const getArticles = props.getArticles;

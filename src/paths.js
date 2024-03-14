@@ -15,8 +15,9 @@ const Path = {
     Error404: '/error404',
     ATTACH_RESPONSIBILITIES: '/users/responsibilities/attach',
     DETACH_RESPONSIBILITIES: '/users/responsibilities/detach',
-    EDIT_STORE: '/stores/edit',
     CREATE_STORE: '/stores/create',
+    EDIT_STORE: '/stores/edit',
+    DELETE_STORE: '/stores/delete',
     STORES: 'stores/list',
     // STORE: '/store',
 }

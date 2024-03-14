@@ -39,7 +39,7 @@ const Articles = () => {
             .then(response => response.data)
             .then(result => {
                 setArticles(result.articles);
-                totalCost.current = result.totalCost;
+                totalCost.current = result.totalCost
             })
             .catch(() => navigate(Path.Error404));
     }

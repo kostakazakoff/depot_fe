@@ -77,6 +77,7 @@ const Dashboard = () => {
     // useEffect(() => {
     //     console.log(newStoreName);
     // }, [newStoreName]);
+    console.log(store);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -87,8 +88,10 @@ const Dashboard = () => {
     };
 
     const deleteStore = () => {
-        // TODO: Delete the store
-        console.log(`Store ${store} deleted`);
+        api.post(`${Path.DELETE_STORE}/${store}`)
+        .then(response => response.data)
+        .then(data => handleStoreDeletion(data))
+        .catch(() => navigate(Path.Error404));
     }
 
     const createNewStore = () => {
@@ -225,6 +228,27 @@ const Dashboard = () => {
                     Swal.fire(
                         Messages.DONE,
                         "Създадохте нов склад.",
+                        Messages.SUCCESS
+                    ));
+        }
+    }
+
+    const handleStoreDeletion = (response) => {
+        if (response.message !== 'success') {
+            console.log(response);
+            Swal.fire(
+                Messages.UNSUCCESSFUL_OPERATION,
+                response.message,
+                Messages.ERROR
+            )
+        } else {
+            api.get(Path.STORES)
+                .then(response => response.data)
+                .then(data => setStores(data))
+                .then(
+                    Swal.fire(
+                        Messages.DONE,
+                        "Складът беше изтрит.",
                         Messages.SUCCESS
                     ));
         }
