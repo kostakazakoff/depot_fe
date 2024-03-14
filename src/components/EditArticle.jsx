@@ -43,7 +43,7 @@ const EditArticle = (props) => {
         setFiles(files => files.filter(file => file.name !== name))
     }
 
-    const removeExistedImage = id => {
+    const addImagesToDelete = id => {
         const newImages = article.images.filter(image => image.id !== id);
         setArticle(state => ({
             ...state,
@@ -372,7 +372,7 @@ const EditArticle = (props) => {
                                         type='button'
                                         className='position-absolute bg-danger text-white'
                                         style={{ right: '3px', top: '3px', borderRadius: '100%', border: 'none' }}
-                                        onClick={() => removeExistedImage(image.id)}
+                                        onClick={() => addImagesToDelete(image.id)}
                                     >
                                         <i className="fa-solid fa-xmark"></i>
                                     </button>
