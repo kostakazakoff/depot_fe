@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 
@@ -19,6 +19,9 @@ const EditArticle = (props) => {
     const { stores } = useContext(StoresContext);
     const [files, setFiles] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
+
+
+    useEffect(() => {console.log(imagesToDelete)}, [imagesToDelete]);
     
 
     const onDrop = useCallback((acceptedFiles) => {
@@ -85,13 +88,12 @@ const EditArticle = (props) => {
             'position': article.position || '',
         }
 
-        if (imagesToDelete.length) {
+        imagesToDelete.length &&
             api.post('/images/delete', imagesToDelete)
                 .then(setArticle(state => ({
                     ...state, ...body
                 })))
                 .catch(() => navigate(Path.Error404));
-        }
 
         Object.entries(body).forEach(
             ([key, value]) => {
