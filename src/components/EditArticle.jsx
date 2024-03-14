@@ -94,9 +94,6 @@ const EditArticle = (props) => {
 
         imagesToDelete.length &&
             api.post('/images/delete', imagesToDelete)
-                .then(setArticle(state => ({
-                    ...state, ...body
-                })))
                 .catch(() => navigate(Path.Error404));
 
         Object.entries(body).forEach(
@@ -104,6 +101,10 @@ const EditArticle = (props) => {
                 formData.append(key, value);
             }
         )
+        
+        setArticle(state => ({
+            ...state, ...body
+        }));
 
         api.post(`/articles/edit/${article.id}`, formData)
             .then(response => handleResponse(response.data, body))
@@ -122,9 +123,9 @@ const EditArticle = (props) => {
                 "error"
             );
         } else {
-            setArticle(state => ({
-                ...state, ...body
-            }));
+            // setArticle(state => ({
+            //     ...state, ...body
+            // }));
             Swal.fire(
                 "Готово!",
                 "Артикулът беше редактиран.",
