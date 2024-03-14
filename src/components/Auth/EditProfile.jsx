@@ -52,7 +52,6 @@ const EditProfile = () => {
                 "error"
             )
         } else {
-            console.log(response);
             setCredentials(credentials => ({
                 ...credentials,
                 'email': response.user.email,

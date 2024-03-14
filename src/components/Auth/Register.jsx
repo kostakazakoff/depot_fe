@@ -33,7 +33,6 @@ const Register = () => {
 
     const SubmitHandler = (e) => {
         e.preventDefault();
-        console.log(user);
 
         if (user.password !== user.password_confirmation) {
             Swal.fire(

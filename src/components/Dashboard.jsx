@@ -96,13 +96,14 @@ const Dashboard = () => {
             cancelButtonColor: "#3085d6",
             confirmButtonText: "Да, изтрий!",
         })
-        .then(result => {
-            if (result.isConfirmed) {
-                api.post(`${Path.DELETE_STORE}/${store}`)
-                    .then(response => response.data)
-                    .then(data => handleStoreDeletion(data))
-                    .catch(() => navigate(Path.Error404))}
-        });
+            .then(result => {
+                if (result.isConfirmed) {
+                    api.post(`${Path.DELETE_STORE}/${store}`)
+                        .then(response => response.data)
+                        .then(data => handleStoreDeletion(data))
+                        .catch(() => navigate(Path.Error404))
+                }
+            });
     }
 
     const createNewStore = () => {
@@ -110,7 +111,6 @@ const Dashboard = () => {
             .then(response => response.data)
             .then(data => handleCreateStoreResponse(data))
             .catch(() => navigate(Path.Error404));
-        // console.log(`Creating ${newStoreName}`);
     }
 
     const getUsersList = () => {
@@ -246,7 +246,6 @@ const Dashboard = () => {
 
     const handleStoreDeletion = (response) => {
         if (response.message !== 'success') {
-            console.log(response);
             Swal.fire(
                 Messages.UNSUCCESSFUL_OPERATION,
                 response.message,
@@ -292,11 +291,11 @@ const Dashboard = () => {
         } else {
             setTargetUser({});
             getUsersList()
-                .then(Swal.fire(
-                    Messages.DONE,
-                    "Потребителят беше изтрит.",
-                    Messages.SUCCESS
-                ))
+            Swal.fire(
+                Messages.DONE,
+                "Потребителят беше изтрит.",
+                Messages.SUCCESS
+            )
         }
 
     }
@@ -313,10 +312,10 @@ const Dashboard = () => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    deleteUser()
-                        .catch(() => (navigate(Path.Error404)));
+                    deleteUser();
                 }
             })
+            .catch(() => (navigate(Path.Error404)));
     }
 
     return (

@@ -25,7 +25,6 @@ const Articles = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log('Articles component mounted');
         getArticles();
     }, []);
 

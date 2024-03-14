@@ -9,7 +9,6 @@ const ImagesPreview = (props) => {
     const imagePreviewRef = useRef(images[0]);
 
     const setImagePreview = (image) => {
-        console.log(image);
         imagePreviewRef.current.src = image.url;
         imagePreviewRef.current.alt = image.url;
     }
