@@ -582,11 +582,11 @@ const Dashboard = () => {
                         </div>
 
                         <div className="input-group dropdown">
-                            <label className="input-group-text" htmlFor="user">
+                            <label className="input-group-text" htmlFor="operation">
                                 <i className="fa-solid fa-pen"></i>
                             </label>
                             <select
-                                id="user"
+                                id="operation"
                                 name="operation"
                                 className="form-select"
                                 onChange={handleFilterChange}
