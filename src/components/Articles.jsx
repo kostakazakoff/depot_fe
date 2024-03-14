@@ -82,7 +82,7 @@ const Articles = () => {
                             "success"
                         ))
                 }
-            })
+            });
     }
 
     useEffect(() => {

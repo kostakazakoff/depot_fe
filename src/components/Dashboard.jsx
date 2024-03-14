@@ -77,7 +77,6 @@ const Dashboard = () => {
     // useEffect(() => {
     //     console.log(newStoreName);
     // }, [newStoreName]);
-    console.log(store);
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -88,10 +87,22 @@ const Dashboard = () => {
     };
 
     const deleteStore = () => {
-        api.post(`${Path.DELETE_STORE}/${store}`)
-        .then(response => response.data)
-        .then(data => handleStoreDeletion(data))
-        .catch(() => navigate(Path.Error404));
+        Swal.fire({
+            title: "Сигурни ли сте?",
+            text: "Няма да можете да възстановите този склад!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Да, изтрий!",
+        })
+        .then(result => {
+            if (result.isConfirmed) {
+                api.post(`${Path.DELETE_STORE}/${store}`)
+                    .then(response => response.data)
+                    .then(data => handleStoreDeletion(data))
+                    .catch(() => navigate(Path.Error404))}
+        });
     }
 
     const createNewStore = () => {
