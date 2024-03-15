@@ -21,11 +21,6 @@ const EditArticle = (props) => {
     const [imagesToDelete, setImagesToDelete] = useState([]);
 
 
-    useEffect(() => {
-        console.log(files);
-    }, [files]);
-
-
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
             setFiles(state => [
@@ -76,8 +71,6 @@ const EditArticle = (props) => {
                 formData.append('images[]', file)
             })
         }
-
-        // setFiles([]);
 
         const body = {
             'inventory_number': article.inventory_number || '',
