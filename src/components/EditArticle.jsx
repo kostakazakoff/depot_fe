@@ -24,7 +24,7 @@ const EditArticle = (props) => {
     useEffect(() => {
         console.log(files);
     }, [files]);
-    
+
 
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles?.length) {
@@ -76,8 +76,8 @@ const EditArticle = (props) => {
                 formData.append('images[]', file)
             })
         }
-        
-        setFiles([]);
+
+        // setFiles([]);
 
         const body = {
             'inventory_number': article.inventory_number || '',
@@ -101,17 +101,13 @@ const EditArticle = (props) => {
                 formData.append(key, value);
             }
         )
-        
-        setArticle(state => ({
-            ...state, ...body
-        }));
 
         api.post(`/articles/edit/${article.id}`, formData)
-            .then(response => handleResponse(response.data, body))
+            .then(response => handleResponse(response.data))
             .catch(() => navigate(Path.Error404));
     }
 
-    const handleResponse = (response, body) => {
+    const handleResponse = (response) => {
         if (response.message !== 'success') {
             const errors = response.data;
             let message = [];
@@ -123,15 +119,13 @@ const EditArticle = (props) => {
                 "error"
             );
         } else {
-            // setArticle(state => ({
-            //     ...state, ...body
-            // }));
             Swal.fire(
                 "Готово!",
                 "Артикулът беше редактиран.",
                 "success"
-            );
+            )
             getArticles();
+            setFiles([]);
         }
     }
 
