@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";

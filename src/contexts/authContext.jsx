@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated: !!credentials.jwt,
         authorized: [Role.SUPERUSER, Role.ADMIN, Role.STAFF].includes(credentials.role),
         admin: [Role.SUPERUSER, Role.ADMIN].includes(credentials.role),
+        superuser: [Role.SUPERUSER].includes(credentials.role),
         setCredentials: setCredentials,
     }
 

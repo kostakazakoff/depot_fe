@@ -14,7 +14,7 @@ import Messages from "../Messages";
 const Dashboard = () => {
     const navigate = useNavigate();
     const { stores, setStores } = useContext(StoresContext);
-    const { admin, user_id, role } = useContext(authContext);
+    const { superuser, admin, user_id, role } = useContext(authContext);
     const [users, setUsers] = useState({});
     const [targetUser, setTargetUser] = useState({});
     const [logs, setLogs] = useState({});
@@ -135,8 +135,8 @@ const Dashboard = () => {
     }, []);
 
     useEffect(() => {
-        getLogsList();
-    }, [filterOptions]);
+        superuser && getLogsList();
+    }, [filterOptions, stores, users]);
 
     const handleFilterChange = (e) => {
         setFilterOptions(state => ({
@@ -175,7 +175,6 @@ const Dashboard = () => {
         })
             .then(response => response.data)
             .then(response => handleEditUserResponse(response))
-            .then(getUsersList())
             .catch(() => navigate(Path.Error404))
             .then(Swal.fire(
                 Messages.DONE,
