@@ -362,13 +362,16 @@ const Dashboard = () => {
                         <option value={Role.MEMBER}>
                             Без достъп
                         </option>
-                        <option value={Role.SUPERUSER} hidden={targetUser && targetUser.role == Role.SUPERUSER}>
+                        <option value={Role.SUPERUSER}
+                            hidden={targetUser && targetUser.role == Role.SUPERUSER}>
                             Главен администратор
                         </option>
-                        <option value={Role.ADMIN} hidden={targetUser && targetUser.role == Role.ADMIN}>
+                        <option value={Role.ADMIN}
+                            hidden={targetUser && targetUser.role == Role.ADMIN}>
                             Администратор
                         </option>
-                        <option value={Role.STAFF} hidden={targetUser && targetUser.role == Role.STAFF}>
+                        <option value={Role.STAFF}
+                            hidden={targetUser && targetUser.role == Role.STAFF}>
                             Служител
                         </option>
                     </select>
