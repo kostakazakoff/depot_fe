@@ -109,11 +109,11 @@ const Register = () => {
                 </button>
             </div>
 
-            <div className="d-flex justify-content-center">
-                <p className="pe-2">Вече имате регистрация?</p>
-                <Link to={Path.LOGIN}>Влезте тук</Link>
+            <div className="d-flex justify-content-center mb-3">
+                {/* <p className="pe-2">Вече имате регистрация?</p> */}
+                <Link to={Path.LOGIN}>Вече имате регистрация?</Link>
             </div>
-            <p className="text-secondary text-center fs-9">След регистрацията се обърнете към администратора за достъп до приложението</p>
+            <p className="text-secondary text-center fs-9">След регистрацията се обърнете към администратора за оторизация на достъпа</p>
 
         </form>
     )

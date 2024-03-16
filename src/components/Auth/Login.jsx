@@ -68,7 +68,7 @@ const Login = () => {
             >
                 <div className="mb-3 text-center fs-1">Вход</div>
 
-                <div className="input-group mb-2 text-secondary">
+                <div className="input-group mb-3 text-secondary">
                     <label htmlFor="email" className="input-group-text"><i className="fa-solid fa-at"></i></label>
                     <input
                         id="email"
@@ -104,8 +104,7 @@ const Login = () => {
                 </div>
 
                 <div className="d-flex justify-content-center">
-                    <p className="pe-2">Нямате регистрация?</p>
-                    <Link to={Path.REGISTER}>Регистрирайте се тук</Link>
+                    <Link to={Path.REGISTER}>Нямате регистрация?</Link>
                 </div>
 
             </form>
