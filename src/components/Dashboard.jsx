@@ -206,7 +206,7 @@ const Dashboard = () => {
                 Messages.UNSUCCESSFUL_OPERATION,
                 message.join(', '),
                 Messages.ERROR
-            )
+            );
         } else {
             api.get(Path.STORES)
                 .then(response => response.data)
@@ -216,6 +216,7 @@ const Dashboard = () => {
                     "Наименованието на склада беше променено.",
                     Messages.SUCCESS
                 ));
+            setNewStoreName('');
         }
     }
 
@@ -240,6 +241,7 @@ const Dashboard = () => {
                         "Създадохте нов склад.",
                         Messages.SUCCESS
                     ));
+            setNewStoreName('');
         }
     }
 
@@ -554,11 +556,17 @@ const Dashboard = () => {
                             <h5>{moment(logs[key].created_at).format(Formats.DATE_TIME)} ч.</h5>
                             <div style={{ fontSize: '0.85rem' }}>
                                 {logs[key].created &&
-                                    <p><b>СЪЗДАДЕН: </b>{logs[key].created}</p>}
+                                    <p><b>СЪЗДАДЕН: </b>
+                                        {logs[key].created}
+                                    </p>}
                                 {logs[key].updated &&
-                                    <p><b>ПРОМЕНЕН: </b>{logs[key].updated}</p>}
+                                    <p><b>ПРОМЕНЕН: </b>
+                                        {logs[key].updated}
+                                    </p>}
                                 {logs[key].deleted &&
-                                    <p><b>ИЗТРИТ: </b>{logs[key].deleted}</p>}
+                                    <p><b>ИЗТРИТ: </b>
+                                        {logs[key].deleted}
+                                    </p>}
                             </div>
                         </li>
                     ))}
@@ -692,7 +700,7 @@ const Dashboard = () => {
                     </div>
 
                     <div className="input-group mb-3 d-flex text-secondary">
-                        <label className="input-group-text" htmlFor="store_name">Име на склада</label>
+                        <label className="input-group-text" htmlFor="store_name">Номер</label>
                         <input type="text"
                             id="store_name"
                             autoComplete="true"
@@ -712,7 +720,7 @@ const Dashboard = () => {
                             onClick={editStore}
                         >
                             <i className="fa-solid fa-pen-to-square pe-2"></i>
-                            Промени името на склада
+                            Промени номера на склада
                         </button>
                         <button
                             type="button"
@@ -721,7 +729,7 @@ const Dashboard = () => {
                             onClick={createNewStore}
                         >
                             <i className="fa-solid fa-square-plus pe-2 text-primary"></i>
-                            Създай нов склад с това име
+                            Създай нов склад с този номер
                         </button>
                         <button
                             type="button"
