@@ -54,9 +54,9 @@ const Login = () => {
             .then(data => setStores(data))
             .catch(() => navigate(Path.Error404));
         api.post('/logs/delete_old')
-        .then(response => response.data)
-        .then(data => console.log(data))
-        .catch(() => navigate(Path.Error404));
+            .then(response => response.data)
+            .then(data => console.log(data))
+            .catch(() => navigate(Path.Error404));
     }, []);
 
     return (
@@ -68,9 +68,11 @@ const Login = () => {
             >
                 <div className="mb-3 text-center fs-1">Вход</div>
 
-                <div className="mb-2 d-flex text-secondary">
-                    <span className="input-group-text" id="email"><i className="fa-solid fa-at"></i></span>
-                    <input type="email"
+                <div className="input-group mb-2 text-secondary">
+                    <label htmlFor="email" className="input-group-text"><i className="fa-solid fa-at"></i></label>
+                    <input
+                        id="email"
+                        type="email"
                         autoComplete="true"
                         className="form-control"
                         placeholder="Електронна поща"
@@ -82,9 +84,11 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="mb-4 d-flex text-secondary">
-                    <span className="input-group-text" id="password"><i className="fa-solid fa-key"></i></span>
-                    <input type="password"
+                <div className="input-group mb-4 text-secondary">
+                    <label htmlFor="password" className="input-group-text"><i className="fa-solid fa-key"></i></label>
+                    <input
+                        id="password"
+                        type="password"
                         className="form-control"
                         placeholder="Парола"
                         aria-label="Password"
