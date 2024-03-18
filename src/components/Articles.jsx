@@ -73,13 +73,20 @@ const Articles = () => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    api.post(`articles/delete/${e.target.value}`)
+                    console.log(e.target.id);
+                    api.post(`articles/delete/${e.target.value}`, { store_id: e.target.id })
                         .then(getArticles())
                         .then(Swal.fire(
                             "Готово!",
                             `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
+                        .catch(err =>
+                            Swal.fire(
+                                "Грешка!",
+                                err.response.data.message,
+                                "error"
+                            ));
                 }
             });
     }
@@ -350,7 +357,7 @@ const Articles = () => {
                                                 aria-hidden="true"
                                             >
                                                 <div
-                                                className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen position-relative"
+                                                    className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen position-relative"
                                                 >
                                                     <ImagesPreview
                                                         images={data.images}
@@ -400,7 +407,7 @@ const Articles = () => {
                                                     <button
                                                         type="button"
                                                         className="btn btn-light"
-                                                        id='delete'
+                                                        id={data.stores[0].id}
                                                         name={data.description}
                                                         value={data.id}
                                                         onClick={handleDeleteArticle}
