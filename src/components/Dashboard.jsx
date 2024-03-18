@@ -23,11 +23,12 @@ const Dashboard = () => {
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
 
-
+    // TODO: checkboxes
     const handleResponsibilitiesSelection = (e) => {
+        console.log(`Checked: ${e.target.checked}`);
 
         if (e.target.checked) {
-
+            console.log(`Store checked ${e.target.id}`);
             !responsibilities.includes(parseInt(e.target.value)) &&
                 setResponsibilities(state => [
                     ...state,
@@ -39,7 +40,6 @@ const Dashboard = () => {
             // ));
 
         } else {
-
             setResponsibilities(state => state.filter(
                 value => value != e.target.value
             ));
@@ -51,8 +51,10 @@ const Dashboard = () => {
         }
     }
 
+
     const handleResponsibilitiesSubmit = () => {
         let responsibilitiesToDetach = [];
+
         Object.values(stores).forEach(store => {
             responsibilitiesToDetach.push(store.id);
         });
@@ -63,12 +65,32 @@ const Dashboard = () => {
 
         if (responsibilities.length > 0) {
             api.post(`${Path.ATTACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilities)
-                .then(response => response.data.user)
-                .then(() => getUsersList())
-                .then(() => setResponsibilities([]))
+                .then(response => handleResponse(response.data.user))
                 .catch(() => navigate(Path.Error404));
         }
     }
+
+
+    const handleResponse = (response) => {
+        setResponsibilities([]);
+
+        getUsersList();
+
+        const email = response.email;
+
+        let stores = [];
+
+        response.stores.forEach(store => {
+            stores.push(store.id);
+        });
+
+        Swal.fire(
+            Messages.DONE,
+            `${email} отговаря за склад ${stores.join(' и ')}`,
+            Messages.SUCCESS
+        );
+    }
+
 
     // useEffect(() => {
     //     console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
@@ -77,14 +99,20 @@ const Dashboard = () => {
     // useEffect(() => {
     //     console.log(newStoreName);
     // }, [newStoreName]);
+    useEffect(() => {
+        console.log(responsibilities);
+    });
+
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
     }
 
+
     const handleNewStoreNameInput = (e) => {
         setNewStoreName(e.target.value);
     };
+
 
     const deleteStore = () => {
         Swal.fire({
@@ -106,6 +134,7 @@ const Dashboard = () => {
             });
     }
 
+
     const createNewStore = () => {
         api.post(Path.CREATE_STORE, { 'name': newStoreName })
             .then(response => response.data)
@@ -113,11 +142,13 @@ const Dashboard = () => {
             .catch(() => navigate(Path.Error404));
     }
 
+
     const getUsersList = () => {
         api.get(Path.USERS)
             .then(response => setUsers(response.data.users))
             .catch(() => navigate(Path.Error404));
     }
+
 
     const getLogsList = () => {
         api.get(Path.LOGS, { params: filterOptions ? filterOptions : '' })
@@ -145,6 +176,7 @@ const Dashboard = () => {
         }));
     }
 
+
     const handleTargetUserSelect = (e) => {
         setTargetUser({
             'id': users[e.target.value] ? users[e.target.value].id : null,
@@ -157,12 +189,14 @@ const Dashboard = () => {
         });
     }
 
+
     const handleChange = (e) => {
         setTargetUser(state => ({
             ...state,
             [e.target.name]: e.target.value
         }))
     }
+
 
     const EditUser = () => {
         api.post(`dashboard/edit_user/${targetUser.id}`, {
@@ -427,7 +461,7 @@ const Dashboard = () => {
                         <button
                             type="reset"
                             className="btn btn-primary mt-3 w-100"
-                            onClick={() => handleResponsibilitiesSubmit()}
+                            onClick={handleResponsibilitiesSubmit}
                         >Запази
                         </button>
                     </div>

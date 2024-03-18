@@ -203,7 +203,10 @@ const Articles = () => {
                                 >
                                     <option value="">Всички складове</option>
                                     {stores.map((store) => (
-                                        <option key={store.id} value={store.id}>
+                                        <option
+                                        key={store.id}
+                                        value={store.id}
+                                        >
                                             {store.name}
                                         </option>
                                     ))}
