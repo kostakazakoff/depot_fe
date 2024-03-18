@@ -97,7 +97,12 @@ const EditArticle = (props) => {
 
         api.post(`/articles/edit/${article.id}`, formData)
             .then(response => handleResponse(response.data))
-            .catch(() => navigate(Path.Error404));
+            .catch(err =>
+                Swal.fire(
+                    "Грешка!",
+                    err.response.data.message,
+                    "error"
+                ));
     }
 
     const handleResponse = (response) => {
@@ -134,14 +139,19 @@ const EditArticle = (props) => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    api.post(`articles/delete/${e.target.value}`)
+                    api.post(`articles/delete/${e.target.value}`, {store_id: article.store_id})
                         .then(Swal.fire(
                             "Готово!",
                             `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
                         .then(getArticles())
-                        .catch(() => navigate(Path.Error404));
+                        .catch(err =>
+                            Swal.fire(
+                                "Грешка!",
+                                err.response.data.message,
+                                "error"
+                            ))
                 } else {
                     setFiles([]);
                 }

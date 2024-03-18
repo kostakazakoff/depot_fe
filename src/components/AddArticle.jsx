@@ -90,7 +90,12 @@ const AddArticle = (props) => {
 
         api.post('/articles/store', formData)
             .then((response) => handleResponse(response.data))
-            .catch(() => navigate(Path.Error404));
+            .catch(err =>
+                Swal.fire(
+                    "Грешка!",
+                    err.response.data.message,
+                    "error"
+                ));
     }
 
     const handleResponse = (response) => {

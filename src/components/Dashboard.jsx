@@ -392,7 +392,7 @@ const Dashboard = () => {
                         aria-expanded="false"
                         disabled={
                             !targetUser.id ||
-                            targetUser.role == Role.MEMBER ||
+                            targetUser.role != Role.STAFF ||
                             targetUser.role == ''
                         }
                         data-bs-auto-close="outside"
