@@ -23,7 +23,7 @@ const Dashboard = () => {
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
 
-    // TODO: checkboxes
+
     const handleResponsibilitiesSelection = (e) => {
         console.log(`Checked: ${e.target.checked}`);
 
@@ -91,14 +91,7 @@ const Dashboard = () => {
         );
     }
 
-
-    // useEffect(() => {
-    //     console.log(`Attach responsibilities ${responsibilities} to ${targetUser.email}`);
-    // }, [responsibilities]);
-    // useEffect(() => { console.log(`Detach responsibilities ${responsibilitiesToDetach} from ${targetUser.email}`) }, [responsibilities]);
-    // useEffect(() => {
-    //     console.log(newStoreName);
-    // }, [newStoreName]);
+    
     useEffect(() => {
         console.log(responsibilities);
     });
@@ -160,14 +153,17 @@ const Dashboard = () => {
             .catch(() => navigate(Path.Error404));
     }
 
+
     useEffect(() => {
         !admin && navigate(Path.HOME);
         getUsersList();
     }, []);
 
+    
     useEffect(() => {
         superuser && getLogsList();
     }, [filterOptions, stores, users]);
+
 
     const handleFilterChange = (e) => {
         setFilterOptions(state => ({
