@@ -27,71 +27,19 @@ const Dashboard = () => {
     const handleResponsibilitiesSelection = (e) => {
         console.log(`Checked: ${e.target.checked}`);
 
-        if (e.target.checked) {
-            console.log(`Store checked ${e.target.id}`);
-            !responsibilities.includes(parseInt(e.target.value)) &&
-                setResponsibilities(state => [
-                    ...state,
-                    e.target.value,
-                ]);
-
-            // setResponsibilitiesToDetach(state => state.filter(
-            //     value => value != e.target.value
-            // ));
-
+        if (e.target.value == '0') {
+            setResponsibilities([]);
         } else {
-            setResponsibilities(state => state.filter(
-                value => value != e.target.value
-            ));
+            console.log(`Store checked ${e.target.id}`);
 
-            // setResponsibilitiesToDetach(state => [
-            //     ...state,
-            //     e.target.value
-            // ]);
+            setResponsibilities(state => new Set([
+                ...state,
+                e.target.value,
+            ]));
         }
     }
 
 
-    const handleResponsibilitiesSubmit = () => {
-        let responsibilitiesToDetach = [];
-
-        Object.values(stores).forEach(store => {
-            responsibilitiesToDetach.push(store.id);
-        });
-
-        api.post(`${Path.DETACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilitiesToDetach)
-            .then(() => getUsersList())
-            .catch(() => navigate(Path.Error404));
-
-        if (responsibilities.length > 0) {
-            api.post(`${Path.ATTACH_RESPONSIBILITIES}/${targetUser.id}`, responsibilities)
-                .then(response => handleResponse(response.data.user))
-                .catch(() => navigate(Path.Error404));
-        }
-    }
-
-
-    const handleResponse = (response) => {
-        setResponsibilities([]);
-
-        getUsersList();
-
-        const email = response.email;
-
-        let stores = [];
-
-        response.stores.forEach(store => {
-            stores.push(store.id);
-        });
-
-        Swal.fire(
-            Messages.DONE,
-            `${email} отговаря за склад ${stores.join(' и ')}`,
-            Messages.SUCCESS
-        );
-    }
-
-    
     useEffect(() => {
         console.log(responsibilities);
     });
@@ -181,12 +129,13 @@ const Dashboard = () => {
             'first_name': users[e.target.value] ? users[e.target.value].profile.first_name : '',
             'last_name': users[e.target.value] ? users[e.target.value].profile.last_name : '',
             'phone': users[e.target.value] ? users[e.target.value].profile.phone : '',
-            'responsibilities': users[e.target.value] ? responsibilities : '',
+            'responsibilities': users[e.target.value] ? users[e.target.value].responsibilities : '',
         });
     }
 
 
     const handleChange = (e) => {
+        e.preventDefault();
         setTargetUser(state => ({
             ...state,
             [e.target.name]: e.target.value
@@ -195,6 +144,7 @@ const Dashboard = () => {
 
 
     const EditUser = () => {
+        console.log(targetUser);
         api.post(`dashboard/edit_user/${targetUser.id}`, {
             'id': targetUser.id,
             'email': targetUser.email,
@@ -202,25 +152,10 @@ const Dashboard = () => {
             'first_name': targetUser.first_name,
             'last_name': targetUser.last_name,
             'phone': targetUser.phone,
-            'responsibilities': targetUser.sponsibilities
+            'responsibilities': [...responsibilities]
         })
             .then(response => response.data)
             .then(response => handleEditUserResponse(response))
-            .catch(() => navigate(Path.Error404));
-    }
-
-
-    const editStore = () => {
-        api.post(`${Path.EDIT_STORE}/${store}`, { 'name': newStoreName })
-            .then(response => handleChangeStoreNameResponse(response.data))
-            .catch(() => navigate(Path.Error404));
-    }
-
-
-    const deleteUser = () => {
-        const id = targetUser.id;
-        api.post(`${Path.DELETE_USER}/${id}`)
-            .then(response => handleUserDeletionResponse(response.data))
             .catch(() => navigate(Path.Error404));
     }
 
@@ -240,6 +175,22 @@ const Dashboard = () => {
                 Messages.SUCCESS
             );
         }
+        setResponsibilities([]);
+    }
+
+
+    const editStore = () => {
+        api.post(`${Path.EDIT_STORE}/${store}`, { 'name': newStoreName })
+            .then(response => handleChangeStoreNameResponse(response.data))
+            .catch(() => navigate(Path.Error404));
+    }
+
+
+    const deleteUser = () => {
+        const id = targetUser.id;
+        api.post(`${Path.DELETE_USER}/${id}`)
+            .then(response => handleUserDeletionResponse(response.data))
+            .catch(() => navigate(Path.Error404));
     }
 
 
@@ -417,8 +368,8 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div
-                    className="input-group dropdown"
+                {/* <div
+                    className="dropdown"
                 >
                     <button
                         type="button"
@@ -430,42 +381,52 @@ const Dashboard = () => {
                             targetUser.role != Role.STAFF ||
                             targetUser.role == ''
                         }
-                        data-bs-auto-close="outside"
-
                     >
                         Отговорен за склад
                     </button>
-                    <div
+                    <ul
                         className="dropdown-menu p-4 w-100"
                     >
                         {stores.map((store) => (
-                            <div
-                                className="form-check p-0 mb-2"
+                            <li
+                                type="button"
                                 key={`responsibility_${store.id}`}
+                                className="dropdown-item btn  btn-outline-light"
+                                // id={`responsibility_${store.id}`}
+                                name="responsibilities"
+                                value={store.id}
+                                onClick={handleChange}
                             >
-                                <input
-                                    type="checkbox"
-                                    className="btn-check"
-                                    id={`responsibility_${store.id}`}
-                                    autoComplete="off"
-                                    value={store.id}
-                                    onChange={handleResponsibilitiesSelection}
-                                />
-                                <label
-                                    className="btn btn-outline-dark w-100 text-primary"
-                                    htmlFor={`responsibility_${store.id}`}
-                                >
-                                    {store.name}
-                                </label>
-                            </div>
+                                {store.name}
+                            </li>
                         ))}
-                        <button
-                            type="reset"
-                            className="btn btn-primary mt-3 w-100"
-                            onClick={handleResponsibilitiesSubmit}
-                        >Запази
-                        </button>
-                    </div>
+                    </ul>
+                </div> */}
+
+                <div className="input-group dropdown">
+                    <label className="input-group-text" htmlFor="responsibilities">Отговорен за склад</label>
+                    <select
+                        id="responsibilities"
+                        name='responsibilities'
+                        className="form-select"
+                        onChange={handleResponsibilitiesSelection}
+                        disabled={
+                            !targetUser.id ||
+                            targetUser.role != Role.STAFF ||
+                            targetUser.role == ''
+                        }
+                    >
+                        <option value="0">Нулирай</option>
+                        {stores.map((store) => (
+                            <option
+                                type="button"
+                                key={`responsibility_${store.id}`}
+                                value={store.id}
+                            >
+                                Склад {store.name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="input-group d-flex text-secondary">
@@ -557,7 +518,7 @@ const Dashboard = () => {
                     className="btn btn-primary"
                     onClick={() => {
                         setTargetUser({});
-                        setResponsibilities([]);
+                        // setResponsibilities([]);
                         // setResponsibilitiesToDetach([]);
                     }}
                 >
