@@ -159,7 +159,7 @@ const Dashboard = () => {
         getUsersList();
     }, []);
 
-    
+
     useEffect(() => {
         superuser && getLogsList();
     }, [filterOptions, stores, users]);
@@ -201,17 +201,14 @@ const Dashboard = () => {
             'role': targetUser.role,
             'first_name': targetUser.first_name,
             'last_name': targetUser.last_name,
-            'phone': targetUser.phone
+            'phone': targetUser.phone,
+            'responsibilities': targetUser.sponsibilities
         })
             .then(response => response.data)
             .then(response => handleEditUserResponse(response))
-            .catch(() => navigate(Path.Error404))
-            .then(Swal.fire(
-                Messages.DONE,
-                "Данните на потребителя бяха променени.",
-                Messages.SUCCESS
-            ));
+            .catch(() => navigate(Path.Error404));
     }
+
 
     const editStore = () => {
         api.post(`${Path.EDIT_STORE}/${store}`, { 'name': newStoreName })
@@ -219,12 +216,32 @@ const Dashboard = () => {
             .catch(() => navigate(Path.Error404));
     }
 
+
     const deleteUser = () => {
         const id = targetUser.id;
         api.post(`${Path.DELETE_USER}/${id}`)
             .then(response => handleUserDeletionResponse(response.data))
             .catch(() => navigate(Path.Error404));
     }
+
+
+    const handleEditUserResponse = (response) => {
+        if (response.message !== 'success') {
+            Swal.fire(
+                Messages.UNSUCCESSFUL_OPERATION,
+                response.message,
+                Messages.ERROR
+            )
+        } else {
+            getUsersList();
+            Swal.fire(
+                Messages.DONE,
+                "Данните на потребителя бяха променени.",
+                Messages.SUCCESS
+            );
+        }
+    }
+
 
     const handleChangeStoreNameResponse = (response) => {
         if (response.message !== 'success') {
@@ -249,6 +266,7 @@ const Dashboard = () => {
             setNewStoreName('');
         }
     }
+
 
     const handleCreateStoreResponse = (response) => {
         if (response.message !== 'success') {
@@ -275,6 +293,7 @@ const Dashboard = () => {
         }
     }
 
+
     const handleStoreDeletion = (response) => {
         if (response.message !== 'success') {
             Swal.fire(
@@ -295,22 +314,6 @@ const Dashboard = () => {
         }
     }
 
-    const handleEditUserResponse = (response) => {
-        if (response.message !== 'success') {
-            Swal.fire(
-                Messages.UNSUCCESSFUL_OPERATION,
-                response.message,
-                Messages.ERROR
-            )
-        } else {
-            getUsersList();
-            Swal.fire(
-                Messages.DONE,
-                "Данните на потребителя бяха променени.",
-                Messages.SUCCESS
-            );
-        }
-    }
 
     const handleUserDeletionResponse = (response) => {
         if (response.message !== 'success') {
@@ -331,6 +334,7 @@ const Dashboard = () => {
 
     }
 
+
     const HandleUserDeletion = () => {
         Swal.fire({
             title: "Сигурен ли сте?",
@@ -348,6 +352,7 @@ const Dashboard = () => {
             })
             .catch(() => (navigate(Path.Error404)));
     }
+
 
     return (
         <div className="position-relative w-100 d-flex flex-row flex-wrap gap-5 justify-content-evenly align-items-center p-5">
