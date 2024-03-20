@@ -39,9 +39,6 @@ const Responsibility = (props) => {
             optionRef.current.className = 'dropdown-item btn';
             IconRef.current.className = "fa-regular fa-circle-xmark pe-2";
         }
-
-        console.log(optionRef.current.className);
-        console.log(responsibilities);
     }, [responsibilities, targetUser]);
 
 
