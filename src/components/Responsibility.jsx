@@ -25,7 +25,9 @@ const Responsibility = (props) => {
 
     useEffect(() => {
         let stores = [];
-        currentResponsibilities?.forEach(store => stores.push(store.id));
+
+        currentResponsibilities?.length &&
+        currentResponsibilities.forEach(store => stores.push(store.id));
         
         setResponsibilities(stores);
     }, [targetUser]);
