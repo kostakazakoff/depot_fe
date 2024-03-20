@@ -25,20 +25,6 @@ const Dashboard = () => {
     const [responsibilities, setResponsibilities] = useState([]);
 
 
-    const handleResponsibilitiesSelection = (e) => {
-        if (e.target.value == '0') {
-            setResponsibilities([]);
-        } else {
-            console.log(`Store checked ${e.target.id}`);
-
-            setResponsibilities(state => Array.from(new Set([
-                ...state,
-                e.target.value,
-            ])));
-        }
-    }
-
-
     // useEffect(() => {
     //     console.log(responsibilities);
     // });
@@ -367,32 +353,6 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                <div className="input-group dropdown">
-                    <label className="input-group-text" htmlFor="responsibilities">Отговорен за склад</label>
-                    <select
-                        id="responsibilities"
-                        name='responsibilities'
-                        className="form-select"
-                        onChange={handleResponsibilitiesSelection}
-                        disabled={
-                            !targetUser.id ||
-                            targetUser.role != Role.STAFF ||
-                            targetUser.role == ''
-                        }
-                    >
-                        <option value="0">Нулирай</option>
-                        {stores.map((store) => (
-                            <Responsibility
-                                key={`responsibility_${store.id}`}
-                                store={store}
-                                responsibilities={responsibilities}
-                                setResponsibilities={setResponsibilities}
-                                targetUser={targetUser}
-                            />
-                        ))}
-                    </select>
-                </div>
-
                 <div className="input-group d-flex text-secondary">
                     <label className="input-group-text" htmlFor="email">Email</label>
                     <input type="email"
@@ -447,6 +407,37 @@ const Dashboard = () => {
                         onChange={handleChange}
                         disabled={!targetUser.id}
                     />
+                </div>
+
+                <div className="input-group dropdown-center align-self-stretch">
+                    <button
+                        className="btn btn btn-light dropdown-toggle w-100"
+                        type="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >
+                        Отговорен за склад
+                    </button>
+                    <div
+                        id="responsibilities"
+                        name='responsibilities'
+                        className="dropdown-menu"
+                        disabled={
+                            !targetUser.id ||
+                            targetUser.role != Role.STAFF ||
+                            targetUser.role == ''
+                        }
+                    >
+                        {stores.map((store) => (
+                            <Responsibility
+                                key={`responsibility_${store.id}`}
+                                store={store}
+                                responsibilities={responsibilities}
+                                setResponsibilities={setResponsibilities}
+                                targetUser={targetUser}
+                            />
+                        ))}
+                    </div>
                 </div>
 
                 <div className="d-grid gap-3 mt-4 mb-auto">
