@@ -9,6 +9,7 @@ import StoresContext from "../contexts/storesContext";
 import Role from "../roles";
 import Formats from "../Formats";
 import Messages from "../Messages";
+import Responsibility from "./Responsibility";
 
 
 const Dashboard = () => {
@@ -25,24 +26,22 @@ const Dashboard = () => {
 
 
     const handleResponsibilitiesSelection = (e) => {
-        console.log(`Checked: ${e.target.checked}`);
-
         if (e.target.value == '0') {
             setResponsibilities([]);
         } else {
             console.log(`Store checked ${e.target.id}`);
 
-            setResponsibilities(state => new Set([
+            setResponsibilities(state => Array.from(new Set([
                 ...state,
                 e.target.value,
-            ]));
+            ])));
         }
     }
 
 
-    useEffect(() => {
-        console.log(responsibilities);
-    });
+    // useEffect(() => {
+    //     console.log(responsibilities);
+    // });
 
 
     const handleStoreChange = (e) => {
@@ -129,7 +128,7 @@ const Dashboard = () => {
             'first_name': users[e.target.value] ? users[e.target.value].profile.first_name : '',
             'last_name': users[e.target.value] ? users[e.target.value].profile.last_name : '',
             'phone': users[e.target.value] ? users[e.target.value].profile.phone : '',
-            'responsibilities': users[e.target.value] ? users[e.target.value].responsibilities : '',
+            'responsibilities': users[e.target.value] ? users[e.target.value].stores : '',
         });
     }
 
@@ -368,41 +367,6 @@ const Dashboard = () => {
                     </select>
                 </div>
 
-                {/* <div
-                    className="dropdown"
-                >
-                    <button
-                        type="button"
-                        className="btn btn-outline-light bg-light text-dark dropdown-toggle w-100"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                        disabled={
-                            !targetUser.id ||
-                            targetUser.role != Role.STAFF ||
-                            targetUser.role == ''
-                        }
-                    >
-                        Отговорен за склад
-                    </button>
-                    <ul
-                        className="dropdown-menu p-4 w-100"
-                    >
-                        {stores.map((store) => (
-                            <li
-                                type="button"
-                                key={`responsibility_${store.id}`}
-                                className="dropdown-item btn  btn-outline-light"
-                                // id={`responsibility_${store.id}`}
-                                name="responsibilities"
-                                value={store.id}
-                                onClick={handleChange}
-                            >
-                                {store.name}
-                            </li>
-                        ))}
-                    </ul>
-                </div> */}
-
                 <div className="input-group dropdown">
                     <label className="input-group-text" htmlFor="responsibilities">Отговорен за склад</label>
                     <select
@@ -418,13 +382,13 @@ const Dashboard = () => {
                     >
                         <option value="0">Нулирай</option>
                         {stores.map((store) => (
-                            <option
-                                type="button"
+                            <Responsibility
                                 key={`responsibility_${store.id}`}
-                                value={store.id}
-                            >
-                                Склад {store.name}
-                            </option>
+                                store={store}
+                                responsibilities={responsibilities}
+                                setResponsibilities={setResponsibilities}
+                                targetUser={targetUser}
+                            />
                         ))}
                     </select>
                 </div>
