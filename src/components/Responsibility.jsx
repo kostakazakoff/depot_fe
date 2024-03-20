@@ -13,7 +13,7 @@ const Responsibility = (props) => {
 
     const handleResponsibilitiesSelection = (e) => {
         if (responsibilities.includes(parseInt(e.target.value))) {
-            setResponsibilities(state => state.filter(v => v != parseInt(e.target.value)));
+            setResponsibilities(state => state.filter(value => value != parseInt(e.target.value)));
         } else {
             setResponsibilities(state => Array.from(new Set([
                 ...state,
@@ -33,10 +33,10 @@ const Responsibility = (props) => {
 
     useEffect(() => {
         if (responsibilities.includes(store.id)) {
-            optionRef.current.className = 'dropdown-item btn text-primary mb-2';
+            optionRef.current.className = 'dropdown-item btn text-primary';
             IconRef.current.className = "fa-solid fa-circle-check pe-2";
         } else {
-            optionRef.current.className = 'dropdown-item btn mb-2';
+            optionRef.current.className = 'dropdown-item btn';
             IconRef.current.className = "fa-regular fa-circle-xmark pe-2";
         }
 
@@ -48,14 +48,9 @@ const Responsibility = (props) => {
     return (
         <button
             type="button"
-            // className = 'dropdown-item btn'
             value={store.id}
             ref={optionRef}
             onClick={handleResponsibilitiesSelection}
-            // onClick={(e) => setResponsibilities(state => Array.from(new Set([
-            //     ...state,
-            //     parseInt(e.target.value),
-            // ])))}
         >
             <i ref={IconRef} ></i>
             Склад {store.name}

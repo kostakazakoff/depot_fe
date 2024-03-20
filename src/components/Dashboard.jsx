@@ -25,11 +25,6 @@ const Dashboard = () => {
     const [responsibilities, setResponsibilities] = useState([]);
 
 
-    // useEffect(() => {
-    //     console.log(responsibilities);
-    // });
-
-
     const handleStoreChange = (e) => {
         setStore(e.target.value);
     }
@@ -160,7 +155,6 @@ const Dashboard = () => {
                 Messages.SUCCESS
             );
         }
-        setResponsibilities([]);
     }
 
 
@@ -415,18 +409,18 @@ const Dashboard = () => {
                         type="button"
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
+                        disabled={
+                            !targetUser.id ||
+                            targetUser.role != Role.STAFF ||
+                            targetUser.role == ''
+                        }
                     >
                         Отговорен за склад
                     </button>
                     <div
                         id="responsibilities"
                         name='responsibilities'
-                        className="dropdown-menu"
-                        disabled={
-                            !targetUser.id ||
-                            targetUser.role != Role.STAFF ||
-                            targetUser.role == ''
-                        }
+                        className="dropdown-menu w-100"
                     >
                         {stores.map((store) => (
                             <Responsibility
@@ -473,8 +467,6 @@ const Dashboard = () => {
                     className="btn btn-primary"
                     onClick={() => {
                         setTargetUser({});
-                        // setResponsibilities([]);
-                        // setResponsibilitiesToDetach([]);
                     }}
                 >
                     <i className="fa-solid fa-rotate-right pe-2"></i>
