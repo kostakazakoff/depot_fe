@@ -24,8 +24,6 @@ const Dashboard = () => {
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
     
-    console.log(responsibilities);
-
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -91,7 +89,7 @@ const Dashboard = () => {
 
 
     useEffect(() => {
-        superuser && getLogsList();
+        (superuser || admin) && getLogsList();
     }, [filterOptions, stores, users]);
 
 
