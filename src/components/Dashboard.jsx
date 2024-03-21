@@ -23,6 +23,8 @@ const Dashboard = () => {
     const [store, setStore] = useState(stores[0]?.id);
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
+    
+    console.log(responsibilities);
 
 
     const handleStoreChange = (e) => {
@@ -124,7 +126,6 @@ const Dashboard = () => {
 
 
     const EditUser = () => {
-        console.log(targetUser);
         api.post(`dashboard/edit_user/${targetUser.id}`, {
             'id': targetUser.id,
             'email': targetUser.email,
@@ -132,7 +133,7 @@ const Dashboard = () => {
             'first_name': targetUser.first_name,
             'last_name': targetUser.last_name,
             'phone': targetUser.phone,
-            'responsibilities': [...responsibilities]
+            'responsibilities': responsibilities
         })
             .then(response => response.data)
             .then(response => handleEditUserResponse(response))
@@ -325,6 +326,7 @@ const Dashboard = () => {
                         value={targetUser.role}
                         onChange={handleChange}
                         disabled={!targetUser.id}
+                        data-bs-theme="light"
                     >
                         <option value={Role.MEMBER}>
                             Без достъп

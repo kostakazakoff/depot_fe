@@ -18,7 +18,6 @@ import Dashboard from './components/Dashboard';
 import Error404 from './components/Error404';
 
 
-// TODO: HISTORY LOGS - in admin panel!
 function App() {
   return (
     <>

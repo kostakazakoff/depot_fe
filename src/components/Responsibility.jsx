@@ -20,6 +20,7 @@ const Responsibility = (props) => {
                 parseInt(e.target.value),
             ])));
         }
+
     }
 
 
