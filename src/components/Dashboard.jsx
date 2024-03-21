@@ -422,7 +422,7 @@ const Dashboard = () => {
                     <div
                         id="responsibilities"
                         name='responsibilities'
-                        className="dropdown-menu w-100"
+                        className="dropdown-menu w-100 shadow"
                     >
                         {stores.map((store) => (
                             <Responsibility
