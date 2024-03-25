@@ -6,7 +6,7 @@ import AuthContext from '../../contexts/authContext';
 import api from '../../helpers/Api';
 import Swal from 'sweetalert2';
 
-
+// TODO: Add "Delete profile" button
 const EditProfile = () => {
     const { email, name, last_name, phone, setCredentials, role } = useContext(AuthContext);
     const navigate = useNavigate();
