@@ -7,7 +7,7 @@ import Path from "../../paths";
 import StoresContext from "../../contexts/storesContext";
 import Swal from "sweetalert2";
 
-// TODO: Forgot password?
+// TODO: Forgot password, email confirmation
 const Login = () => {
     const { setCredentials } = useContext(AuthContext);
     const { setStores } = useContext(StoresContext);
