@@ -10,6 +10,7 @@ import Role from "../roles";
 import Formats from "../Formats";
 import Messages from "../Messages";
 import Responsibility from "./Responsibility";
+import APIPath from "../apiPaths";
 
 
 const Dashboard = () => {
@@ -23,7 +24,7 @@ const Dashboard = () => {
     const [store, setStore] = useState(stores[0]?.id);
     const [newStoreName, setNewStoreName] = useState('');
     const [responsibilities, setResponsibilities] = useState([]);
-    
+
 
     const handleStoreChange = (e) => {
         setStore(e.target.value);
@@ -47,7 +48,7 @@ const Dashboard = () => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    api.post(`${Path.DELETE_STORE}/${store}`)
+                    api.post(`${APIPath.DELETE_STORE}/${store}`)
                         .then(response => response.data)
                         .then(data => handleStoreDeletion(data))
                         .catch(() => navigate(Path.Error404))
@@ -57,7 +58,7 @@ const Dashboard = () => {
 
 
     const createNewStore = () => {
-        api.post(Path.CREATE_STORE, { 'name': newStoreName })
+        api.post(APIPath.CREATE_STORE, { 'name': newStoreName })
             .then(response => response.data)
             .then(data => handleCreateStoreResponse(data))
             .catch(() => navigate(Path.Error404));
@@ -65,14 +66,14 @@ const Dashboard = () => {
 
 
     const getUsersList = () => {
-        api.get(Path.USERS)
+        api.get(APIPath.USERS)
             .then(response => setUsers(response.data.users))
             .catch(() => navigate(Path.Error404));
     }
 
 
     const getLogsList = () => {
-        api.get(Path.LOGS, { params: filterOptions ? filterOptions : '' })
+        api.get(APIPath.LOGS, { params: filterOptions ? filterOptions : '' })
             .then(response => {
                 response.data.message === 'success'
                     ? setLogs(response.data.logs)
@@ -158,7 +159,7 @@ const Dashboard = () => {
 
 
     const editStore = () => {
-        api.post(`${Path.EDIT_STORE}/${store}`, { 'name': newStoreName })
+        api.post(`${APIPath.EDIT_STORE}/${store}`, { 'name': newStoreName })
             .then(response => handleChangeStoreNameResponse(response.data))
             .catch(() => navigate(Path.Error404));
     }
@@ -184,7 +185,7 @@ const Dashboard = () => {
                 Messages.ERROR
             );
         } else {
-            api.get(Path.STORES)
+            api.get(APIPath.STORES)
                 .then(response => response.data)
                 .then(data => setStores(data))
                 .then(Swal.fire(
@@ -209,7 +210,7 @@ const Dashboard = () => {
                 Messages.ERROR
             )
         } else {
-            api.get(Path.STORES)
+            api.get(APIPath.STORES)
                 .then(response => response.data)
                 .then(data => setStores(data))
                 .then(
@@ -231,7 +232,7 @@ const Dashboard = () => {
                 Messages.ERROR
             )
         } else {
-            api.get(Path.STORES)
+            api.get(APIPath.STORES)
                 .then(response => response.data)
                 .then(data => setStores(data))
                 .then(

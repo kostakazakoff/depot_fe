@@ -13,6 +13,7 @@ import AuthContext from "../contexts/authContext";
 import EditArticle from "./EditArticle";
 import AddArticle from "./AddArticle";
 import ImagesPreview from "./ImagesPreview";
+import APIPath from "../apiPaths";
 
 
 const Articles = () => {
@@ -34,7 +35,7 @@ const Articles = () => {
 
     const getArticles = (e) => {
         e?.preventDefault();
-        api.get('articles', { params: filterOptions })
+        api.get(APIPath.ARTICLES, { params: filterOptions })
             .then(response => response.data)
             .then(result => {
                 setArticles(result.articles);
@@ -74,7 +75,7 @@ const Articles = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     console.log(e.target.id);
-                    api.post(`articles/delete/${e.target.value}`, { store_id: e.target.id })
+                    api.post(`${APIPath.DELETE_ARTICLE}${e.target.value}`, { store_id: e.target.id })
                         .then(getArticles())
                         .then(Swal.fire(
                             "Готово!",

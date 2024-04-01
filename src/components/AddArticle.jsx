@@ -11,6 +11,7 @@ import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
 import AuthContext from "../contexts/authContext";
+import APIPath from "../apiPaths";
 
 
 const AddArticle = (props) => {
@@ -88,7 +89,7 @@ const AddArticle = (props) => {
             }
         );
 
-        api.post('/articles/store', formData)
+        api.post(APIPath.CREATE_ARTICLE, formData)
             .then((response) => handleResponse(response.data))
             .catch(err =>
                 Swal.fire(

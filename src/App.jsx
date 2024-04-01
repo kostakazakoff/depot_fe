@@ -16,6 +16,7 @@ import { AuthProvider } from "./contexts/authContext";
 import { StoresProvider } from "./contexts/storesContext";
 import Dashboard from './components/Dashboard';
 import Error404 from './components/Error404';
+import ResetPassword from './components/Auth/ResetPassword';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path={Path.IMAGES_PREVIEW} element={<ImagesPreview />} />
               <Route path={Path.DASHBOARD} element={<Dashboard />} />
               <Route path={Path.Error404} element={<Error404 />} />
+              <Route path={Path.RESET_PASSWORD} element={<ResetPassword />} />
             </Routes>
           </StoresProvider>
       </AuthProvider>
