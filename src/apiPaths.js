@@ -10,7 +10,8 @@ const APIPath = {
     CREATE_ARTICLE: '/articles/store',
     ARTICLES: 'articles',
     DELETE_ARTICLE: 'articles/delete/',
-    CHANGE_FORGOTEN_PASSWORD: 'change_forgoten_password'
+    CHANGE_FORGOTEN_PASSWORD: 'change_forgoten_password',
+    FORGOT_PASSWORD: 'forgot_password'
 }
 
 export default APIPath;

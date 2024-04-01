@@ -6,6 +6,7 @@ import AuthContext from "../../contexts/authContext";
 import Path from "../../paths";
 import StoresContext from "../../contexts/storesContext";
 import Swal from "sweetalert2";
+import APIPath from "../../apiPaths";
 
 // TODO: Forgot password, email confirmation
 const Login = () => {
@@ -48,6 +49,11 @@ const Login = () => {
             .catch(() => navigate(Path.Error404));
     }
 
+    const ResetPassword = () => {
+        api.post(APIPath.FORGOT_PASSWORD, { 'email': user.email })
+            .catch(err => console.log(err));
+    }
+
     useEffect(() => {
         api.get('stores/list')
             .then(response => response.data)
@@ -84,7 +90,7 @@ const Login = () => {
                     />
                 </div>
 
-                <div className="input-group mb-4 text-secondary">
+                <div className="input-group mb-2 text-secondary">
                     <label htmlFor="password" className="input-group-text"><i className="fa-solid fa-key"></i></label>
                     <input
                         id="password"
@@ -97,6 +103,16 @@ const Login = () => {
                         value={user.password || ''}
                         onChange={handleCredentialsChange}
                     />
+                </div>
+
+                <div className="d-flex justify-content-center mb-4">
+                    <Link
+                        to='#'
+                        type="button"
+                        onClick={ResetPassword}
+                    >
+                        Забравили сте паролата си?
+                    </Link>
                 </div>
 
                 <div className="d-grid gap-2 mb-4">
