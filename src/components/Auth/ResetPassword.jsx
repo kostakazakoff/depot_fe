@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, redirect, useNavigate } from "react-router-dom";
 import api from "../../helpers/Api";
 import APIPath from "../../apiPaths";
+import Path from "../../paths";
+import Swal from "sweetalert2";
 
 export default function ResetPassword() {
     const { token } = useParams();
@@ -9,6 +11,7 @@ export default function ResetPassword() {
     const searchParams = new URLSearchParams(location.search);
     const email = searchParams.get('email');
     const [credentials, setCredentials] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         setCredentials(state => ({
@@ -29,8 +32,15 @@ export default function ResetPassword() {
         e.preventDefault();
 
         api.post(APIPath.CHANGE_FORGOTEN_PASSWORD, credentials)
-            .then(response => console.log(response))
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .then(() => {
+                Swal.fire(
+                    "Успешно променихте паролата си.",
+                    "Влезте в системата с новата си парола.",
+                    "success"
+                );
+            })
+            .then(navigate(Path.LOGIN));
     }
 
     return (

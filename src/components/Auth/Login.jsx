@@ -50,9 +50,34 @@ const Login = () => {
     }
 
     const ResetPassword = () => {
+        if (!user.email) {
+            Swal.fire(
+                "Неуспешна операция!",
+                'Моля въведете имейл адрес',
+                "error"
+            )
+        }
         api.post(APIPath.FORGOT_PASSWORD, { 'email': user.email })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .then(response => response.data)
+            .then(data => handlePasswordReset(data.message));
     }
+
+    const handlePasswordReset = (message) => {
+        if (message !== 'success') {
+            Swal.fire(
+                "Грешка!",
+                message,
+                "error"
+            );
+        } else {
+            Swal.fire(
+                "Изпратен Ви е имейл",
+                "Кликнете върху линка в получения имейл, след което си създайте нова парола.",
+                "success"
+            );
+        }
+    };
 
     useEffect(() => {
         api.get('stores/list')
