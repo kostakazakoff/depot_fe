@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams, useLocation, redirect, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import api from "../../helpers/Api";
 import APIPath from "../../apiPaths";
 import Path from "../../paths";
