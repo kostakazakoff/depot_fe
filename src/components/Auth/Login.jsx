@@ -56,11 +56,12 @@ const Login = () => {
                 'Моля въведете имейл адрес',
                 "error"
             )
+        } else {
+            api.post(APIPath.FORGOT_PASSWORD, { 'email': user.email })
+                .catch(err => console.log(err))
+                .then(response => response.data)
+                .then(data => handlePasswordReset(data.message));
         }
-        api.post(APIPath.FORGOT_PASSWORD, { 'email': user.email })
-            .catch(err => console.log(err))
-            .then(response => response.data)
-            .then(data => handlePasswordReset(data.message));
     }
 
     const handlePasswordReset = (message) => {
