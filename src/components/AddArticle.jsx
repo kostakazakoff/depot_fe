@@ -14,17 +14,17 @@ import AuthContext from "../contexts/authContext";
 import APIPath from "../apiPaths";
 
 
-const AddArticle = (props) => {
+const AddArticle = (prps) => {
     const navigate = useNavigate();
     const { stores } = useContext(StoresContext);
     const [article, setArticle] = useState({ 'store_id': stores[0]?.id });
     const { authorized } = useContext(AuthContext);
     const [files, setFiles] = useState([]);
-    const getArticles = props.getArticles;
+    const getArticles = prps.getArticles;
 
-    useEffect(() => {
-        console.log(files);
-    }, [files]);
+    // useEffect(() => {
+    //     console.log(files);
+    // }, [files]);
     
     useEffect(() => {
         !authorized && navigate(Path.HOME);
