@@ -16,9 +16,11 @@ const Register = () => {
 
     const HandleResponse = (response) => {
         if (response.message !== 'success') {
+            let errorMessages = Object.values(response.data).join(' ');
+            console.log(errorMessages);
             Swal.fire(
                 "Неуспешна регистрация!",
-                response.message,
+                errorMessages,
                 "error"
             )
         } else {
