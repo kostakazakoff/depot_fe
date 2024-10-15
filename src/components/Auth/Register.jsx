@@ -80,7 +80,7 @@ const Register = () => {
                     id="password"
                     type="password"
                     className="form-control"
-                    placeholder="Парола"
+                    placeholder="Парола (минимум 6 символа)"
                     aria-label="Password"
                     aria-describedby="basic-addon1"
                     name="password"
