@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef, useEffect } from 'react';
 
 import Path from '../../paths';
 import AuthContext from '../../contexts/authContext';
@@ -68,6 +68,12 @@ const EditProfile = () => {
         }
     }
 
+    const passwordInputRef = useRef();
+
+    useEffect(() => {
+        passwordInputRef.current.focus();
+    }, [])
+
     return (
             <form
                 className="container-xs position-relative align-self-center pt-4 pb-5 px-5 rounded-2 shadow-lg mx-auto"
@@ -83,18 +89,18 @@ const EditProfile = () => {
 
                 <div className="mb-4 text-center fs-5 text-primary">{role}</div>
 
-                <div className="input-group mb-3">
-                    <label htmlFor='password' className="input-group-text" id="basic-addon1">
-                        <i className="fa-solid fa-key text-warning"></i>
+                <div className="input-group mb-5">
+                    <label htmlFor='password' className="input-group-text bg-primary text-light" id="basic-addon1">
+                        <i className="fa-solid fa-key"></i>
                     </label>
                     <input
                         type="password"
-                        className="form-control"
-                        placeholder="Текуща парола"
+                        className="form-control bg-primary text-light"
                         name="password"
                         id="password"
                         value={profile.password || ''}
                         onChange={handleChange}
+                        ref={passwordInputRef}
                     />
                 </div>
 
