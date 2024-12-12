@@ -339,6 +339,7 @@ const EditArticle = (props) => {
                         {...getRootProps({
                             className: 'w-100 border border-1 border-light rounded p-4 position-relative',
                         })}
+                        style={{cursor: 'pointer'}}
                     >
                         <h2 className='text-primary fs-3'>Качи нови файлове</h2>
                         <input
