@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 
-import AuthContext from "../contexts/authContext";
+import AuthStateContext from "../contexts/authContext";
 import Path from '../paths';
 import Role from '../roles';
 
 
 export default function Navigation() {
-    const { name, isAuthenticated, role, email } = useContext(AuthContext);
+    const { name, isAuthenticated, role, email } = AuthStateContext();
 
-    console.log(`isAuthenticated: ${isAuthenticated}`);
+    // console.log(`isAuthenticated: ${isAuthenticated}`);
 
     return (
         <>

@@ -1,14 +1,14 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import Path from '../../paths';
-import AuthContext from '../../contexts/authContext';
+import AuthStateContext from '../../contexts/authContext';
 import api from '../../helpers/Api';
 import Swal from 'sweetalert2';
 
 // TODO: Add "Delete profile" button
 const EditProfile = () => {
-    const { email, name, last_name, phone, setCredentials, role } = useContext(AuthContext);
+    const { email, name, last_name, phone, setCredentials, role } = AuthStateContext();
     const navigate = useNavigate();
     const [profile, setProfile] = useState({
         'email_1': null,

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import api from "../../helpers/Api";
-import AuthContext from "../../contexts/authContext";
+import AuthStateContext from "../../contexts/authContext";
 import Path from "../../paths";
 import StoresContext from "../../contexts/storesContext";
 import Swal from "sweetalert2";
@@ -10,7 +10,7 @@ import APIPath from "../../apiPaths";
 
 // TODO: Forgot password, email confirmation
 const Login = () => {
-    const { setCredentials } = useContext(AuthContext);
+    const { setCredentials } = AuthStateContext();
     const { setStores } = useContext(StoresContext);
     const [user, setUser] = useState({});
     const navigate = useNavigate();

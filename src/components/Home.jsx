@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
-import { useContext } from 'react';
 
-import AuthContext from "../contexts/authContext";
+import AuthStateContext from "../contexts/authContext";
 import Path from '../paths';
 
 
 const Home = () => {
-    const { isAuthenticated } = useContext(AuthContext);
+    const { isAuthenticated } = AuthStateContext();
 
     return (
         <>

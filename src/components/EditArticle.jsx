@@ -167,10 +167,6 @@ const EditArticle = (props) => {
                 className="modal-content px-3 py-2"
                 style={{ backgroundColor: '#bebebe' }}
             >
-                {/* <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> */}
                 <div
                     className="modal-body vertical-center rounded-2 position-relative"
                 >

@@ -10,7 +10,7 @@ import { useDropzone } from 'react-dropzone'
 import StoresContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
-import AuthContext from "../contexts/authContext";
+import AuthStateContext from "../contexts/authContext";
 import APIPath from "../apiPaths";
 
 
@@ -18,7 +18,7 @@ const AddArticle = (prps) => {
     const navigate = useNavigate();
     const { stores } = useContext(StoresContext);
     const [article, setArticle] = useState({ 'store_id': stores[0]?.id });
-    const { authorized } = useContext(AuthContext);
+    const { authorized } = AuthStateContext();
     const [files, setFiles] = useState([]);
     const getArticles = prps.getArticles;
 

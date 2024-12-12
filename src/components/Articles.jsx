@@ -9,7 +9,7 @@ import './css/Accordion.css';
 import Path from "../paths";
 import StoresContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
-import AuthContext from "../contexts/authContext";
+import AuthStateContext from "../contexts/authContext";
 import EditArticle from "./EditArticle";
 import AddArticle from "./AddArticle";
 import ImagesPreview from "./ImagesPreview";
@@ -22,7 +22,7 @@ const Articles = () => {
     const totalCost = useRef(0);
     const [filterOptions, setFilterOptions] = useState({});
     const iconRef = useRef(null);
-    const { authorized } = useContext(AuthContext);
+    const { authorized } = AuthStateContext();
     const navigate = useNavigate();
 
     useEffect(() => {

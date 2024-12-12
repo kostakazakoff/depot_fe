@@ -1,12 +1,25 @@
 /* eslint-disable react/prop-types */
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import usePersistedState from "../hooks/usePersistedState";
 import Role from "../roles";
 
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+    user_id: null,
+    email: null,
+    name: null,
+    last_name: null,
+    phone: null,
+    role: null,
+    isAuthenticated: false,
+    authorized: false,
+    admin: false,
+    superuser: false,
+    setCredentials: () => {},
+});
 
 AuthContext.displayName = 'AuthContext';
+const AuthStateContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
     const [credentials, setCredentials] = usePersistedState('auth', {});
@@ -33,4 +46,4 @@ export const AuthProvider = ({ children }) => {
     )
 }
 
-export default AuthContext;
+export default AuthStateContext;

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import authContext from "../contexts/authContext";
+import authStateContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
 import api from "../helpers/Api";
@@ -16,7 +16,7 @@ import APIPath from "../apiPaths";
 const Dashboard = () => {
     const navigate = useNavigate();
     const { stores, setStores } = useContext(StoresContext);
-    const { superuser, admin, user_id, role } = useContext(authContext);
+    const { superuser, admin, user_id, role } = authStateContext();
     const [users, setUsers] = useState({});
     const [targetUser, setTargetUser] = useState({});
     const [logs, setLogs] = useState({});
