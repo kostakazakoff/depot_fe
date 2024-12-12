@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
         last_name: credentials.last_name,
         phone: credentials.phone,
         role: credentials.role,
-        // jwt: credentials.jwt,
         isAuthenticated: !!credentials.jwt,
         authorized: [Role.SUPERUSER, Role.ADMIN, Role.STAFF].includes(credentials.role),
         admin: [Role.SUPERUSER, Role.ADMIN].includes(credentials.role),
