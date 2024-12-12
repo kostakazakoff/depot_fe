@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import api from "../../helpers/Api";
 import AuthStateContext from "../../contexts/authContext";
 import Path from "../../paths";
-import StoresContext from "../../contexts/storesContext";
+import StoresStateContext from "../../contexts/storesContext";
 import Swal from "sweetalert2";
 import APIPath from "../../apiPaths";
 
 // TODO: Forgot password, email confirmation
 const Login = () => {
     const { setCredentials } = AuthStateContext();
-    const { setStores } = useContext(StoresContext);
+    const { setStores } = StoresStateContext();
     const [user, setUser] = useState({});
     const navigate = useNavigate();
 

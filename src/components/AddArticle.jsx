@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from 'react';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 import { useDropzone } from 'react-dropzone'
 
-import StoresContext from '../contexts/storesContext';
+import StoresStateContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
 import AuthStateContext from "../contexts/authContext";
@@ -16,7 +15,7 @@ import APIPath from "../apiPaths";
 
 const AddArticle = (prps) => {
     const navigate = useNavigate();
-    const { stores } = useContext(StoresContext);
+    const { stores } = StoresStateContext();
     const [article, setArticle] = useState({ 'store_id': stores[0]?.id });
     const { authorized } = AuthStateContext();
     const [files, setFiles] = useState([]);
@@ -131,10 +130,6 @@ const AddArticle = (prps) => {
                 className="modal-content px-3 py-2"
                 style={{ backgroundColor: '#bebebe' }}
             >
-                {/* <div className="modal-header">
-                    <h1 className="modal-title fs-5" id="exampleModalLabel">{article.description}</h1>
-                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div> */}
                 <div
                     className="modal-body vertical-center rounded-2 position-relative"
                 >
@@ -287,6 +282,7 @@ const AddArticle = (prps) => {
                         {...getRootProps({
                             className: 'w-100 border border-1 border-light rounded p-4 position-relative',
                         })}
+                        style={{cursor: 'pointer'}}
                     >
                         <h2 className='text-primary fs-3'>Качи нови файлове</h2>
                         <input

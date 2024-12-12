@@ -1,13 +1,12 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from 'react';
 
 import Swal from "sweetalert2";
 import "sweetalert2/dist/sweetalert2.min.css";
 
 import { useDropzone } from 'react-dropzone'
 
-import StoresContext from '../contexts/storesContext';
+import StoresStateContext from '../contexts/storesContext';
 import api from "../helpers/Api";
 import Path from "../paths";
 
@@ -16,7 +15,7 @@ const EditArticle = (props) => {
     const navigate = useNavigate();
     const [article, setArticle] = useState(props.article);
     const getArticles = props.getArticles;
-    const { stores } = useContext(StoresContext);
+    const { stores } = StoresStateContext();
     const [files, setFiles] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
 

@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 import usePersistedState from "../hooks/usePersistedState";
 
 
-const StoresContext = createContext();
+const StoresContext = createContext({
+    stores: {},
+    setStores: () => {}
+});
+const StoresStateContext = () => useContext(StoresContext);
 
 export const StoresProvider = ({ children }) => {
     const [stores, setStores] = usePersistedState('stores', []);
@@ -20,4 +24,4 @@ export const StoresProvider = ({ children }) => {
     )
 }
 
-export default StoresContext;
+export default StoresStateContext;

@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import authStateContext from "../contexts/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Path from "../paths"
 import api from "../helpers/Api";
 import Swal from "sweetalert2";
 import moment from "moment";
-import StoresContext from "../contexts/storesContext";
+import StoresStateContext from "../contexts/storesContext";
 import Role from "../roles";
 import Formats from "../Formats";
 import Messages from "../Messages";
@@ -15,7 +15,7 @@ import APIPath from "../apiPaths";
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const { stores, setStores } = useContext(StoresContext);
+    const { stores, setStores } = StoresStateContext();
     const { superuser, admin, user_id, role } = authStateContext();
     const [users, setUsers] = useState({});
     const [targetUser, setTargetUser] = useState({});

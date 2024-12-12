@@ -1,14 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthStateContext from "../../contexts/authContext";
 import api from "../../helpers/Api"
 import Path from "../../paths";
-import StoresContext from "../../contexts/storesContext";
+import StoresStateContext from "../../contexts/storesContext";
 
 
 const Logout = () => {
     const { isAuthenticated, setCredentials } = AuthStateContext();
-    const {setStores} = useContext(StoresContext);
+    const {setStores} = StoresStateContext();
     const navigate = useNavigate();
     console.log(`isAuthenticated: ${isAuthenticated}`);
 

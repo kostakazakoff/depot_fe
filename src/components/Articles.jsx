@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import Swal from "sweetalert2";
@@ -7,7 +7,7 @@ import "sweetalert2/dist/sweetalert2.min.css";
 import api from "../helpers/Api";
 import './css/Accordion.css';
 import Path from "../paths";
-import StoresContext from "../contexts/storesContext";
+import StoresStateContext from "../contexts/storesContext";
 import convertDate from "./ConvertDate";
 import AuthStateContext from "../contexts/authContext";
 import EditArticle from "./EditArticle";
@@ -17,7 +17,7 @@ import APIPath from "../apiPaths";
 
 
 const Articles = () => {
-    const { stores } = useContext(StoresContext);
+    const { stores } = StoresStateContext();
     const [articles, setArticles] = useState([]);
     const totalCost = useRef(0);
     const [filterOptions, setFilterOptions] = useState({});
