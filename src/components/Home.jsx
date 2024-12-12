@@ -16,7 +16,7 @@ const Home = () => {
             </div>
 
             <div className="container-fluid d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-3 bg-warning shadow-lg">
-                <h1>ЛОКОМОТИВНО ДЕПО БУРГАС</h1>
+                <h1>LINKER</h1>
                 {!isAuthenticated &&
                     <div>
                         <Link
