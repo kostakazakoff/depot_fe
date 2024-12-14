@@ -74,7 +74,6 @@ const Articles = () => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    // console.log(e.target.id);
                     api.post(`${APIPath.DELETE_ARTICLE}${e.target.value}`, { store_id: e.target.id })
                         .then(getArticles())
                         .then(Swal.fire(
