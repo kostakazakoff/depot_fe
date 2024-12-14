@@ -14,13 +14,13 @@ const Home = () => {
                     alt="" className="object-fit-cover"></img>
             </div> */}
 
-            <div className="container-fluid d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-3 bg-primary shadow-lg">
-                <h1>LINKER</h1>
+            <div className="container-fluid d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-3 bg-white shadow-lg">
+                <h1 className="mb-0">LINKER</h1>
                 {!isAuthenticated &&
                     <div>
                         <Link
                             type="button"
-                            className="btn btn-dark btn-lg mt-2"
+                            className="btn btn-dark btn-lg"
                             to={Path.LOGIN}
                         >
                             Вписване
@@ -31,7 +31,7 @@ const Home = () => {
                     <div>
                         <Link
                             type="button"
-                            className="btn btn-dark btn-lg mt-2"
+                            className="btn btn-dark btn-lg"
                             to={Path.LOGOUT}
                         >
                             Отписване
