@@ -102,7 +102,7 @@ const Articles = () => {
 
     return (
         <>
-            <div className="container-fluid p-5 mt-4">
+            <div className="container-fluid p-5 mt-2">
                 <div className="d-flex flex-column flex-xxl-row gap-4 justify-content-center align-items-strech position-relative">
 
                     <section
@@ -347,7 +347,12 @@ const Articles = () => {
                                                     />
                                                 </button>
                                                 :
-                                                <div className="w-50 d-flex justify-content-center align-items-center">
+                                                <div
+                                                    type="button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target={`#_${data.id}`}
+                                                    className="w-50 d-flex justify-content-center align-items-center"
+                                                >
                                                     <i className="fa-regular fa-images fa-10x text-primary"></i>
                                                 </div>
                                             }
