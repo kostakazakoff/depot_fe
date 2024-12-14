@@ -5,7 +5,7 @@ import Path from '../paths';
 
 
 const Home = () => {
-    const { isAuthenticated } = AuthStateContext();
+    const { isAuthenticated, email } = AuthStateContext();
 
     return (
         <>
@@ -14,13 +14,13 @@ const Home = () => {
                     alt="" className="object-fit-cover"></img>
             </div> */}
 
-            <div className="container-fluid d-flex justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-3 bg-white shadow-lg">
-                <h1 className="mb-0">LINKER</h1>
+            <div className="mw-50 d-flex flex-column justify-content-between align-items-center position-absolute top-50 start-50 translate-middle px-5 py-5 rounded-3">
+                <h4 className="mb-4 text-black">{email ? email : ''}</h4>
                 {!isAuthenticated &&
                     <div>
                         <Link
                             type="button"
-                            className="btn btn-dark btn-lg"
+                            className="btn btn-primary btn-lg"
                             to={Path.LOGIN}
                         >
                             Вписване
