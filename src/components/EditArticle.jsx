@@ -14,6 +14,7 @@ import Path from "../paths";
 const EditArticle = (data) => {
     const navigate = useNavigate();
     const [article, setArticle] = useState(data.article);
+    const setArticles = data.setArticles;
     const getArticles = data.getArticles;
     const { stores } = StoresStateContext();
     const [files, setFiles] = useState([]);
@@ -121,8 +122,9 @@ const EditArticle = (data) => {
                 "Артикулът беше редактиран.",
                 "success"
             )
-            getArticles();
-            setFiles([]);
+            setArticles([])
+            setFiles([])
+            getArticles()
         }
     }
 
@@ -138,13 +140,16 @@ const EditArticle = (data) => {
         })
             .then(result => {
                 if (result.isConfirmed) {
-                    api.post(`articles/delete/${e.target.value}`, {store_id: article.store_id})
+                    api.post(`articles/delete/${e.target.value}`, { store_id: article.store_id })
                         .then(Swal.fire(
                             "Готово!",
                             `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
                         ))
-                        .then(getArticles())
+                        .then(() => setArticles(
+                            articles => articles.filter(a => a.id != articles.id)
+                        ))
+                        .then(() => getArticles())
                         .catch(err =>
                             Swal.fire(
                                 "Грешка!",
@@ -338,7 +343,7 @@ const EditArticle = (data) => {
                         {...getRootProps({
                             className: 'w-100 border border-1 border-light rounded p-4 position-relative',
                         })}
-                        style={{cursor: 'pointer'}}
+                        style={{ cursor: 'pointer' }}
                     >
                         <h2 className='text-primary fs-3'>Качи нови файлове</h2>
                         <input
