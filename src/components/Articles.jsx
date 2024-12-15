@@ -18,7 +18,7 @@ import APIPath from "../apiPaths";
 
 const Articles = () => {
     const { stores } = StoresStateContext();
-    const [articles, setArticles] = useState([]);
+    const [articles, setArticles] = useState({});
     const totalCost = useRef(0);
     const [filterOptions, setFilterOptions] = useState({});
     const iconRef = useRef(null);
@@ -29,6 +29,8 @@ const Articles = () => {
         getArticles();
     }, []);
 
+    useEffect(() => {console.log(articles);}, [articles]);
+
     useEffect(() => {
         !authorized && navigate(Path.HOME);
     }, [authorized])
@@ -37,9 +39,12 @@ const Articles = () => {
         e?.preventDefault();
         api.get(APIPath.ARTICLES, { params: filterOptions })
             .then(response => response.data)
-            .then(result => {
-                setArticles(result.articles);
-                totalCost.current = result.totalCost
+            .then(data => {
+                setArticles(oldState => ({
+                    ...oldState,
+                    ...data.articles
+            }));
+                totalCost.current = data.totalCost
             })
             .catch(() => navigate(Path.Error404));
     }
@@ -75,8 +80,8 @@ const Articles = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     api.post(`${APIPath.DELETE_ARTICLE}${e.target.value}`, { store_id: e.target.id })
-                        .then(getArticles())
-                        .then(Swal.fire(
+                        .then(() => getArticles())
+                        .then(() => Swal.fire(
                             "Готово!",
                             `Артикул "${e.target.name}" беше изтрит.`,
                             "success"
@@ -318,7 +323,7 @@ const Articles = () => {
                         </nav>
 
                         <div className="accordion accordion-flush px-3" id="articlesList">
-                            {articles && articles.map(data => (
+                            {articles && Object.values(articles).map(data => (
                                 <article className="accordion-item shadow mb-1 rounded-bottom px-1" key={data.id}>
                                     <h2 className="accordion-header">
                                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${data.id}`} aria-expanded="false" aria-controls="flush-collapseOne">

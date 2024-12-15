@@ -11,10 +11,10 @@ import api from "../helpers/Api";
 import Path from "../paths";
 
 
-const EditArticle = (props) => {
+const EditArticle = (data) => {
     const navigate = useNavigate();
-    const [article, setArticle] = useState(props.article);
-    const getArticles = props.getArticles;
+    const [article, setArticle] = useState(data.article);
+    const getArticles = data.getArticles;
     const { stores } = StoresStateContext();
     const [files, setFiles] = useState([]);
     const [imagesToDelete, setImagesToDelete] = useState([]);
