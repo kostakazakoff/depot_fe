@@ -80,7 +80,9 @@ const Articles = () => {
             .then(result => {
                 if (result.isConfirmed) {
                     api.post(`${APIPath.DELETE_ARTICLE}${e.target.value}`, { store_id: e.target.id })
-                        .then(() => getArticles())
+                    .then(() => setArticles(
+                        articles => Object.values(articles).filter(article => article.id != e.target.value)
+                    ))
                         .then(() => Swal.fire(
                             "Готово!",
                             `Артикул "${e.target.name}" беше изтрит.`,
