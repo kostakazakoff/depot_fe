@@ -20,10 +20,6 @@ const AddArticle = (prps) => {
     const { authorized } = AuthStateContext();
     const [files, setFiles] = useState([]);
     const getArticles = prps.getArticles;
-
-    // useEffect(() => {
-    //     console.log(files);
-    // }, [files]);
     
     useEffect(() => {
         !authorized && navigate(Path.HOME);
