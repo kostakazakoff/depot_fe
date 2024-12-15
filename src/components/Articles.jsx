@@ -66,7 +66,8 @@ const Articles = () => {
             [e.target.name]: e.target.value
         }));
     }
-
+    
+    // TODO: component reloading
     const handleDeleteArticle = (e) => {
         Swal.fire({
             title: "Сигурни ли сте?",
