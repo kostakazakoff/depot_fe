@@ -64,7 +64,6 @@ const Articles = () => {
         }));
     }
 
-    // TODO: component reloading
     const handleDeleteArticle = (e) => {
         Swal.fire({
             title: "Сигурни ли сте?",
