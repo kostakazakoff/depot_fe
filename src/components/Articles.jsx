@@ -29,7 +29,7 @@ const Articles = () => {
         getArticles();
     }, []);
 
-    useEffect(() => {console.log(articles);}, [articles]);
+    // useEffect(() => {console.log(articles);}, [articles]);
 
     useEffect(() => {
         !authorized && navigate(Path.HOME);
