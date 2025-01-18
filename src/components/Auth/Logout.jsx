@@ -10,7 +10,6 @@ const Logout = () => {
     const { isAuthenticated, setCredentials } = AuthStateContext();
     const {setStores} = StoresStateContext();
     const navigate = useNavigate();
-    // console.log(`isAuthenticated: ${isAuthenticated}`);
 
     useEffect(() => {
       if (isAuthenticated) {
